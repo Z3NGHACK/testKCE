@@ -1,0 +1,111 @@
+<section class="setting-section">
+    <div class="setting-container">
+        <div class="shared-header-section">
+            <div class="flex flex-1 items-center font-medium">
+                <div class="flex items-center">
+                    <mat-icon class="icon-size-5 -mt-0.5" svgIcon="heroicons_outline:home" />
+                </div>
+                <div class="flex items-center ml-1.5">
+                    <span class="text-lg text-gray-600 -mb-0.5"> ការកំណត់ </span>
+                </div>
+            </div>
+        </div>
+        <!-- body of setting  -->
+        <div class="setting-body ">
+            <!-- data  -->
+            <div class="setting-data ">
+               <div class="relative pb-6">
+                    <button mat-icon-button class="top-6 right-6 absolute" (click)="udpateExchange(exchange[0])">
+                        <mat-icon class="icon-size-6" svgIcon="feather:edit"   />
+                    </button>
+                    <div class="flex flex-1 px-4 items-center font-medium h-10">
+                        <div class="flex items-center ml-1.5 min-w-[20rem] max-w-[20rem] justify-between">
+                            <div class="flex items-center gap-3">
+                                <mat-icon class="icon-size-6 mt-1" svgIcon="heroicons_outline:receipt-percent" />
+                                <span class="text-xl -mb-0.5"> លេខអត្តសញ្ញាណកម្ម សារលើពន្ន </span>
+                            </div>
+                            <span class="text-xl -mb-0.5"> ៖ </span>
+                        </div>
+                        <span class="text-lg -mb-0.5 pl-4 text-gray-500">{{exchange[0]?.code}}</span>
+                    </div>
+                    <div class="flex flex-1 px-4 items-center font-medium h-12">
+                        <div class="flex items-center ml-1.5 min-w-[20rem] max-w-[20rem] justify-between">
+                            <div class="flex items-center gap-3">
+                                <mat-icon class="icon-size-6 mt-1" svgIcon="mdi:swap-horizontal" />
+                                <span class="text-xl -mb-0.5"> អត្រាប្តូរប្រាក់ </span>
+                            </div>
+                            <span class="text-xl -mb-0.5"> ៖ </span>
+                        </div>
+                        <span class="text-lg -mb-0.5 pl-4 text-gray-500">1$ =  {{exchange[0]?.number}}៛</span>
+                    </div>
+
+               </div>
+                <div class="header-section">
+                    <div class="flex items-center ml-1.5 gap-4">
+                        <mat-icon class="icon-size-7 text-slate-500" svgIcon="mdi:bank-outline" />
+                        <span class="text-2xl font-semibold text-gray-600 -mb-0.5"> ធនាគារ </span>
+                    </div>
+                    <button mat-icon-button class="mr-2 custom-icon-button" (click)="create()">
+                        <mat-icon class="icon-size-6 text-slate-500" svgIcon="heroicons_outline:plus" />
+                    </button>  
+                </div>    
+            <div class="view-file-data">
+                 <table mat-table [dataSource]="dataSource">
+                    <ng-container matColumnDef="bank">
+                        <th mat-header-cell *matHeaderCellDef> ឈ្មោះ </th>
+                        <td mat-cell *matCellDef="let item">
+                            <div class="flex">
+                                <img class="student-avatar" [src]="fileUrl + item.icon" alt="avatar">
+                                <div class="flex flex-col justify-center pl-2">
+                                    <strong class="text-lg font-medium text-slate-900 dark:text-white">{{ item?.name}}</strong>
+                                </div>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="user">
+                        <th mat-header-cell *matHeaderCellDef> ឈ្មោះគណនី </th>
+                        <td mat-cell *matCellDef="let item">
+                            <span class="text-gray-500"> {{item?.account_name}} </span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="account">
+                        <th mat-header-cell *matHeaderCellDef> លេខគណនី </th>
+                        <td mat-cell *matCellDef="let item">
+                            <span class="text-gray-500"> {{item?.account_number | number: '1.0-0'}} </span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="date">
+                        <th mat-header-cell *matHeaderCellDef> កាលបរិច្ឆេទ </th>
+                        <td mat-cell *matCellDef="let item">
+                            <span class="text-gray-500">{{ item?.created_at | date: 'dd-MM-y'}}</span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="action" stickyEnd>
+                        <th mat-header-cell *matHeaderCellDef></th>
+                        <td mat-cell *matCellDef="let item">
+                            <button mat-icon-button [matMenuTriggerFor]="menu">
+                                <mat-icon class="icon-size-6" svgIcon="mat_outline:more_vert"></mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item (click)="viewdetail(item)">
+                                    <mat-icon class="icon-size-5 text-gray-500"
+                                        svgIcon="heroicons_outline:eye"></mat-icon>
+                                    <span class="text-lg text-gray-500">មើល</span>
+                                </button>
+                                <button mat-menu-item (click)="delete(item)">
+                                    <mat-icon class="icon-size-5 text-red-500"
+                                        svgIcon="mdi:trash-can-outline"></mat-icon>
+                                    <span class="text-lg text-red-500">លុប</span>
+                                </button>
+                            </mat-menu>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table> 
+            </div>
+            </div>
+            
+        </div>   
+    </div>
+</section>

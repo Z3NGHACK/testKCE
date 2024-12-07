@@ -1,0 +1,81 @@
+<section class="view-file-section">
+    <div class="lg-shared-header-section header-section">
+        <div class="flex items-center ml-1.5 gap-4">
+            <span class="text-2xl font-semibold text-gray-600 -mb-0.5">
+                {{dataSource?.data?.length}} សិស្ស
+            </span>
+        </div>
+        <mat-icon class="icon-size-8" svgIcon="mat_outline:print"></mat-icon>
+    </div>
+    <div class="view-file-data">
+        <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="profile">
+                <th mat-header-cell *matHeaderCellDef>ឈ្មោះ</th>
+                <td mat-cell *matCellDef="let item">
+                    <div class="flex">
+                        <img
+                            class="student-avatar"
+                            [src]="fileUrl + item.avatar"
+                            alt="avatar"
+                        />
+                        <div class="flex flex-col justify-center pl-2">
+                            <strong
+                                class="text-lg font-medium text-slate-900 dark:text-white"
+                                >{{ item?.name }}</strong
+                            >
+                            <span class="text-sm text-gray-500">{{
+                                item?.code
+                            }}</span>
+                        </div>
+                    </div>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let item">
+                    <span
+                        [ngClass]="getStatusSituation(item?.status)"
+                        class="text-gray-500"
+                        >{{ item?.status ? "នៅរៀន" : "ឈប់រៀន" }}</span
+                    >
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="action" stickyEnd>
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let item">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon
+                            class="icon-size-6"
+                            svgIcon="mat_outline:more_vert"
+                        ></mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="viewDetail(item)">
+                            <mat-icon
+                                class="icon-size-5 text-gray-500"
+                                svgIcon="heroicons_outline:eye"
+                            ></mat-icon>
+                            <span class="text-lg text-gray-500">មើល</span>
+                        </button>
+                    </mat-menu>
+                </td>
+            </ng-container>
+
+            <tr
+                mat-header-row
+                *matHeaderRowDef="displayedColumns; sticky: true"
+            ></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+    </div>
+    <!-- pagination -->
+    <mat-paginator
+        class="flex justify-end overflow-hidden"
+        [pageSizeOptions]="[15, 30, 45]"
+        [showFirstLastButtons]="true"
+        [pageIndex]="page - 1"
+        [length]="total"
+        [pageSize]="limit"
+    >
+    </mat-paginator>
+</section>

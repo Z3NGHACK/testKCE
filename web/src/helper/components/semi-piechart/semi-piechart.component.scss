@@ -1,0 +1,14 @@
+/* pie-chart.component.scss */
+.pie-chart {
+    width: 100%;
+    height: 400px;
+  }
+
+.value {
+  @apply absolute total top-40 right-24 text-2xl
+}
+
+  .total{
+    text-align: center;
+    @apply w-40 truncate #{!important}
+  }

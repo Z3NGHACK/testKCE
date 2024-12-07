@@ -1,0 +1,15 @@
+<div class=" sm-form-field-appearance-outline h-full w-full flex justify-center items-center ">
+    <mat-form-field appearance="outline" class="max-w-40">
+        <mat-select [(ngModel)]="id" (selectionChange)="onChange()" [ngClass]="{'text-green-600': id==1,'text-red-500': id==2,'text-orange-400': id==3}"  >
+            <mat-option [value]="1" >
+                <span class="text-green-600">វត្តមាន</span>
+            </mat-option>
+            <mat-option [value]="2" >
+                <span class="text-red-500">អវត្តមាន</span>
+            </mat-option>
+            <mat-option [value]="3" >
+                <span class="text-orange-400">ច្បាប់</span>
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>

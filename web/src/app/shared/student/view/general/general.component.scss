@@ -1,0 +1,8 @@
+ // paginatino: have h-12 is 48px
+ .view-student-container{
+    height: calc(100dvh - 5.5rem);
+    .view-student-data {
+        height: calc(100dvh - 12.5rem) !important;
+    }
+ }
+

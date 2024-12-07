@@ -1,0 +1,35 @@
+<section class="view-student-section w-screen">
+    <div class="view-student-container">
+         <div class="shared-header-section relative">
+             <!-- header of student  -->
+             <button mat-icon-button class="absolute left-2 mt-1 items-center" (click)="back()" >
+                <mat-icon class="icon-size-8 " svgIcon="mat_outline:chevron_left"/>
+            </button>
+             <div class="flex flex-1 items-center justify-center font-medium"> 
+                 
+                 <div class="flex items-center">
+                     <span class="text-3xl text-center font-semibold text-gray-600 -mb-0.5"> {{data?.level}} {{data?.name}}  </span>
+                 </div>
+             </div>
+         </div>    
+         <div class="view-student-body">
+             <!-- body of tabs -->
+             <mat-tab-group class="mat-tab-flex-grow"  [dynamicHeight]="true">
+                
+                 <mat-tab label="ទូទៅ">
+                    <ng-template matTabContent>
+                        <general-manager-view-program-general [id]="id"  (updateData)="onUpdateData($event)"></general-manager-view-program-general>
+                    </ng-template>
+                 </mat-tab>
+                 <mat-tab label="មុខវិជ្ជា">
+                    <general-manager-view-program-subject [updateData]="updateData" [id]="id"></general-manager-view-program-subject>
+                 </mat-tab>     
+                <mat-tab label="តម្លៃសិក្សា"> 
+                        <general-manager-view-program-payment [id]="id"></general-manager-view-program-payment>
+                </mat-tab>                
+             </mat-tab-group>
+         </div>
+    </div>
+</section>
+ 
+ 

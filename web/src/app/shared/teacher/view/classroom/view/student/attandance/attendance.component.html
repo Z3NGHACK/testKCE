@@ -1,0 +1,98 @@
+<div mat-dialog-title class="shared-header-section relative">
+    <!-- header of student detail -->
+    <div class="flex w-full">
+        <button
+            mat-icon-button
+            class="flex items-center border"
+            (click)="closeDialog()"
+        >
+            <mat-icon
+                class="icon-size-6 -mb-0.5"
+                svgIcon="heroicons_mini:arrow-left"
+            />
+        </button>
+
+        <div class="flex w-150 flex-1 items-center justify-start font-medium">
+            <div class="flex items-center ml-1.5">
+                <span class="text-3xl font-semibold text-gray-600 -mb-0.5">
+                    លម្អិត
+                </span>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<div class="view-student-content">
+    <div class="flex h-[3rem] items-center pl-4">
+        <div class="flex gap-3 items-center">
+            <mat-icon
+                class="icon-size-6 -mb-0.5"
+                svgIcon="heroicons_mini:calendar-days"
+            />
+            <span class="text-xl w-22"> កាលបរិច្ឆេទ </span>
+        </div>
+        <span class="text-xl"> ៖ </span>
+        <span class="text-xl pl-3 text-gray-500">
+            {{ data.created_at | date : "dd-MM-y" }}
+        </span>
+    </div>
+    <div class="flex h-[3rem] items-center pl-4">
+        <div class="flex gap-3 items-center">
+            <mat-icon
+                class="icon-size-6 -mb-0.5"
+                svgIcon="feather:refresh-ccw"
+            />
+            <span class="text-xl w-22"> ស្ថានភាព </span>
+        </div>
+        <span class="text-xl"> ៖ </span>
+        <span
+            class="text-xl pl-3"
+            [ngClass]="{
+                'text-green-500': data.status?.id == 1,
+                'text-red-500': data.status?.id == 2,
+                'text-orange-500': data.status?.id == 3
+            }"
+        >
+            {{ data?.status?.name }}
+        </span>
+    </div>
+    <div class="flex h-[3rem] items-center pl-4">
+        <div class="flex gap-3 items-center">
+            <mat-icon
+                class="icon-size-6 -mb-0.5"
+                svgIcon="feather:alert-circle"
+            />
+            <span class="text-xl w-22"> ហេតុផល </span>
+        </div>
+        <span class="text-xl"> ៖ </span>
+        <span class="text-xl pl-3 text-gray-500">
+            {{ data.remark }}
+        </span>
+    </div>
+    <div class="flex h-[3rem] items-center pl-4">
+        <div class="flex gap-3 items-center">
+            <mat-icon class="icon-size-6 -mb-0.5" svgIcon="feather:file-text" />
+            <span class="text-xl w-22"> ឯកសារភ្ជាប់</span>
+        </div>
+        <span class="text-xl"> ៖ </span>
+        <div class="flex justify-start">
+            <span
+                class="text-xl pl-3 text-gray-500"
+                *ngFor="let att of data.attendents"
+            >
+            </span>
+        </div>
+    </div>
+    <div class="flex h-[3rem] items-center pl-4">
+        <div class="flex gap-3 items-center">
+            <mat-icon class="icon-size-6 -mb-0.5" svgIcon="feather:user" />
+            <span class="text-xl w-22"> ឯកភាព​ </span>
+        </div>
+        <span class="text-xl"> ៖ </span>
+        <span class="text-xl pl-3 text-gray-500">
+            {{ data.updater.name }} ({{ data.updated_at | date : "dd-MM-y" }})
+        </span>
+    </div>
+</div>
+
+<mat-dialog-actions> </mat-dialog-actions>

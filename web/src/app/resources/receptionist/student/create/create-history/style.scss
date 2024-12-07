@@ -1,0 +1,21 @@
+// ::placeholder {
+//     color: rgb(100 116 139) !important;
+// }
+
+// ::-ms-input-placeholder {
+//     color: rgb(100 116 139) !important;
+// }
+// .mat-mdc-dialog-content.mdc-dialog__content{
+//     min-height: 85vh !important;
+// }
+// ::ng-deep .noError {
+//     .mat-mdc-form-field-subscript-wrapper {
+//         height: 0px !important;
+//     }
+// }
+::ng-deep .mat-mdc-dialog-container {
+    .mdc-dialog__surface {
+        border-radius: 0px !important;
+        padding: 0.5rem;
+    }
+}

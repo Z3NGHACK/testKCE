@@ -1,0 +1,58 @@
+<div mat-dialog-title class="shared-header-section relative">
+    <!-- header of student detail -->
+    <div class="absolute left-2 flex items-center gap-4">
+        <button mat-icon-button class="flex items-center" (click)="closeDialog()">
+            <mat-icon class="icon-size-6 mt-1" svgIcon="heroicons_mini:arrow-left"></mat-icon>
+        </button>
+    </div>
+    <div class="flex flex-1 items-center font-medium justify-center">
+        <div class="flex items-center ml-1.5 just">
+            <span class="text-3xl font-semibold text-gray-600 text-center -mb-0.5"> កែប្រែធនាគារ </span>
+        </div>
+    </div>
+    
+</div>
+<mat-dialog-content class="w-[600px] h-full border-t-2">
+    <form action="" [formGroup]="firstFormGroup">
+        <div class="view-student-detail-data relative flex flex-col items-center md-form-field-appearance-outline" >
+            <div class="flex gap-1 pt-4">      
+                 <!-- Icon Image Upload -->
+                 <div class="md:col-span-3 lg:col-span-2 h-fit lg:h-auto flex justify-center scale-90">
+                    <div class="h-[11rem] w-[11rem] border-dashed border-4 border-blue-500 hover:border-blue-300 flex items-center justify-center relative cover" (click)="selectIconFile()">
+                        <img class="h-[10rem] w-[10rem] object-cover cursor-pointer" [src]="src" alt="">    
+                        <div class="absolute top-2 right-4 text-xl text-gray-400">*</div>
+                    </div>
+                    <input [id]="'icon-file'" class="hidden" type="file" accept="image/*" (change)="onIconFileChange($event)" />
+                </div>
+
+                <!-- QR Code Image Upload -->
+                <div class="md:col-span-3 lg:col-span-2 h-fit lg:h-auto flex justify-center scale-90">
+                    <div class="h-[11rem] w-[11rem] border-dashed border-4 border-blue-500 hover:border-blue-300 flex items-center justify-center relative cover" (click)="selectQrFile()">
+                        <img class="h-[10rem] w-[10rem] object-cover cursor-pointer" [src]="qr_src" alt="">    
+                        <div class="absolute top-2 right-4 text-xl text-gray-400 ">*</div>
+                    </div>
+                    <input [id]="'qr-file'" class="hidden" type="file" accept="image/*" (change)="onQrFileChange($event)" />
+                </div>
+            </div>
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>ឈ្មោះគណនី</mat-label>
+                <input matInput formControlName="account_name" placeholder="បញ្ចូលឈ្មោះគណនី">
+                <mat-error *ngIf="firstFormGroup.get('account_name').hasError('required')">សូមបញ្ចូលឈ្មោះគណនី</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>លេខគណនី</mat-label>
+                <input matInput formControlName="account_number" placeholder="បញ្ចូលលេខគណនី">
+                <mat-error *ngIf="firstFormGroup.get('account_number').hasError('required')">សូមបញ្ចូលលេខគណនី</mat-error>
+                <mat-error *ngIf="firstFormGroup.get('account_number').hasError('pattern')">លេខគណនីត្រូវតែជាលេខ និងគ្មានចន្លោះ</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="flex items-center justify-end">
+            <button mat-button (click)="onSubmit()" [disabled]="!firstFormGroup.valid" class="bg-blue-700 px-6 py-3 rounded-xl hover:bg-blue-800 cursor-pointer">
+                <span class="text-xl text-white">រួចរាល់</span>
+            </button>
+        </div>
+    </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions></mat-dialog-actions>

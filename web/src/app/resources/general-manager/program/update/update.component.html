@@ -1,0 +1,51 @@
+<div mat-dialog-title class="shared-header-section border-b">
+    <div class="flex flex-1 items-center font-medium"> 
+        <div class="flex items-center ml-2">
+            <span class="text-3xl font-semibold text-gray-600 -mb-0.5"> កែប្រែថ្នាក់សិក្សា </span>
+        </div>
+    </div>
+    <div class="flex items-center gap-4">
+        <button mat-icon-button class="flex items-center" (click)="closeDialog()" >
+            <mat-icon class="icon-size-6 mt-1" svgIcon="mat_outline:close" />
+        </button>
+    </div>      
+</div>
+
+<mat-dialog-content class="w-[600px] h-full">
+    <form [formGroup]="firstFormGroup" (ngSubmit)="onSubmit()" class="md-form-field-appearance-outline">
+        <div class="view-student-detail-data relative flex flex-col items-center overflow-auto pt-5 "> 
+            <div class="w-full overflow-x-clip gap-1 flex flex-col ">
+                <div class="grid grid-cols-1">
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>ឈ្មោះ</mat-label>
+                        <input matInput formControlName="name" placeholder="បញ្ចូលឈ្មោះ" class="pb-2">
+                        <mat-error *ngIf="firstFormGroup.get('name').hasError('required')">សូមបញ្ចូលឈ្មោះ</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label >កម្រិតសិក្សា</mat-label>
+                        <mat-select formControlName="level_id">
+                            <mat-option *ngFor="let level of setup_levels" [value]="level.id">
+                                {{level.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>តម្លៃសិក្សា</mat-label>
+                        <input matInput formControlName="price_per_year" placeholder="បញ្ចូលឈ្មោះ" class="pb-2">
+                        <mat-error *ngIf="firstFormGroup.get('price_per_year').hasError('required')">សូមបញ្ចូលតម្លៃសិក្សា</mat-error>
+                        <mat-error *ngIf="firstFormGroup.get('price_per_year').hasError('pattern')">តម្លៃត្រូវតែជាលេខ</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+         
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <div class="w-full flex justify-end ">
+        <button [disabled]="!firstFormGroup.valid" class="helpers-mat-button-md flex justify-center items-center min-w-20 bg-blue-900 rounded-lg py-2" [ngClass]="{'bg-gray-200 cursor-not-allowed': disable}" mat-flat-button (click)="onSubmit()">
+            <span  class="text-white" *ngIf="!disable">រួចរាល់</span>
+            <mat-progress-spinner *ngIf="disable" [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
+        </button>
+    </div>
+</mat-dialog-actions>

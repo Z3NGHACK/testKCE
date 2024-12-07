@@ -1,0 +1,235 @@
+<div mat-dialog-title class="shared-header-section relative">
+    <!-- header of student detail -->
+    <div class="absolute right-2">
+        <button
+            mat-icon-button
+            class="flex items-center border"
+            (click)="closeDialog()"
+        >
+            <mat-icon
+                class="icon-size-6 -mb-0.5"
+                svgIcon="mat_outline:close"
+            />
+        </button>
+    </div>
+
+    <div class="flex w-150 flex-1 items-center justify-start font-medium">
+        <div class="flex items-center ml-1.5">
+            <span class="text-3xl font-semibold text-gray-600 -mb-0.5">
+                {{ student?.name }}
+            </span>
+        </div>
+    </div>
+</div>
+<div class="view-student-content">
+    <mat-tab-group class="mat-tab-flex-grow">
+        @if(!loading) {
+        <mat-tab label=" ទូទៅ ">
+            <div class="flex justify-between py-8 overflow-x-hidden">
+                <div
+                    class="w-4/12 flex flex-col justify-start items-center gap-1"
+                >
+                    <helper-portrait
+                        class="pfp"
+                        [src]="fileUrl + student.avatar"
+                        [title]="'បញ្ចូលរូបភាព'"
+                    ></helper-portrait>
+                    <span
+                        class="text-2xl font-semibold text-gray-600 mt-3 -mb-0.5"
+                    >
+                        {{ student?.name }}
+                    </span>
+                    <span class="text-xl text-gray-600 -mb-0.5">
+                        {{ student?.code }}
+                    </span>
+                </div>
+                <div class="w-8/12">
+                    <div
+                        class="w-full flex flex-1 px-3 items-center font-medium h-12 py-7 gap-4"
+                    >
+                        <mat-icon
+                            class="icon-size-6 mt-1"
+                            svgIcon="mat_outline:calendar_today"
+                        />
+                        <strong
+                            class="text-xl font-medium text-slate-500 dark:text-white"
+                        >
+                            {{ student?.dob | date : "dd-MM-y" }}
+                        </strong>
+                    </div>
+                    <div
+                        class="w-full flex flex-1 px-3 items-center font-medium h-12 py-7 gap-4 border-t"
+                    >
+                        <mat-icon
+                            class="icon-size-6 mt-1"
+                            svgIcon="mat_outline:add_location_alt"
+                        />
+                        <span class="text-xl dark:text-white">
+                            {{ student.address }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
+        } @if(!loading){
+        <mat-tab label="អវត្តមាន" class="">
+            <div class="lg-shared-header-section header-section">
+                <div class="flex items-center ml-1.5 gap-4">
+                    <span
+                        class="text-2xl font-semibold text-gray-600 -mb-0.5"
+                        *ngIf="attendents.length > 0"
+                    >
+                        អវត្តមាន {{ total_a }} , ច្បាប់​ {{ total_p }}
+                    </span>
+                </div>
+                <button mat-icon-button class="flex items-center border">
+                    <mat-icon
+                        class="icon-size-6 -mb-0.5"
+                        svgIcon="feather:printer"
+                    />
+                </button>
+            </div>
+            <div class="view-attendance-data" *ngIf="attendents.length > 0">
+                <table mat-table [dataSource]="dataSource">
+                    <ng-container matColumnDef="date">
+                        <th mat-header-cell *matHeaderCellDef>កាលបរិច្ឆេទ</th>
+                        <td mat-cell *matCellDef="let item">
+                            <div class="flex gap-2">
+                                <mat-icon
+                                    class="icon-size-6 -mb-0.5"
+                                    svgIcon="heroicons_mini:calendar"
+                                />
+                                <span class="text-gray-500"
+                                    >{{ item?.created_at | date : "dd-MM-y" }}
+                                </span>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="situation">
+                        <th mat-header-cell *matHeaderCellDef>ស្ថានភាព</th>
+                        <td mat-cell *matCellDef="let item">
+                            <span
+                                [ngClass]="
+                                    getStatusSituation(item?.status?.name)
+                                "
+                                class="text-gray-500"
+                                >{{ item?.status?.name }}
+                            </span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="reason">
+                        <th mat-header-cell *matHeaderCellDef>ហេតុផល</th>
+                        <td mat-cell *matCellDef="let item">
+                            <span class="truncate text-gray-500"
+                                >{{ item?.remark }}
+                            </span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="action" stickyEnd>
+                        <th mat-header-cell *matHeaderCellDef></th>
+                        <td mat-cell *matCellDef="let item">
+                            <button mat-icon-button [matMenuTriggerFor]="menu">
+                                <mat-icon
+                                    class="icon-size-6"
+                                    svgIcon="mat_outline:more_vert"
+                                ></mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button
+                                    mat-menu-item
+                                    (click)="viewDetail(item)"
+                                >
+                                    <mat-icon
+                                        class="icon-size-5 text-gray-500"
+                                        svgIcon="heroicons_outline:eye"
+                                    ></mat-icon>
+                                    <span class="text-lg text-gray-500"
+                                        >មើល</span
+                                    >
+                                </button>
+                            </mat-menu>
+                        </td>
+                    </ng-container>
+
+                    <tr
+                        mat-header-row
+                        *matHeaderRowDef="displayedColumns; sticky: true"
+                    ></tr>
+                    <tr
+                        mat-row
+                        *matRowDef="let row; columns: displayedColumns"
+                    ></tr>
+                </table>
+            </div>
+        </mat-tab>
+        <mat-tab label="របាយការណ៍">
+            <div
+                class="lg-shared-header-section header-section"
+                *ngIf="!loading"
+            >
+                <div class="flex items-center ml-1.5 gap-4">
+                    <span class="text-2xl font-semibold text-gray-600 -mb-0.5">
+                        {{ convertToKhmerMonth(report.dateline.from_year) }} ,
+                        {{ convertToKhmerMonth(report.dateline.to_year) }}
+                    </span>
+                </div>
+                <button mat-icon-button class="flex items-center border">
+                    <mat-icon
+                        class="icon-size-6 -mb-0.5"
+                        svgIcon="feather:printer"
+                    />
+                </button>
+            </div>
+
+            <div
+                class="semester overflow-auto"
+                *ngFor="let semester of report.semesters"
+            >
+                <div class="header-row">
+                    <span class="text-2xl">
+                        {{ semester.title }} ({{
+                            convertToKhmerMonth(semester.start_date)
+                        }}
+                        , {{ convertToKhmerMonth(semester.finish_date) }})
+                    </span>
+                </div>
+                <div
+                    class="cell-row"
+                    *ngFor="let month of semester.months; let i = index"
+                    [ngClass]="{
+                        'bg-gray-100': (i + 1) % 2 == 1,
+                        'bg-white': (i + 1) % 2 != 1
+                    }"
+                >
+                    <div class="flex gap-2 pl-1">
+                        <mat-icon
+                            class="icon-size-6 -mb-0.5"
+                            svgIcon="heroicons_mini:calendar"
+                        />
+                        <span class="text-gray-500"> {{ month.name }} </span>
+                    </div>
+                    <div>
+                        <button mat-icon-button [matMenuTriggerFor]="menu">
+                            <mat-icon
+                                class="icon-size-6"
+                                svgIcon="mat_outline:more_vert"
+                            ></mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="viewReport(month)">
+                                <mat-icon
+                                    class="icon-size-5 text-gray-500"
+                                    svgIcon="heroicons_outline:eye"
+                                ></mat-icon>
+                                <span class="text-lg text-gray-500">មើល</span>
+                            </button>
+                        </mat-menu>
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
+        }
+    </mat-tab-group>
+</div>
+
+<mat-dialog-actions> </mat-dialog-actions>

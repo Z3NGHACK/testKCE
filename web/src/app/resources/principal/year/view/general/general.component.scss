@@ -1,0 +1,17 @@
+.container-section{
+    height: calc(100dvh - 7rem);   
+}
+
+
+::ng-deep .sm-chart{
+    /* pie-chart.component.scss */
+    .pie-chart {
+        width: 120% !important;
+        height: 400px !important;
+    }
+
+    .value {
+        @apply absolute top-40 right-24 text-2xl #{'!important'}
+    }
+
+}

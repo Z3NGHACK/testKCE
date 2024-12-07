@@ -1,0 +1,58 @@
+.view-file-section{
+    height: calc(100dvh - 11.5rem);
+    overflow: scroll;
+    .header-section{
+        height: 100px;
+        @apply flex flex-1 items-center px-6 font-medium justify-between border-b #{'!important'}
+    }
+
+    .view-file-data{
+        height:  calc(100dvh - 18.5rem);
+        @apply px-6 #{'!important'}
+
+    }
+}
+.triangle-container {
+    position: relative;
+    width: 0;
+    height: 0;
+    // border-left: 50px solid transparent;
+    border-right: 64px solid transparent;
+    border-bottom: 64px solid ;
+    @apply border-b-gray-500 /* The color of the triangle */
+}
+
+::ng-deep .mat-button-toggle-group{
+    border: 1px solid !important;
+    @apply rounded-full bg-slate-100 border-slate-100  #{'!important'};
+
+    .mat-button-toggle{
+        width: 8rem !important;
+        @apply px-3 rounded-none #{'!important'};
+    }
+
+    .mat-button-toggle:nth-child(2){
+        @apply border-y border-slate-100 #{'!important'};
+    }
+}
+
+.view-state {
+    @apply flex py-6  items-center gap-5 #{'!important'};
+
+    .state-item{
+        width: 14rem;
+        height: 8rem;
+        @apply flex bg-slate-100 items-center gap-3 p-7 rounded-2xl  #{'!important'};
+
+
+        .item-icon{
+            min-width: 48px;
+            min-height: 48px;
+            @apply  flex justify-center items-center rounded-full   #{!important};
+        }
+
+        .item-text{
+            @apply flex flex-col;
+        }
+    }
+}

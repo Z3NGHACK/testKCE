@@ -1,0 +1,66 @@
+.content-schedule {
+    width: 100%;
+    height: calc(100dvh - 56px);
+}
+.main-schedule {
+    width: 100%;
+    height: calc(100dvh - 156px);
+}
+.list-student-body,
+.no-data {
+    height: calc(
+        100dvh - 9rem
+    ) !important; // 56px(layout) + 16px(padding-y) + 56px is 144px
+    @apply overflow-hidden border-t #{'!important'};
+}
+
+// paginatino: have h-12 is 48px
+.list-student-body {
+    .list-student-data {
+        height: calc(100dvh - 12rem); //9rem + 3rem is 192px
+        @apply overflow-auto px-2 #{'!important'};
+    }
+}
+.list-student-data {
+    .student-avatar {
+        @apply rounded-full border border-blue-600 min-w-[45px] max-w-[45px] min-h-[45px] max-h-[45px] object-cover #{'!important'};
+    }
+
+    .mat-mdc-header-cell {
+        font-size: 1rem !important;
+        padding: 0 !important;
+        color: #0f172a !important;
+        z-index: 10 !important;
+        padding: 0.5rem !important;
+        @apply dark:text-white #{'!important'};
+    }
+
+    .mat-mdc-cell {
+        padding: 0.5rem !important;
+    }
+
+    .mat-column-number {
+        min-width: 20rem;
+        text-align: left;
+    }
+
+    .mat-column-n_of_class {
+        min-width: 12rem;
+        width: 12rem;
+        max-width: 12rem;
+        text-align: left;
+    }
+
+    .mat-column-date {
+        min-width: 15rem;
+        width: 15rem;
+        max-width: 15rem;
+        text-align: left;
+    }
+
+    .mat-column-action {
+        flex: none;
+        width: 2rem;
+        text-align: right;
+    }
+}

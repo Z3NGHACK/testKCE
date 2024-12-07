@@ -1,0 +1,75 @@
+<div mat-dialog-title class="shared-header-section border-b">
+    <div class="flex flex-1 items-center font-medium">
+        <div class="flex items-center ml-2">
+            <span class="text-3xl font-semibold text-gray-600 -mb-0.5">
+                ប្រភេទមុខវិជ្ជា
+            </span>
+        </div>
+    </div>
+    <div class="flex items-center gap-4">
+        <button
+            mat-icon-button
+            class="flex items-center"
+            (click)="closeDialog()"
+        >
+            <mat-icon class="icon-size-6 mt-1" svgIcon="mat_outline:close" />
+        </button>
+    </div>
+</div>
+
+<mat-dialog-content class="w-[600px] h-full">
+    <form
+        [formGroup]="firstFormGroup"
+        (ngSubmit)="onSubmit()"
+        class="md-form-field-appearance-outline"
+    >
+        <div class="grid grid-cols-1 pt-2">
+            <mat-form-field>
+                <mat-label>ភាសា</mat-label>
+                <mat-select
+                    formControlName="language_id"
+                    class="pb-3"
+                    (selectionChange)="getStepsForSelectedLanguage()"
+                >
+                    <mat-option
+                        *ngFor="let language of setup_language"
+                        [value]="language.id"
+                    >
+                        {{ language.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <div *ngFor="let step of steps">
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>{{ step.name }}</mat-label>
+                    <input
+                        type="number"
+                        matInput
+                        class="pb-2"
+                        (keyup)="changeStep(step, $event)"
+                        [value]="step.value"
+                    />
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <div class="w-full flex justify-end">
+        <button
+            [disabled]="!firstFormGroup.valid || !validaStep"
+            class="helpers-mat-button-md flex justify-center items-center min-w-20 bg-blue-900 rounded-lg py-2"
+            [ngClass]="{ 'bg-gray-200 cursor-not-allowed': disable }"
+            mat-flat-button
+            (click)="onSubmit()"
+        >
+            <span class="text-white" *ngIf="!disable">រួចរាល់</span>
+            <mat-progress-spinner
+                *ngIf="disable"
+                [diameter]="24"
+                [mode]="'indeterminate'"
+            ></mat-progress-spinner>
+        </button>
+    </div>
+</mat-dialog-actions>

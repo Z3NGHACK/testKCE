@@ -1,0 +1,102 @@
+.view-student-detail-section {
+    width: 75 !important;
+    height: calc(100dvh - 5.5rem) !important; // 56px is header of layout
+    @apply overflow-hidden #{'!important'};
+
+    .view-student-detail-container {
+        height: calc(100dvh - 5.5rem) !important; // 56px(layout) + 32px(padding-y) is 88px
+        @apply bg-white dark:bg-opacity-5 rounded-xl overflow-hidden px-2 #{'!important'};
+
+        // shared-header-section: have h-14 is 56px
+        .view-student-detail-body
+        .no-data {
+            height: calc(100dvh - 6rem) !important; // 56px(layout) + 16px(padding-y) + 56px is 144px
+            @apply overflow-hidden border-t-2 #{'!important'};
+        }
+
+        // paginatino: have h-12 is 48px
+        .view-student-detail-body {
+            .view-student-detail-data {
+                height: calc(100dvh - 9rem); //9rem + 3rem is 192px ,
+                @apply overflow-auto border-t-2 pt-4 #{'!important'};
+            }
+        }
+    }
+
+}
+
+::ng-deep .shared-header-section {
+    padding: 4px !important;
+    height: 4rem;
+}
+
+
+::ng-deep .mat-mdc-dialog-container {
+
+    .mdc-dialog__surface {
+        border-radius: 0px !important;
+        padding: 0.5rem;
+    }
+
+}
+.md-shared-header-section {
+    @apply flex min-h-20 max-h-20 items-center justify-between pl-4 pr-2.5 #{'!important'}
+}
+
+
+::ng-deep .mdc-tab{
+    font-size: large;
+}
+
+::ng-deep .mat-mdc-dialog-container {
+
+    .mdc-dialog__surface {
+        border-radius: 0px !important;
+        padding: 0.5rem;
+    }
+
+}
+
+::placeholder {
+    color: rgb(100 116 139) !important;
+}
+
+::-ms-input-placeholder {
+    color: rgb(100 116 139) !important;
+}
+.mat-mdc-dialog-content.mdc-dialog__content{
+    min-height: 85vh !important;
+}
+::ng-deep .noError {
+    .mat-mdc-form-field-subscript-wrapper {
+        height: 0px !important;
+    }
+}
+
+::ng-deep .custom-radio .mat-radio-outer-circle {
+    border-color: #3b82f6; /* Tailwind's blue-500 color */
+}
+
+::ng-deep .custom-radio .mat-radio-inner-circle {
+    background-color: #3b82f6; /* Tailwind's blue-500 color */
+}
+
+::ng-deep .custom-radio.mat-radio-checked .mat-radio-outer-circle,
+::ng-deep .custom-radio.mat-radio-checked .mat-radio-inner-circle {
+    border-color: #3b82f6; /* Tailwind's blue-500 color */
+    background-color: #3b82f6; /* Tailwind's blue-500 color */
+}
+
+::ng-deep .custom-radio .mat-radio-ripple .mat-ripple-element {
+    background-color: rgba(59, 130, 246, 0.1); /* Tailwind's blue-500 color with opacity */
+}
+
+// ::ng-deep .noError {
+//     .mat-mdc-form-field-subscript-wrapper {
+//         height: 0px !important;
+//     }
+// }
+
+::ng-deep .mat-mdc-select {
+    @apply -translate-y-1.5
+}

@@ -1,0 +1,106 @@
+<div class="content-schedule p-4">
+    <div class="h-full w-full">
+        <!-- Header -->
+        <div
+            class="flex w-full h-15 justify-start gap-3 border-b border-gray-200 px-5 pb-3"
+        >
+            <mat-button-toggle-group
+                name="classroom"
+                aria-label="classroom"
+                [(ngModel)]="semester"
+                [value]="semester"
+                (change)="toggleSingleSelectionIndicator($event)"
+            >
+                <mat-button-toggle value="1">ឆមាស១ </mat-button-toggle>
+                <mat-button-toggle value="2">ឆមាស២</mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+
+        <!-- Main Calendar -->
+        <div class="main-schedule overflow-auto">
+            <!-- Month navigation -->
+
+            <!-- Weekdays -->
+            <!-- <div class="calendar-body">
+                <div class="week-days flex justify-around bg-gray-100 p-2 font-semibold">
+                    <span *ngFor="let day of weekDays" class="text-center w-1/7">{{ day }}</span>
+                </div>
+
+                <div class="days-grid grid grid-cols-7 gap-2 p-3">
+                    <span *ngFor="let day of daysInMonth" [class.empty]="!day" class="text-center p-2 rounded-lg"
+                          [class.bg-gray-300]="!day" [class.bg-blue-50]="day">
+                        {{ day || '' }}
+                    </span>
+                </div>
+            </div> -->
+            <div class="w-full h-full">
+                <table class="w-full h-full border-collapse">
+                    <!-- Table Header -->
+                    <thead class="bg-gray-200">
+                        <tr>
+                            <th class="w-18 border h-10 bg-gray-50">ពេលវេលា</th>
+                            <th
+                                class="w-18 border h-10 bg-gray-50"
+                                *ngFor="let day of weekDays"
+                            >
+                                
+                                    {{ day.title }}
+                                
+                            </th>
+                        </tr>
+                    </thead>
+                    <!-- Table Body -->
+                    <tbody>
+                        <!-- Loop through available time slots -->
+                        <tr *ngFor="let timeSlot of timeSlots">
+                            <!-- Time Slot Title Column -->
+                            <td class="w-18 border min-h-18 h-18 text-center">
+                                {{ timeSlot.title }}
+                            </td>
+
+                            <!-- Loop through each day in the week for a specific time slot -->
+                            <td
+                                class="w-18 border min-h-18 h-18 cursor-pointer hover:bg-blue-50"
+                                *ngFor="let day of weekDays"
+                            >
+                                <div
+                                    class="w-full h-full flex justify-center items-center group relative"
+                                >
+                                    <div
+                                        class="absolute group-hover:flex hidden right-0 top-0 w-full h-full gap-3 items-start justify-end"
+                                        *ngIf="data?.length == 0"
+                                        (click)="update(timeSlot, day)"
+                                    ></div>
+                                    <div *ngFor="let sche of data">
+                                        <div
+                                            class="absolute group-hover:flex hidden right-0 top-0 w-full h-full gap-3 items-start justify-end"
+                                        >
+                                           
+                                            <div
+                                                class="absolute group-hover:flex hidden right-0 top-0 w-full h-full gap-3 items-start justify-end"
+                                                (click)="update(timeSlot, day)"
+                                            ></div>
+                                        </div>
+
+                                        <span
+                                            *ngIf="
+                                                sche?.day_id === day.id &&
+                                                sche?.time_id === timeSlot.id &&
+                                                sche?.semester_id == semester
+                                            "
+                                        >
+                                            {{
+                                                sche?.subject?.name ||
+                                                    "No Subject"
+                                            }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+.signin-section {
+    width: 100dvw;
+    height: 100dvh;
+    overflow: auto;
+    
+    .custom-input {
+        --tw-bg-opacity: 1 !important;
+        background-color: #09235f !important;
+        color: white;
+        border-radius: 0.5rem;
+        max-width: 3rem;
+        height: 3rem;
+        max-height: 3rem;
+        text-align: center;
+        font-size: 1.5rem;
+    }
+
+    .signin-container {
+        width: 100%;
+        height: 100%;
+        min-height: 600px;
+        position: relative;
+
+        .signin-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 3;
+            transform: translate(-50%, -50%);
+            width: calc(100% - 1.5rem);
+            max-width: 400px;
+            border: 1px solid #FCFCFC;
+            border-radius: 1.3rem;
+            margin: 0 auto;
+            background-color: rgba(252, 252, 252, 0.5);
+            box-sizing: border-box;
+            padding: 1rem;
+
+            img {
+                width: calc(100% - 12rem);
+                margin: 1rem auto;
+            }
+
+            @media (max-width: 600px) {
+                img {
+                    width: calc(100% - 3rem);
+                    margin: 1.5rem auto 0.5rem;
+                }
+            }
+        }
+    }
+ 
+}
+
+// .card-transition {
+//     @apply motion-preset-fade-sm motion-duration-200 motion-ease-spring-bouncy motion-delay-200
+    
+// }
+
+// .image-transition {
+//     @apply motion-preset-fade motion-duration-200 motion-ease-spring-snappy motion-delay-300
+// }
+
+

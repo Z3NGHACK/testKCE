@@ -1,0 +1,38 @@
+<div mat-dialog-title  class="shared-header-section">
+    <!-- header of student detail -->
+    <div class="flex flex-1 items-center font-medium"> 
+        <div class="flex items-center ml-1.5">
+            <span class="text-3xl font-semibold text-gray-600 -mb-0.5"> បង្កើតកម្រិតសិក្សា  </span>
+        </div>
+    </div>
+    <div class="flex items-center gap-4">
+        <button mat-icon-button class="flex items-center border" (click)="closeDialog()" >
+            <mat-icon class="icon-size-6 -mb-0.5" svgIcon="mat_outline:close" />
+        </button>
+    </div>      
+</div>
+<mat-dialog-content class="view-system-content">
+    <form [formGroup]="createForm" class="md-form-field-appearance-outline">
+        <div class="w-full pt-4 overflow-x-clip gap-3 flex flex-col ">
+            <div class="grid grid-cols-1 gap-4">
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>កម្រិតសិក្សា </mat-label>
+                    <input matInput formControlName="name" placeholder="បញ្ចូលកម្រិតសិក្សា ">
+                    <mat-error >សូមបញ្ចូលកម្រិតសិក្សា </mat-error>
+                </mat-form-field>
+            </div>
+    
+            <!-- Uncomment this section if you have the data for sex_id -->
+        </div>
+        <div class="flex items-center justify-end">
+            <button mat-button class="bg-blue-700 px-6 py-3 rounded-xl hover:bg-blue-500 cursor-pointer" (click)="submitForm()" [disabled]="!createForm.valid">
+                <span class="text-xl text-white">រួចរាល់</span>
+            </button>
+        </div>
+    </form>
+    
+</mat-dialog-content>
+
+<mat-dialog-actions>
+
+</mat-dialog-actions>

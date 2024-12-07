@@ -1,0 +1,48 @@
+<div mat-dialog-title  class="shared-header-section">
+  <!-- header of student detail -->
+
+      <div class="flex flex-1 items-center font-medium"> 
+          <div class="flex items-center ml-1.5">
+              <span class="text-3xl font-semibold text-gray-600 -mb-0.5"> {{data?.name}} </span>
+          </div>
+      </div>
+      <div class="flex items-center gap-4">
+          <button mat-icon-button class="flex items-center border" (click)="closeDialog()" >
+              <mat-icon class="icon-size-6 -mb-0.5" svgIcon="mat_outline:close" />
+          </button>
+      </div>     
+</div>
+<div class="view-student-content">
+      <div class=" flex justify-between py-8 overflow-x-hidden">
+          <div class="w-4/12 flex flex-col justify-start items-center gap-1">
+              <helper-portrait class="pfp" [src]="fileUrl + data?.avatar"  [title]="'បញ្ចូលរូបភាព'" ></helper-portrait>
+              <span class="text-2xl font-semibold text-gray-600 mt-3 -mb-0.5"> {{data?.name}} </span>
+              <span class="text-xl text-gray-600 -mb-0.5"> {{ data?.roles[0] }} </span>
+          </div>
+          <div class="w-7/12">
+              <div class="w-full flex flex-1 px-3 items-center font-medium h-12 py-7 gap-4 "> 
+                  <mat-icon class="icon-size-6 mt-1" svgIcon="mdi:cellphone" />
+                  <strong class="text-xl font-medium text-slate-500 dark:text-white"> {{data?.phone}} </strong>                       
+              </div>
+              <div class="w-full flex flex-1 px-3 items-center font-medium h-12 py-7 gap-4 border-t"> 
+                  <mat-icon class="icon-size-6 mt-1" svgIcon="mdi:email-outline" />
+                  <span class="text-xl dark:text-white "> {{data?.email}} </span>                       
+              </div>
+              <div class="w-full flex flex-1 px-3 items-center font-medium h-12 py-7 gap-4 border-t"> 
+                  <mat-icon class="icon-size-6 mt-1" svgIcon="mdi:calendar-month-outline" />
+                  <span class="text-xl dark:text-white "> {{data?.created_at | date:'MMM dd, yyyy'}} </span>                       
+              </div>
+          </div>
+          <div class="w-1/12 flex flex-col"> 
+              <button mat-icon-button class="flex items-center border" (click)="update(data)"  >
+                  <mat-icon class="icon-size-6 -mb-0.5" svgIcon="feather:edit" />
+              </button>
+              <button mat-icon-button class="flex items-center border mt-3" (click)="updatePassword(data)">
+                  <mat-icon class="icon-size-6 -mb-0.5" svgIcon="mdi:lock-outline" />
+              </button>
+          </div>
+      </div>
+</div>
+<mat-dialog-actions>
+
+</mat-dialog-actions>

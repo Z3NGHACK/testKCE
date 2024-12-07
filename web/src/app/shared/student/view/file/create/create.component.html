@@ -1,0 +1,45 @@
+<div mat-dialog-title>
+    <span class="text-2xl">បង្កើតថ្មី</span>
+</div>
+
+<mat-dialog-content class="border-t w-[600px]">
+    <form class="grid grid-cols-1  md-form-field-appearance-outline" [formGroup]="attechmentForm">
+
+        <div class="grid grid-cols-1 sm:grid-cols-1 gap-4 mt-4">
+            <div *ngIf="img == ''" class="w-full h-[300px] border rounded-lg p-2 flex justify-center items-center cursor-pointer relative z-0 "(click)="selectFile()" >
+                <span  class="text-xl" >ជ្រើសរើសឯកសារ</span>
+            </div>
+            <div *ngIf="img !== ''" class="w-full h-[300px] border rounded-lg p-2 flex justify-center items-center cursor-pointer relative z-0 group " >
+                <img *ngIf="img != ''" class="w-full h-full object-contain " [src]="img" alt="">
+
+                <div class="absolute top-0 right-0 w-full h-full rounded-lg hidden justify-center items-center bg-gray-800 opacity-60  z-10 group-hover:flex" >
+                    <div class="flex gap-3 ">
+                        <mat-icon class="icon-size-7 text-gray-100" [svgIcon]="'heroicons_solid:eye'" (click)="viewFile()"></mat-icon>
+                        <mat-icon svgIcon="heroicons_solid:arrow-up-tray" class="icon-size-7 text-gray-100" (click)="selectFile()" ></mat-icon>
+                </div>
+                </div>
+            </div>
+            <input [id]="'file'" class="hidden" type="file" accept="image/*" (change)="onFileChange($event)" />
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>ឈ្មោះ</mat-label>
+                <input matInput formControlName="title" placeholder="បញ្ចូលឈ្មោះ">
+                <mat-error>សូមបញ្ចូលឈ្មោះ</mat-error>
+            </mat-form-field>
+        </div>
+
+
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="flex items-center justify-between gap-2 !bottom-0">
+    <button [class.helpers-mat-button-red]="attechmentForm.enabled" class="helpers-mat-button-md bg-red-500" [disabled]="attechmentForm.disabled"
+        mat-flat-button [mat-dialog-close]="false">
+        <span class="text-white">បោះបង់</span>
+    </button>
+
+    <button class="helpers-mat-button-md min-w-20 bg-blue-900" mat-flat-button (click)="submit()"
+        [disabled]="attechmentForm.invalid || attechmentForm.disabled">
+        <span *ngIf="!attechmentForm.disabled" class="text-white">រក្សាទុក</span>
+        <mat-progress-spinner *ngIf="attechmentForm.disabled" [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
+    </button>
+</mat-dialog-actions>

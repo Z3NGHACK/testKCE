@@ -1,0 +1,311 @@
+<section class="list-general-section">
+    <div class="list-general-container">
+        <div class="data-container flex">
+            <div class="w-full">
+                <div
+                    class="flex flex-1 items-center font-medium h-12 bg-slate-100"
+                >
+                    <div
+                        class="flex items-center ml-1.5 w-[8rem] justify-between"
+                    >
+                        <div class="flex items-center gap-3 pl-3">
+                            <span class="text-xl -mb-0.5"> ថ្នាក់ </span>
+                        </div>
+                        <span class="text-xl -mb-0.5"> ៖ </span>
+                    </div>
+                    <span class="text-xl -mb-0.5 pl-4 text-gray-500">{{
+                        data?.name
+                    }}</span>
+                </div>
+                <div class="flex flex-1 items-center font-medium h-12">
+                    <div
+                        class="flex items-center ml-1.5 w-[8rem] justify-between"
+                    >
+                        <div class="flex items-center gap-3 pl-3">
+                            <span class="text-xl -mb-0.5"> កម្រិត </span>
+                        </div>
+                        <span class="text-xl -mb-0.5"> ៖ </span>
+                    </div>
+                    <span class="text-xl -mb-0.5 pl-4 text-gray-500">{{
+                        data?.level
+                    }}</span>
+                </div>
+                <div
+                    class="flex flex-1 items-center font-medium h-12 bg-slate-100"
+                >
+                    <div
+                        class="flex items-center ml-1.5 w-[8rem] justify-between"
+                    >
+                        <div class="flex items-center gap-3 pl-3">
+                            <span class="text-xl -mb-0.5"> តម្លៃសិក្សា </span>
+                        </div>
+                        <span class="text-xl -mb-0.5"> ៖ </span>
+                    </div>
+                    <span class="text-xl -mb-0.5 pl-4 text-gray-500"
+                        >{{ data?.price_per_year | currency : "" : "" : "1.2" }}
+                        ដុល្លារ / 1 ឆ្នាំ
+                    </span>
+                </div>
+            </div>
+            <div class="flex justify-center pt-3 w-[4rem] pl-2">
+                <button
+                    mat-icon-button
+                    class="flex items-center"
+                    (click)="update()"
+                >
+                    <mat-icon class="icon-size-6" svgIcon="feather:edit" />
+                </button>
+            </div>
+        </div>
+        <div class="data-container py-4">
+            <div class="lg-shared-header-section header-section">
+                <div class="flex items-center ml-1.5 gap-4">
+                    <mat-icon
+                        class="icon-size-6"
+                        svgIcon="mat_outline:menu_book"
+                    />
+                    <span class="text-xl font-medium text-gray-600 -mb-0.5">
+                        ប្រភេទមុខវិជ្ជា
+                    </span>
+                </div>
+                <div class="flex items-center gap-5">
+                    <button mat-icon-button class="flex items-center">
+                        <mat-icon
+                            class="icon-size-6"
+                            svgIcon="heroicons_outline:printer"
+                        />
+                    </button>
+                    <button
+                        mat-icon-button
+                        class="flex items-center"
+                        (click)="create()"
+                    >
+                        <mat-icon
+                            class="icon-size-6"
+                            svgIcon="heroicons_mini:plus"
+                        />
+                    </button>
+                </div>
+            </div>
+
+            <!-- First Loop -->
+            <div *ngIf="total_language > 0">
+                <div class="flex flex-1 items-center font-medium h-16">
+                    <div class="flex items-center w-4/5 justify-between">
+                        <div class="flex items-center">
+                            <span class="pl-4 text-xl font-semibold -mb-0.5">
+                                ល.រ
+                            </span>
+                            <span class="pl-8 text-xl font-semibold -mb-0.5">
+                                ឈ្មោះ
+                            </span>
+                        </div>
+                    </div>
+                    <span
+                        class="text-xl w-1/5 -mb-0.5 pr-9 font-semibold text-center"
+                    >
+                        បច្ចុប្បន្នភាព
+                    </span>
+                    <span
+                        class="text-xl w-1/5 -mb-0.5 pr-10 font-semibold text-end"
+                    >
+                        ចំនួនមុខវិជ្ជា
+                    </span>
+                    <span
+                        class="text-xl w-1/5 -mb-0.5 pr-10 font-semibold text-end"
+                    >
+                        តម្លៃ
+                    </span>
+                    <span
+                        class="text-xl w-[50px] -mb-0.5 pr-10 font-semibold text-end"
+                    >
+                    </span>
+                </div>
+                <div
+                    *ngFor="let item of data_lanugages; let i = index"
+                    [ngClass]="{ 'bg-slate-100': i % 2 === 0 }"
+                    class="flex flex-1 px-1 items-center font-medium h-12 py-2 pr-10"
+                >
+                    <div class="flex items-center ml-1.5 w-4/5 justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="w-10 text-center">{{ i + 1 }}</span>
+                            <div class="flex flex-col justify-center pl-4">
+                                <strong
+                                    class="text-lg font-medium text-slate-500 dark:text-white"
+                                >
+                                    {{ item?.name }}
+                                </strong>
+                            </div>
+                        </div>
+                    </div>
+                    <span
+                        class="pr-4 text-lg w-1/5 text-center -mb-0.5 pl-5 text-gray-500"
+                    >
+                        {{ item?.created_at | date : "dd-MM-y" }}
+                    </span>
+                    <span
+                        class="pr-4 text-lg w-1/5 text-end -mb-0.5 pl-5 text-gray-500"
+                    >
+                        {{ item?.n_subjects }}
+                    </span>
+                    <span
+                        class="text-lg w-1/5 text-end -mb-0.5 pl-4 text-gray-500"
+                    >
+                        $ {{ item?.price | currency : "" : "" : "1.2" }}
+                    </span>
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon
+                            class="icon-size-6"
+                            svgIcon="mat_outline:more_vert"
+                        ></mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="updatePayment(item)">
+                            <mat-icon
+                                class="icon-size-5 text-gray-500"
+                                svgIcon="heroicons_outline:eye"
+                            ></mat-icon>
+                            <span class="text-lg text-gray-500">កែប្រែ</span>
+                        </button>
+                        <button mat-menu-item (click)="deleteLanguage(item)">
+                            <mat-icon
+                                class="icon-size-5 text-red-400"
+                                svgIcon="mat_solid:delete_outline"
+                            ></mat-icon>
+                            <span class="text-lg text-red-400">លុប</span>
+                        </button>
+                    </mat-menu>
+                </div>
+                <div class="flex h-14 items-center justify-end pr-20">
+                    <span class="text-xl">សរុប ៖​ </span>
+                    <span class="text-xl w-[7rem] text-start pl-2">
+                        {{ total_subjects }} </span
+                    ><span class="text-xl w-[7rem] text-end">
+                        $ {{ data?.total_price | currency : "" : "" : "1.2" }}
+                    </span>
+                </div>
+            </div>
+            <div
+                *ngIf="total_language <= 0"
+                class="flex flex-col justify-center items-center mb-4"
+            >
+                <mat-icon class="icon-size-16" svgIcon="toc"></mat-icon>
+                <span class="text-lg -mt-4">គ្មានទិន្នន័យ</span>
+            </div>
+        </div>
+        <div class="data-container py-4">
+            <div class="lg-shared-header-section header-section">
+                <div class="flex items-center ml-1.5 gap-4">
+                    <mat-icon
+                        class="icon-size-6"
+                        svgIcon="mat_outline:menu_book"
+                    />
+                    <span class="text-xl font-medium text-gray-600 -mb-0.5">
+                        ការដាក់ពិន្ទុ
+                    </span>
+                </div>
+                <div class="flex items-center gap-5">
+                    <button
+                        mat-icon-button
+                        class="flex items-center"
+                        (click)="createScoreCategory()"
+                    >
+                        <mat-icon
+                            class="icon-size-6"
+                            svgIcon="heroicons_mini:plus"
+                        />
+                    </button>
+                </div>
+            </div>
+            <div *ngIf="total_gradescore > 0">
+                <div class="flex flex-1 items-center font-medium h-16">
+                    <div class="flex items-center w-4/5 justify-between">
+                        <div class="flex items-center">
+                            <span class="pl-4 text-xl font-semibold -mb-0.5">
+                                ល.រ
+                            </span>
+                            <span class="pl-8 text-xl font-semibold -mb-0.5">
+                                ឈ្មោះ
+                            </span>
+                        </div>
+                    </div>
+                    <span
+                        class="text-xl w-1/5 -mb-0.5 pr-10 font-semibold text-center"
+                    >
+                        បច្ចុប្បន្នភាព
+                    </span>
+                    <span
+                        class="text-xl w-1/5 -mb-0.5 pr-20 font-semibold text-end"
+                    >
+                        ភាគរយ
+                    </span>
+                </div>
+                <!-- First Loop -->
+                <div
+                    *ngFor="let item of grade_score; let i = index"
+                    [ngClass]="{ 'bg-slate-100': i % 2 === 0 }"
+                    class="flex flex-1 px-1 items-center font-medium h-12 py-2"
+                >
+                    <div class="flex items-center ml-1.5 w-4/5 justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="w-10 text-center">{{ i + 1 }}</span>
+                            <div class="flex flex-col justify-center pl-4">
+                                <strong
+                                    class="text-lg font-medium text-slate-500 dark:text-white"
+                                >
+                                    {{ item?.category_name }}
+                                </strong>
+                            </div>
+                        </div>
+                    </div>
+                    <span
+                        class="text-lg w-1/5 text-center -mb-0.5 pl-4 text-gray-500"
+                    >
+                        {{ item?.created_at | date : "dd-MM-y" }}
+                    </span>
+                    <span
+                        class="text-lg w-1/5 text-end -mb-0.5 px-10 text-gray-500"
+                    >
+                        {{ item?.percentage }} %
+                    </span>
+                    <button mat-icon-button [matMenuTriggerFor]="menu" class="">
+                        <mat-icon
+                            class="icon-size-6"
+                            svgIcon="mat_outline:more_vert"
+                        ></mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button
+                            mat-menu-item
+                            (click)="updateScoreCategory(item)"
+                        >
+                            <mat-icon
+                                class="icon-size-5 text-gray-500"
+                                svgIcon="feather:edit"
+                            ></mat-icon>
+                            <span class="text-lg text-gray-500">កែប្រែ</span>
+                        </button>
+                        <button
+                            mat-menu-item
+                            (click)="deleteScoreCategory(item)"
+                            *ngIf="item.status != true"
+                        >
+                            <mat-icon
+                                class="icon-size-5 text-red-400"
+                                svgIcon="mat_solid:delete_outline"
+                            ></mat-icon>
+                            <span class="text-lg text-red-400">លុប</span>
+                        </button>
+                    </mat-menu>
+                </div>
+            </div>
+        </div>
+        <div
+            *ngIf="total_gradescore <= 0"
+            class="flex flex-col justify-center items-center mb-4"
+        >
+            <mat-icon class="icon-size-16" svgIcon="toc"></mat-icon>
+            <span class="text-lg -mt-4">គ្មានទិន្នន័យ</span>
+        </div>
+    </div>
+</section>

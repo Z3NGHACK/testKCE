@@ -1,0 +1,88 @@
+<div mat-dialog-title  class="shared-header-section">
+    <!-- header of student detail -->
+ 
+   
+        <div class="flex flex-1 items-center font-medium"> 
+            <div class="flex items-center ml-1.5">
+                <span class="text-3xl font-semibold text-gray-600 -mb-0.5">ឆ្នាំសិក្សា 2023-2024 / សាខា ផ្សាដេប៉ូ </span>
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <button mat-icon-button class="flex items-center border" (click)="closeDialog()" >
+                <mat-icon class="icon-size-6 -mb-0.5" svgIcon="mat_outline:close" />
+            </button>
+        </div>         
+</div>
+<div class="view-student-content">
+ 
+    <div class=" flex justify-between py-8 overflow-x-hidden">
+        <div class="w-4/12 flex flex-col justify-start items-center gap-1">
+            <helper-portrait class="pfp" [src]="fileUrl + data.avatar"  [title]="'បញ្ចូលរូបភាព'" ></helper-portrait>
+            <span class="text-2xl font-semibold text-gray-600 mt-3 -mb-0.5"> ហៃ​ តុងម៉េង </span>
+            <span class="text-xl text-gray-600 -mb-0.5"> DP-K0004 </span>
+        </div>
+        <div class="w-8/12">
+            <div class="w-full flex flex-1 px-3 items-center font-medium h-12 py-7 gap-4 "> 
+                <mat-icon class="icon-size-6 mt-1" svgIcon="mat_outline:calendar_today" />
+                <strong class="text-xl font-medium text-slate-500 dark:text-white"> 12-12-2024 </strong>                       
+            </div>
+            <div class="w-full flex flex-1 px-3 items-center font-medium h-12 py-7 gap-4 border-t"> 
+                <mat-icon class="icon-size-6 mt-1" svgIcon="mat_outline:add_location_alt" />
+                <span class="text-xl dark:text-white "> ភ្នំពេញ </span>                       
+            </div>
+        </div>
+    </div>
+    <div class="flex items-center h-20 border-y gap-4 px-4">
+        <mat-icon class="icon-size-6 mt-1" svgIcon="mdi:cash" />
+        <span class="text-xl font-semibold">ការបង់ប្រាក់</span>
+    </div>
+    <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef class="w-140 z-10"> គោត្តនាម និង នាម </th>
+            <td mat-cell *matCellDef="let data">
+                <div class="flex" href="" target="_blank">
+                    <div class="p-2 pl-0">
+                        <img class="rounded-full border border-blue-600 min-w-[45px] max-w-[45px] min-h-[45px] max-h-[45px] object-cover"
+                            [src]="fileUrl + data.avatar" alt="avatar">
+                    </div>
+                    <div class="flex flex-col min-h-12 max-h-12 justify-center pl-1 pt-2.5">
+                        <strong class="text-lg font-medium text-slate-900">{{ data?.name}}</strong>
+                    
+                    </div>
+                </div>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="fullprice">
+            <th mat-header-cell *matHeaderCellDef class="z-10 w-30 text-end"> តួនាទី </th>
+            <td mat-cell *matCellDef="let data" class="text-end">
+                <span class="truncate text-gray-500 w-40"> hello </span>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="price" class="w-40" >
+            <th mat-header-cell *matHeaderCellDef class=" text-center z-10 w-40"> សកម្មភាពចុងក្រោយ </th>
+            <td mat-cell *matCellDef="let data" class="text-center">
+                <span class="truncate max-w-20 text-gray-500">got </span>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="action" stickyEnd>
+            <th mat-header-cell *matHeaderCellDef class="z-10"></th>
+            <td mat-cell *matCellDef="let data" class="text-end">
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon class="icon-size-6" svgIcon="mat_outline:more_vert"> update </mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="view(data)">
+                        <mat-icon class="icon-size-5 text-gray-500" svgIcon="heroicons_outline:eye"></mat-icon>
+                        <span class="text-lg text-gray-500">មើល</span>
+                    </button>
+                </mat-menu>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+
+<mat-dialog-actions>
+
+</mat-dialog-actions>

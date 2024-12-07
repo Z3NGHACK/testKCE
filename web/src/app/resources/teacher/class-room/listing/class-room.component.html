@@ -1,0 +1,245 @@
+<section class="list-student-section">
+    <div class="list-student-container" @fadeInCustom>
+        <!-- header of student  -->
+        <div class="shared-header-section">
+            <div class="flex flex-1 items-center font-medium">
+                <div class="flex items-center">
+                    <mat-icon
+                        class="icon-size-5 -mt-0.5"
+                        svgIcon="heroicons_outline:home"
+                    />
+                </div>
+                <div class="flex items-center ml-1.5">
+                    <span class="text-lg text-gray-600 -mb-0.5">
+                        ថ្នាក់រៀន
+                    </span>
+                </div>
+            </div>
+            <div class="flex items-center gap-2" *ngIf="academics.length > 0">
+                <div
+                    class="sm-form-field-appearance-outline height-header hidden sm:flex"
+                >
+                    <mat-form-field appearance="outline" class="max-w-40">
+                        <mat-select
+                            [(ngModel)]="academic_id"
+                            (selectionChange)="listing()"
+                        >
+                            <mat-option
+                                *ngFor="let ac of academics"
+                                [value]="ac.id"
+                                >{{ ac.name }}</mat-option
+                            >
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <!-- body of student  -->
+        <div class="list-student-body pt-4">
+            <!-- data  -->
+            <div class="list-student-data" *ngIf="data.length > 0">
+                <div *ngFor="let level of data; let i = index">
+                    <div class="lg-shared-header-section header-section mb-3">
+                        <div class="flex items-center ml-1.5 gap-4">
+                            <span
+                                class="text-2xl font-semibold text-gray-600 -mb-0.5"
+                            >
+                                {{ level.level_name }}
+                            </span>
+                        </div>
+                        <mat-button-toggle-group
+                            name="classroom"
+                            aria-label="classroom"
+                            multiple
+                            (change)="chnageLanguage(level.level_id, $event)"
+                        >
+                            <mat-button-toggle
+                                *ngFor="let l of languages"
+                                [value]="l.id"
+                            >
+                                <!-- (click)="chnageLanguage(i,l)" -->
+                                {{ l.name }}
+                            </mat-button-toggle>
+                        </mat-button-toggle-group>
+                    </div>
+                    <ng-container *ngIf="level.classrooms.length > 0">
+                        <div class="grid grid-cols-3 gap-3">
+                            <div
+                                class="relative w-full flex border rounded-xl min-h-28 max-h-28 overflow-hidden"
+                                *ngFor="let item of level.classrooms"
+                            >
+                                <div
+                                    class="min-h-28 max-h-28 min-w-6 max-w-6 bg-blue-500 text-white"
+                                >
+                                    <span
+                                        class="text-sm min-h-28 max-h-28 -translate-x-7 -rotate-90 w-20 flex items-center justify-center"
+                                    >
+                                        {{ item.grade }} / {{ item.language }}
+                                    </span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <div class="flex">
+                                        <div
+                                            class="w-1/3 flex justify-start p-2"
+                                        >
+                                            <div class="flex flex-col">
+                                                <div
+                                                    class="flex justify-between"
+                                                >
+                                                    <div class="w-full flex">
+                                                        <div
+                                                            class="min-w-15 max-w-15 flex justify-start items-center"
+                                                        >
+                                                            <mat-icon
+                                                                [svgIcon]="
+                                                                    'feather:user'
+                                                                "
+                                                            ></mat-icon>
+                                                        </div>
+                                                        <div
+                                                            class="max-w-90 min-w-90 flex justify-start items-center gap-2 -ml-8"
+                                                        >
+                                                            <div
+                                                                class="flex items-center gap-2 min-w-26"
+                                                            >
+                                                                <span
+                                                                    class="text-[15px] leading-8"
+                                                                >
+                                                                    {{
+                                                                        item.teacher_name
+                                                                    }}
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div
+                                                    class="flex justify-between"
+                                                >
+                                                    <div class="w-full flex">
+                                                        <div
+                                                            class="min-w-15 max-w-15 flex justify-start items-center"
+                                                        >
+                                                            <mat-icon
+                                                                [svgIcon]="
+                                                                    'heroicons_outline:academic-cap'
+                                                                "
+                                                            ></mat-icon>
+                                                        </div>
+                                                        <div
+                                                            class="max-w-90 min-w-90 flex justify-start items-center gap-2 -ml-8"
+                                                        >
+                                                            <div
+                                                                class="flex items-center gap-2 min-w-26"
+                                                            >
+                                                                <span
+                                                                    class="truncate text-[15px] leading-8"
+                                                                >
+                                                                    {{
+                                                                        item.total_students
+                                                                    }}
+                                                                    ( ស្រី
+                                                                    {{
+                                                                        item.total_female_students
+                                                                    }}
+                                                                    )
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div
+                                                    class="flex justify-between"
+                                                >
+                                                    <div class="w-full flex">
+                                                        <div
+                                                            class="min-w-15 max-w-15 flex justify-start items-center"
+                                                        >
+                                                            <mat-icon
+                                                                [svgIcon]="
+                                                                    'mat_outline:door_front'
+                                                                "
+                                                            ></mat-icon>
+                                                        </div>
+                                                        <div
+                                                            class="max-w-90 min-w-90 flex justify-start items-center gap-2 -ml-8"
+                                                        >
+                                                            <div
+                                                                class="flex items-center gap-2 min-w-26"
+                                                            >
+                                                                <span
+                                                                    class="truncate text-[15px] leading-8"
+                                                                >
+                                                                    {{
+                                                                        item.room
+                                                                    }}
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <span
+                                    class="absolute top-[9px] -right-1 z-10 rotate-45 text-white text-center w-[48px]"
+                                >
+                                    {{ item.schedule }}
+                                </span>
+                                <div
+                                    class="absolute top-0 right-0 triangle-container -rotate-180"
+                                ></div>
+
+                                <div
+                                    class="absolute right-0 top-10 flex items-center justify-end mr-4"
+                                >
+                                    <button
+                                        mat-icon-button
+                                        [matMenuTriggerFor]="menu"
+                                    >
+                                        <mat-icon
+                                            class="icon-size-6"
+                                            svgIcon="mat_outline:more_vert"
+                                        ></mat-icon>
+                                    </button>
+                                    <mat-menu #menu="matMenu">
+                                        <button
+                                            mat-menu-item
+                                            (click)="view(item.id)"
+                                        >
+                                            <mat-icon
+                                                class="icon-size-5 text-gray-500"
+                                                svgIcon="mat_outline:remove_red_eye"
+                                            ></mat-icon>
+                                            <span class="text-lg text-gray-500"
+                                                >មើលលម្អិត</span
+                                            >
+                                        </button>
+                                    </mat-menu>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <div
+                        *ngIf="level.classrooms.length === 0"
+                        class="flex flex-col justify-center items-center mb-4"
+                    >
+                        <mat-icon class="icon-size-16" svgIcon="toc"></mat-icon>
+                        <span class="text-lg -mt-4">គ្មានទិន្នន័យ</span>
+                    </div>
+                </div>
+            </div>
+            <div
+                *ngIf="data.length === 0"
+                class="flex flex-col justify-center items-center mb-4"
+            >
+                <mat-icon class="icon-size-16" svgIcon="toc"></mat-icon>
+                <span class="text-lg -mt-4">គ្មានទិន្នន័យ</span>
+            </div>
+        </div>
+    </div>
+</section>

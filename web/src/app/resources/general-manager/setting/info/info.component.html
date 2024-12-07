@@ -1,0 +1,153 @@
+<section class="list-student-section">
+  <div class="list-student-container">
+    <div class="shared-header-section relative">
+    <div class="absolute left-4">
+      <div class="flex items-center font-medium">
+        <div class="flex items-center">
+          <mat-icon class="icon-size-5 -mt-0.5" svgIcon="heroicons_outline:home"></mat-icon>
+        </div>
+        <div class="flex items-center ml-2.5">
+          <span class="text-lg text-gray-600 -mb-0.5">ការកំណត់</span>
+        </div>
+        <div class="flex items-center">
+          <mat-icon class="-mb-0.5" [svgIcon]="'mat_solid:chevron_right'"></mat-icon>
+          <span class="text-lg text-gray-600 -mb-0.5">ព័ត៌មានសាលា</span>
+        </div>
+      </div>
+    </div>
+    </div>
+
+  <div class="list-student-body relative">
+      <div class="absolute right-4 top-4">
+        <button  mat-icon-button (click)="udpate(profile)">
+          <mat-icon class="mat-icon-6" svgIcon="heroicons_outline:pencil-square"></mat-icon>
+        </button>
+      </div>
+      <!-- <button mat-icon-button class="top-6 right-6 absolute">
+          <mat-icon class="icon-size-8" svgIcon="feather:user"></mat-icon>
+      </button> -->
+      <div class="pt-4 flex flex-col gap-2 items-center">
+          <div class="w-50 h-50">
+              <img  [title]="'បញ្ចូលរូបភាព'" [src]="fileUrl + profile?.logo"/>
+          </div>
+          <span class="text-3xl font-bold text-gray-600 -mb-0.5"> {{ profile?.kh_name }} </span>
+          <span class="text-lg text-gray-500 -mb-0.5">{{ profile?.en_name }} </span> 
+          <div class="flex h-20  w-full py-4">
+              <div class="flex flex-1 justify-end pr-8 items-center font-medium">
+                  <div class="flex items-center">
+                      <mat-icon class="icon-size-6 mt-0.5" svgIcon="mat_outline:smartphone"></mat-icon>
+                  </div>
+                  <div class="flex items-center ml-1.5">
+                      <span class="text-llg text-gray-500 -mb-0.5"> {{ profile?.phone1 }} / {{profile?.phone2}}</span>
+                  </div>
+              </div>
+              <div class="flex items-center font-medium justify-center min-w-[20rem] w-[20rem] border-x border-slate-00">
+                  <div class="flex items-center">
+                      <mat-icon class="icon-size-6 mt-0.5" svgIcon="mat_outline:mail"></mat-icon>
+                  </div>
+                  <div class="flex items-center ml-1.5">
+                      <span class="text-xl text-gray-500 -mb-0.5"> {{ profile?.email }} </span>
+                  </div>
+              </div>
+              <div class="flex flex-1 items-center font-medium pl-8 border-slate-00">
+                  <div class="flex items-center">
+                      <mat-icon class="icon-size-6 mt-0.5" svgIcon="heroicons_outline:globe-alt"></mat-icon>
+                  </div>
+                  <div class="flex items-center ml-1.5">
+                      <span class="text-xls  -mb-0.5"><a [href]="profile?.website" class="text-blue-500 underline">{{ profile?.website }}</a></span>
+                  </div>
+              </div>
+          </div>
+          <div class="flex gap-3 items-center">
+            <div class="flex items-center">
+              <mat-icon class="icon-size-6 mt-0.5" svgIcon="mdi:map-marker-outline"></mat-icon>
+          </div>
+            <span class="text-lg text-gray-500 -mb-0.5">{{ profile?.address }} </span> 
+          </div>
+      </div>
+      <div class="flex h-24 min-h-24 w-full justify-between items-center mt-8 border-y">
+        <div class="flex items-center gap-3 pl-4">
+          <mat-icon class="icon-size-6" svgIcon="mat_outline:groups"></mat-icon>
+          <span class="text-xl font-semibold text-black dark:text-white">បុគ្គលិក</span>
+        </div>
+        <div class="right-content pr-2">
+          <button mat-icon-button
+            class="helpers-mat-button px-2"
+            (click)="create()"
+          >
+            <mat-icon class="icon-size-6" svgIcon="mdi:account-plus-outline"></mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="list-student-data">
+        <table mat-table [dataSource]="staffData" class="custom-table w-full">
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef class="header-cell">ឈ្មោះ</th>
+            <td mat-cell *matCellDef="let staff">
+              <div class="name-cell flex items-center gap-2">
+                <img [src]="fileUrl + (staff.avatar || 'default-avatar.png')" 
+                     alt="{{ staff.name || 'Unknown' }}" 
+                     class="user-avatar" />
+                <div>
+                  <span class="font-semibold text-md">{{ staff.name || 'N/A' }}</span><br />
+                  <span class="text-sm text-gray-500">{{ staff.roles[0] || 'N/A' }}</span>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+        
+          <!-- Contact Column -->
+          <ng-container matColumnDef="contact">
+            <th mat-header-cell *matHeaderCellDef class="header-cell">ទំនាក់ទំនង</th>
+            <td mat-cell *matCellDef="let staff">
+              <div>
+                <span class="text-md">{{ staff.phone || 'N/A' }}</span><br />
+                <span class="text-sm text-gray-500">{{ staff.email || 'N/A' }}</span>
+              </div>
+            </td>
+          </ng-container>
+        
+          <!-- Created Date Column -->
+          <ng-container matColumnDef="createdAt">
+            <th mat-header-cell *matHeaderCellDef class="header-cell">សកម្មភាពចុងក្រោយ</th>
+            <td mat-cell *matCellDef="let staff">
+              {{ staff.created_at ? (staff.created_at | date: 'dd-MM-yyyy') : 'N/A' }}
+            </td>
+          </ng-container>
+        
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let staff" class="actions-cell">
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon svgIcon="heroicons_outline:ellipsis-vertical"></mat-icon>
+              </button>
+        
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="viewdetail(staff)">
+                  <mat-icon svgIcon="heroicons_outline:eye"></mat-icon>
+                  <span>មើល</span>
+                </button>
+                <button mat-menu-item (click)="delete(staff)">
+                  <mat-icon svgIcon="heroicons_outline:trash" class="text-red-500"></mat-icon>
+                  <span class="text-red-500">លុប</span>
+                </button>
+              </mat-menu>
+            </td>
+          </ng-container>
+        
+          <!-- Header and Row Definitions -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns" class="header-row"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns" class="data-row"></tr>
+        
+        </table>
+      </div>
+      <mat-paginator class="flex justify-end overflow-hidden" [pageSizeOptions]="[5 ,15, 30, 45]"
+      [showFirstLastButtons]="true" [pageIndex]="page - 1" [length]="this.total" [pageSize]="limit"
+      (page)="onPageChanged($event)">
+    </mat-paginator>
+      
+  </div>
+</div>

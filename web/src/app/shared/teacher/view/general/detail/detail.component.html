@@ -1,0 +1,107 @@
+<div mat-dialog-title  class="shared-header-section">
+    <!-- header of student detail -->
+    <div class="flex flex-1 items-center font-medium"> 
+        <div class="flex items-center ml-1.5">
+            <span class="text-3xl font-semibold text-gray-600 -mb-0.5"> {{ data.name }} </span>
+        </div>
+    </div>
+    <div class="flex items-center gap-4">
+        <button mat-icon-button class="flex items-center" >
+            <mat-icon class="icon-size-8 mt-1" svgIcon="mat_outline:print" />
+        </button>
+        <button mat-icon-button class="flex items-center" (click)="closeDialog()" >
+            <mat-icon class="icon-size-8 mt-1" svgIcon="mat_outline:close" />
+        </button>
+    </div>      
+</div>
+<mat-dialog-content class="w-[600px] h-full border-t-2">
+    <div class="view-student-detail-data relative flex flex-col items-center ">
+        <button mat-icon-button class="top-6 right-6 absolute" (click)="update()">
+            <mat-icon class="icon-size-8 " svgIcon="mat_outline:edit_note"   />
+        </button>
+        <div class="w-64 scale-75 h-64">
+            <helper-portrait class="pfp"  [title]="'បញ្ចូលរូបភាព'" [src]="fileUrl + data?.avatar" ></helper-portrait>
+        </div>
+        <div class="w-full pt-2">
+            <!-- data -->
+            <div class="flex flex-1 px-4 items-center font-medium h-12 bg-slate-100"> 
+                <div class="flex items-center ml-1.5 w-2/5 justify-between">
+                    <div class="flex items-center gap-3">
+                        <mat-icon class="icon-size-8 mt-1" svgIcon="feather:user" />
+                        <span class="text-xl -mb-0.5"> ឈ្មោះ </span>
+                    </div>
+                    <span class="text-xl -mb-0.5"> ៖ </span>
+                </div>
+                <span class="text-2xl -mb-0.5 pl-4 text-gray-500"> {{ data?.name }}</span>
+            </div>
+
+            <div class="flex flex-1 px-4 items-center font-medium h-12"> 
+                <div class="flex items-center ml-1.5 w-2/5 justify-between">
+                    <div class="flex items-center gap-3">
+                        <mat-icon class="icon-size-8 mt-1" svgIcon="feather:user" />
+                        <span class="text-xl -mb-0.5"> ភេទ </span>
+                    </div>
+                    <span class="text-xl -mb-0.5"> ៖ </span>
+                </div>
+                <span class="text-2xl -mb-0.5 pl-4 text-gray-500"> {{ data?.sex }}</span>
+            </div>
+
+            <div class="flex flex-1 px-4 items-center font-medium h-12 bg-slate-100"> 
+                <div class="flex items-center ml-1.5 w-2/5 justify-between">
+                    <div class="flex items-center gap-3">
+                        <mat-icon class="icon-size-8 mt-1" svgIcon="feather:user" />
+                        <span class="text-xl -mb-0.5"> តួនាទី </span>
+                    </div>
+                    <span class="text-xl -mb-0.5"> ៖ </span>
+                </div>
+                <span class="text-2xl -mb-0.5 pl-4 text-gray-500"> គ្រូបង្រៀន​ </span>
+            </div>
+            
+            <div class="flex flex-1 px-4 items-center font-medium h-12"> 
+                <div class="flex items-center ml-1.5 w-2/5 justify-between">
+                    <div class="flex items-center gap-3">
+                        <mat-icon class="icon-size-8 mt-1" svgIcon="heroicons_outline:academic-cap" />
+                        <span class="text-xl -mb-0.5"> កម្រិតបង្រៀន  </span>
+                    </div>
+                    <span class="text-xl -mb-0.5"> ៖ </span>
+                </div>
+                <span class="text-2xl -mb-0.5 pl-4 text-gray-500"> {{ data?.level }}</span>
+            </div>
+
+            <div class="flex flex-1 px-4 items-center font-medium h-12 bg-slate-100"> 
+                <div class="flex items-center ml-1.5 w-2/5 justify-between">
+                    <div class="flex items-center gap-3">
+                        <mat-icon class="icon-size-8 mt-1" svgIcon="mat_outline:smartphone" />
+                        <span class="text-xl -mb-0.5"> លេខទូរស័ព្ទ </span>
+                    </div>
+                    <span class="text-xl -mb-0.5"> ៖ </span>
+                </div>
+                <span  class="text-2xl -mb-0.5 pl-4 text-gray-500"> {{ data?.phone }}</span>
+            </div>
+
+            <div class="flex flex-1 px-4 items-center font-medium h-12 "> 
+                <div class="flex items-center ml-1.5 w-2/5 justify-between">
+                    <div class="flex items-center gap-3">
+                        <mat-icon class="icon-size-8 mt-1" svgIcon="mat_outline:email" />
+                        <span class="text-xl -mb-0.5"> អ៊ីមែល </span>
+                    </div>
+                    <span class="text-xl -mb-0.5"> ៖ </span>
+                </div>
+                <span class="text-2xl -mb-0.5 pl-4 text-gray-500"> {{ data?.email }}</span>
+            </div>
+
+            <div class="flex flex-1 px-4 items-center font-medium h-12 bg-slate-100"> 
+                <div class="flex items-center ml-1.5 w-2/5 justify-between">
+                    <div class="flex items-center gap-3">
+                        <mat-icon class="icon-size-8 mt-1" svgIcon="heroicons_outline:academic-cap" />
+                        <span class="text-xl -mb-0.5"> សកម្មភាពចុងក្រោយ </span>
+                    </div>
+                    <span class="text-xl -mb-0.5"> ៖ </span>
+                </div>
+                    <span  class="text-2xl -mb-0.5 pl-4 text-gray-500"> {{ data?.created_at | date:'dd-MM-yyyy' }}</span>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions></mat-dialog-actions>

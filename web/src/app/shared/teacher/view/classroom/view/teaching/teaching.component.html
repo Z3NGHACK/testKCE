@@ -1,0 +1,65 @@
+<section class="view-file-section">
+    <div class="lg-shared-header-section header-section">
+        <div class="flex items-center ml-1.5 gap-4">
+            <span class="text-2xl font-semibold text-gray-600 -mb-0.5">  {{data?.length}} ម៉ោងសិក្សា  </span>
+        </div>
+        <mat-icon class="icon-size-8" svgIcon="mat_outline:print"></mat-icon>
+    </div>    
+    <div class="view-file-data">
+        <table mat-table [dataSource]="dataSource" >
+            <ng-container matColumnDef="time">
+                <th mat-header-cell *matHeaderCellDef> ឈ្មោះ </th>
+                <td mat-cell *matCellDef="let item">
+                    <div class="flex flex-col justify-center pl-2">
+                        <div class="flex gap-3 items-center">
+                            <mat-icon class="icon-size-5" svgIcon="mat_outline:calendar_today"></mat-icon>
+                            <strong class="text-lg font-medium text-gray-500 dark:text-white">{{ item?.shift_date | date: 'dd-MM-y'}}</strong>
+                        </div>
+                        <div class="flex gap-3 items-center">
+                            <mat-icon class="icon-size-5" svgIcon="heroicons_outline:clock"></mat-icon>
+                            <span class="text-lg text-gray-500">{{ item?.start_at | date: 'h a'}} - {{ item?.finish_at | date: 'h a'}} </span>
+                        </div>
+                    </div>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="subject">
+                <th mat-header-cell *matHeaderCellDef> </th>
+                <td mat-cell *matCellDef="let item" >
+                    <div class="flex flex-col justify-center pl-2">
+                       <li> {{ item?.subjects[0] }} </li>
+                    </div>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="class">
+                <th mat-header-cell *matHeaderCellDef> </th>
+                <td mat-cell *matCellDef="let item" >
+                    <div class="flex gap-3 items-center">
+                        <mat-icon class="icon-size-6" svgIcon="mdi:account-school-outline"></mat-icon>
+                        <span class="text-xl text-gray-500"> {{item?.attended_student?.total}}/{{item?.total_students}} (<span class="text-red-500 text-xl">A{{item?.attended_student?.total_A}}</span>/<span class="text-yellow-500 text-xl">P{{item?.attended_student?.total_P}}</span>)</span>
+                    </div>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="action" stickyEnd>
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let item">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon class="icon-size-6" svgIcon="mat_outline:more_vert"></mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="viewDetail(item)">
+                            <mat-icon class="icon-size-5 text-gray-500"
+                                svgIcon="heroicons_outline:eye"></mat-icon>
+                            <span class="text-lg text-gray-500">មើល</span>
+                        </button>
+                    </mat-menu>
+                </td>
+            </ng-container>
+            
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+    <!-- pagination -->
+     
+</section>
+

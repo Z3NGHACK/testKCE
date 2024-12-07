@@ -1,0 +1,100 @@
+.transaction-section{
+    height: calc(100dvh - 3.5rem) !important; // 56px is header of layout
+    @apply overflow-hidden w-screen p-4 #{'!important'};
+
+    .transaction-data {
+        height: 85vh!important; // 56px(layout) + 32px(padding-y) is 88px
+        @apply flex flex-col gap-5 overflow-auto dark:bg-opacity-5 #{'!important'};
+
+    }
+}
+
+.cart-section{
+    @apply flex border-b-2 justify-evenly mx-2 border-slate-100;
+
+    .cart-container{
+        height: 30rem !important;
+        min-width: 44rem !important;
+        max-width: 68rem !important;
+        width: 68rem !important;
+        @apply bg-white dark:bg-opacity-5 rounded-2xl p-2 #{'!important'}
+    }
+    .cart-container-data{
+        @apply flex p-4 w-full gap-4 #{'!important'}
+    }
+    
+    
+}
+
+.cart-container-statistic{
+    height: 30rem !important;
+    @apply bg-white dark:bg-opacity-5 min-w-[30rm] rounded-2xl p-2 #{'!important'}
+}
+
+
+.cart-container-chart{
+    height: 29rem !important;
+    @apply bg-white dark:bg-opacity-5 min-w-[44rem] max-w-[68rem] w-[68rem] rounded-2xl py-2 #{'!important'}
+}
+
+.receptionist-dashbord-data{
+
+
+    .cart-container-data-chart{
+        @apply flex px-4 w-full gap-4 #{'!important'}
+    }
+    .cart-container-table{
+        @apply px-4 w-full #{'!important'}
+    }
+}
+
+.cart-container-header{
+    height: 4rem;
+    @apply flex items-center justify-between px-6 #{'!important'}
+}
+
+.state-item{
+    max-width: 24rem;
+    width: 21rem;
+    min-width: 20rem;
+    height: 20rem ;
+    max-height: 11rem;
+    @apply flex dark:bg-slate-950 bg-slate-100 items-center gap-3 p-7 rounded-2xl sm:min-w-[19rem] sm:min-w-[19rem] #{'!important'};
+
+    .item-icon{
+        width: 64px;
+        height: 64px;
+        @apply  flex justify-center items-center rounded-full   #{!important};
+    }
+
+    .item-text{
+        @apply flex flex-col;
+    }
+}
+
+.dashbord-avatar {
+    @apply rounded-full border-2 border-blue-600 min-w-[75px] max-w-[75px] min-h-[75px] max-h-[75px] object-cover #{'!important'};
+}
+
+.student-avatar {
+    @apply rounded-full border border-blue-600 min-w-[45px] max-w-[45px] min-h-[45px] max-h-[45px] object-cover #{'!important'};
+}
+
+
+::ng-deep .sm-chart{
+    .barchart {
+        height: 400px !important;
+        width: 50% !important;
+    }
+    
+}
+
+::ng-deep .lg-semi-chart{
+    .pie-chart {
+        width: 450px !important;
+        @apply translate-y-5 #{'!important'};
+    }
+    .value { 
+        @apply top-40 right-36 text-2xl #{'!important'};
+    }
+}

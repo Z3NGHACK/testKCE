@@ -1,0 +1,62 @@
+<section class="view-student-section">
+    <div class="view-student-container">
+         <div class="shared-header-section">
+             <!-- header of student  -->
+              <div class="absolute left-8">
+                <div class="flex flex-1 items-center font-medium"> 
+                    <button mat-icon-button class="flex mt-1 items-center" (click)="back()" >
+                        <mat-icon class="icon-size-8 " svgIcon="mat_outline:chevron_left"/>
+                    </button>
+                    <div class="flex items-center ml-1.5">
+                        <span class="text-3xl font-semibold text-gray-600 -mb-0.5"> {{ generalData?.name }} </span>
+                    </div>
+                </div>
+              </div>
+            
+         </div>    
+         <div class="view-student-body">
+            <!-- body of tabs -->
+            <!-- when using animation it wait alittle for all content to load 
+                [@.disabled]="true" close animation
+                [@.disabled]="false"
+                [dynamicHeight]="true"
+                animationDuration="180ms"
+                mat-align-tabs="center"
+            -->
+             <mat-tab-group class="mat-tab-flex-grow"
+             >
+                <mat-tab label="ទូទៅ">
+                <ng-template matTabContent>
+                    <shared-view-teacher-general 
+                        [data]="generalData"
+                        (UpdateName)="onNameUpdate($event)"
+                        [id]="id" (dialogClosed)="view()"
+                        [path]="path"
+                      ></shared-view-teacher-general> 
+                </ng-template>
+                </mat-tab>
+                <mat-tab label="ថ្នាក់រៀន">
+                <ng-template matTabContent>
+                    <shared-view-teacher-classroom 
+                        [id]="id" [path]="path"  
+                        [data]="classroomData" 
+                        class="w-screen"
+                       
+                    ></shared-view-teacher-classroom>
+                </ng-template>
+                </mat-tab>     
+                <mat-tab label="ឯកសារ"> 
+                <ng-template matTabContent>
+                    <shared-view-teacher-file 
+                        [id]="id" 
+                        [path]="path"
+                    ></shared-view-teacher-file>
+                </ng-template>
+
+                </mat-tab>
+             </mat-tab-group>
+         </div>
+    </div>
+</section>
+ 
+ 

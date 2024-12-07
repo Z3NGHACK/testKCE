@@ -1,0 +1,181 @@
+.receptionist-dashbord-section {
+    height: calc(100dvh - 3.5rem) !important; // 56px is header of layout
+    @apply overflow-hidden p-6 w-screen #{'!important'};
+
+    .receptionist-dashbord-container {
+        height: calc(100dvh - 5.5rem) !important; // 56px(layout) + 32px(padding-y) is 88px
+        @apply dark:bg-opacity-5 rounded-xl overflow-hidden #{'!important'};
+      
+        .dashbord-header{
+            height: 7rem;
+            @apply flex justify-between w-full items-center p-5 #{'!important'}
+        }
+      
+
+        // // shared-header-section: have h-14 is 56px
+        .receptionist-dashbord-body,
+        .no-data {
+            height: calc(100dvh - 9rem) !important; // 56px(layout) + 16px(padding-y) + 56px is 144px
+            @apply overflow-hidden #{'!important'};
+        }
+
+     
+        .receptionist-dashbord-body {
+            .receptionist-dashbord-data {
+                height: calc(100dvh - 12rem);
+                @apply overflow-auto px-4 pt-4 #{'!important'};
+            }
+        }
+    }
+
+}
+ 
+    .cart-container{
+        height: 25rem !important;
+        @apply bg-white w-full rounded-2xl p-2 #{'!important'};
+
+        .cart-container-data{
+            @apply grid grid-rows-2 grid-cols-2 px-4 justify-between #{'!important'}
+        }
+
+        .cart-container-table{
+            @apply px-4 w-full #{'!important'}
+        }
+
+    
+    }
+
+    .cart-container-chart{
+        height: 25rem !important;
+        @apply bg-white dark:bg-opacity-5 min-w-[22rem] w-[80rem] rounded-2xl py-2 #{'!important'};
+       
+        .cart-container-data-chart{
+            @apply flex px-4 w-full gap-4 #{'!important'};
+        }
+
+        
+    }
+
+
+    .cart-container-semi-chart{
+        height: 25rem !important;
+        @apply bg-white dark:bg-opacity-5 min-w-[25rem] w-[25rem] rounded-2xl py-2 #{'!important'};
+       
+        .cart-container-data-chart{
+            @apply flex px-4 w-full gap-4 #{'!important'};
+        }
+
+        
+    }
+
+    .cart-container-table{
+        height: 19rem !important;
+        @apply bg-white dark:bg-opacity-5 py-2 #{'!important'};
+       
+        .cart-container-data-chart{
+            @apply flex px-4 w-full gap-4 #{'!important'};
+        }
+
+        .cart-container-table-data{
+            @apply px-4 w-full #{'!important'}
+        }
+    }
+
+
+    .sm-cart-container{
+        height: 25rem !important;
+        @apply bg-white dark:bg-opacity-5 min-w-[29rem] w-[30rem] rounded-2xl p-2 #{'!important'};
+
+        .cart-container-data{
+            @apply grid grid-rows-2 grid-cols-2 gap-2 pt-4 px-4 w-full justify-between #{'!important'}
+        }
+        .cart-container-table{
+            @apply px-4 w-full #{'!important'}
+        }
+    
+    }
+
+   
+.cart-container-header{
+    height: 4rem;
+    @apply flex items-center justify-between px-6 #{'!important'}
+}
+
+.state-item{
+    max-width: 21rem;
+    min-height: 8rem ;
+    max-height: 9rem;
+    @apply flex bg-slate-100 dark:bg-slate-900 items-center gap-3 p-4 rounded-2xl  #{'!important'};
+
+    .item-icon{
+        width: 64px;
+        height: 64px;
+        @apply  flex justify-center items-center rounded-full   #{!important};
+    }
+
+    .item-text{
+        @apply flex flex-col;
+    }
+}
+
+.dashbord-avatar {
+    @apply rounded-full border-2 border-blue-600 min-w-[75px] max-w-[75px] min-h-[75px] max-h-[75px] object-cover #{'!important'};
+}
+
+.student-avatar {
+    @apply rounded-full border border-blue-600 min-w-[45px] max-w-[45px] min-h-[45px] max-h-[45px] object-cover #{'!important'};
+}
+
+
+::ng-deep .barchart {
+        height: 22rem !important;
+    }
+    
+
+
+::ng-deep .md-semi-chart{
+    .pie-chart {
+        width: 22rem !important;
+        // @apply -translate-y-10 #{'!important'};
+    }
+    .value { 
+        @apply top-40 right-22 text-2xl #{'!important'};
+    }
+}
+
+
+::ng-deep .barchart {
+    height: 400px;
+    width: 95%;
+
+}
+
+
+::ng-deep .hidden-input .mat-mdc-text-field-wrapper {
+
+    .mat-mdc-form-field-infix{
+        width: 0px;
+    }
+
+    .mdc-notched-outline__leading{
+        border-radius:  0 0 0 0 !important;
+        border: none !important;
+    }
+   
+    .mdc-notched-outline__notch{
+        border: none !important;
+    }
+
+    .mdc-notched-outline__trailing{
+        border: none !important;
+    }
+    .mat-mdc-text-field-wrapper{
+        padding: 0px !important
+    }
+
+    .mat-mdc-form-field-icon-suffix{
+        @apply flex items-center pl-0 pt-5 #{'!important'};
+    }
+    
+}
+

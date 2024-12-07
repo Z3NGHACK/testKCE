@@ -1,0 +1,28 @@
+.view-file-section{
+    height: calc(100dvh - 11.5rem);
+    @apply overflow-auto #{'!important'};
+    
+    .header-section{
+        height: 100px;
+        @apply flex flex-1 items-center px-6 font-medium justify-between border-b #{'!important'}
+    }
+
+    .view-file-data{
+        height:  calc(100dvh - 18.5rem);
+        @apply px-6  #{'!important'}
+
+    }
+}
+.semester{
+    @apply pt-2 #{!important};
+
+    .header-row{
+        height: 4rem;
+        @apply px-4 flex items-center #{!important};
+    }
+
+    .cell-row{
+        height: 4rem;
+        @apply px-4 flex items-center justify-between #{!important};
+    }
+}

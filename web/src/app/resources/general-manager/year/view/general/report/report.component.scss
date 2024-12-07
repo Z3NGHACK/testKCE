@@ -1,0 +1,28 @@
+::ng-deep .mat-mdc-dialog-content.mdc-dialog__content {
+    height: 90vh !important;
+    min-height: 90vh !important;
+}
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+    height: 100dvh;
+    border-radius: 0px !important;
+    padding: 0.5rem;
+}
+::ng-deep .mat-accordion > .mat-expansion-panel-spacing:last-child {
+    border: 0.5px solid #e1dfdf;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px !important;
+    margin-bottom: 10px !important;
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+    border-radius: 0px 0px 10px 10px !important;
+}
+::ng-deep .mat-accordion .mat-expansion-panel:not(.mat-expanded),
+.mat-accordion .mat-expansion-panel:not(.mat-expansion-panel-spacing) {
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+    box-shadow: rgba(255, 255, 255, 0.24) 0px 3px 8px !important;
+}
+::ng-deep .mat-accordion .mat-expansion-panel .mat-expansion-panel-body {
+    background-color: white !important;
+    padding: 16px !important ;
+}

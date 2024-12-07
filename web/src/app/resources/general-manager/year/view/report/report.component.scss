@@ -1,0 +1,115 @@
+.report-section{
+    height: calc(100dvh - 3.5rem) !important; // 56px is header of layout
+    @apply overflow-hidden py-4 #{'!important'};
+
+    
+    .receptionist-dashbord-container {
+        height: calc(100dvh - 5.5rem) !important; // 56px(layout) + 32px(padding-y) is 88px
+        @apply dark:bg-opacity-5 rounded-xl overflow-hidden #{'!important'};
+      
+        .dashbord-header{
+            height: 7rem;
+            @apply flex justify-between w-full items-center p-5 #{'!important'}
+        }
+      
+
+        // // shared-header-section: have h-14 is 56px
+        .receptionist-dashbord-body,
+        .no-data {
+            height: calc(100dvh - 9rem) !important; // 56px(layout) + 16px(padding-y) + 56px is 144px
+            @apply overflow-hidden #{'!important'};
+        }
+
+     
+        .receptionist-dashbord-body {
+            .receptionist-dashbord-data {
+                height: calc(100dvh - 12rem);
+                @apply overflow-auto px-4 pt-4 #{'!important'};
+            }
+        }
+    }
+}
+
+.cart-section{
+    @apply flex border-b-2 mx-2 border-slate-100;
+
+    .cart-container{
+        height: 18rem !important;
+        min-width: 44rem !important;
+        max-width: 68rem !important;
+        width: 68rem !important;
+        @apply bg-white dark:bg-opacity-5 rounded-2xl p-2 #{'!important'}
+    }
+    .cart-container-data{
+        @apply flex p-4 w-full gap-4 #{'!important'}
+    }
+    
+    
+}
+
+
+.cart-container-chart{
+    height: 29rem !important;
+    @apply bg-white dark:bg-opacity-5 min-w-[44rem] max-w-[68rem] w-[68rem] rounded-2xl py-2 #{'!important'}
+}
+
+.receptionist-dashbord-data{
+   
+  
+  
+
+    .cart-container-statistic{
+        height: 25rem !important;
+        @apply bg-white dark:bg-opacity-5 min-w-[30rm] rounded-2xl p-2 #{'!important'}
+    }
+    
+    
+
+    .cart-container-data-chart{
+        @apply flex px-4 w-full gap-4 #{'!important'}
+    }
+    .cart-container-table{
+        @apply px-4 w-full #{'!important'}
+    }
+}
+
+.cart-container-header{
+    height: 4rem;
+    @apply flex items-center justify-between px-6 #{'!important'}
+}
+
+.state-item{
+    max-width: 24rem;
+    width: 19rem;
+    min-width: 14rem;
+    height: 19rem ;
+    max-height: 10rem;
+    @apply flex mb-4 dark:bg-slate-950 bg-slate-100 items-center gap-3 p-7 rounded-2xl  #{'!important'};
+
+    .item-icon{
+        width: 64px;
+        height: 64px;
+        @apply  flex justify-center items-center rounded-full   #{!important};
+    }
+
+    .item-text{
+        @apply flex flex-col;
+    }
+}
+
+.dashbord-avatar {
+    @apply rounded-full border-2 border-blue-600 min-w-[75px] max-w-[75px] min-h-[75px] max-h-[75px] object-cover #{'!important'};
+}
+
+.student-avatar {
+    @apply rounded-full border border-blue-600 min-w-[45px] max-w-[45px] min-h-[45px] max-h-[45px] object-cover #{'!important'};
+}
+
+
+::ng-deep .sm-chart{
+    .barchart {
+        height: 400px !important;
+        width: 50% !important;
+    }
+    
+}

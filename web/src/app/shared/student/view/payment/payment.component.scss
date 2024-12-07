@@ -1,0 +1,122 @@
+
+.view-student-data {
+    height: calc(100dvh - 9rem) !important;
+}
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+
+.md-shared-header-section {
+    @apply flex min-h-20 max-h-20 items-center justify-between pl-4 pr-2.5 #{'!important'}
+}
+
+
+::ng-deep .mdc-tab{
+    font-size: large;
+}
+
+
+.list-student-data {
+    .student-avatar {
+      @apply rounded-full border border-blue-600 min-w-[45px] max-w-[45px] min-h-[45px] max-h-[45px] object-cover #{'!important'}
+    }
+
+    .mat-mdc-header-cell {
+      font-size: 1rem !important;
+      color: #0f172a !important;
+      padding: 0.5rem !important;
+      @apply dark:text-white #{'!important'}
+    }
+
+    .mat-mdc-cell {
+      padding: 0.5rem !important;
+    }
+
+    .mat-column-code {
+      min-width: 20rem;
+      text-align: left;
+    }
+
+    .mat-column-sex {
+      min-width: 12rem;
+      width: 12rem;
+      max-width: 12rem;
+      text-align: left;
+    }
+
+    .mat-column-campus {
+      min-width: 12rem;
+      width: 12rem;
+      max-width: 12rem;
+      text-align: left;
+    }
+
+    .mat-column-class {
+      min-width: 12rem;
+      width: 12rem;
+      max-width: 12rem;
+      text-align: left;
+    }
+
+    .mat-column-date {
+      min-width: 15rem;
+      width: 15rem;
+      max-width: 15rem;
+      text-align: left;
+    }
+
+    .mat-column-action {
+      width: 2rem;
+      text-align: right;
+    }
+
+    .mat-header-row {
+      background-color: #f1f5f9; // Light background for header
+      @apply border-b border-gray-200;
+    }
+
+    .mat-row {
+      &:nth-child(odd) {
+        background-color: #f9f9f9; // Light color for odd rows
+      }
+
+      &:nth-child(even) {
+        background-color: #ffffff; // White for even rows
+      }
+
+      &:hover {
+        background-color: #f0f0f0; // Hover color
+      }
+    }
+
+    .mat-icon-button {
+      color: #007bff;
+      &:hover {
+        color: #0056b3;
+      }
+    }
+
+    .mat-menu {
+      .mat-menu-item {
+        color: #0f172a;
+        &:hover {
+          background-color: #e0e0e0;
+        }
+      }
+    }
+}
+
+::ng-deep .mat-accordion {
+
+  .mat-expansion-panel {
+      margin-bottom: 24px;
+      border-radius: 0px !important;
+      transition: box-shadow 225ms cubic-bezier(0.4, 0.0, 0.2, 1);
+      @apply shadow #{'!important'};
+
+    }
+
+}
+
+

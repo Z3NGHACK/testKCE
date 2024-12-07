@@ -1,0 +1,84 @@
+version: "3.8"
+services: 
+
+    #===================================>> Database
+    postgres: 
+        image: postgres:16
+        container_name: sms-db-v1
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "8001:5432"
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: pw@2024
+            POSTGRES_DB: sms
+        volumes:
+            - ./db:/var/lib/postgresql/data
+        networks:
+            - sms
+     # ===============================>> pgAdmin
+    db-tool:
+        image: dpage/pgadmin4
+        container_name: sms-pgadmin-v1
+        restart: always
+        ports:
+            - "8002:80"
+        environment:
+            PGADMIN_DEFAULT_EMAIL: postgres@camcyber.com
+            PGADMIN_DEFAULT_PASSWORD: pw@2024
+        volumes:
+            - ./pgadmin:/var/lib/pgadmin
+        networks:
+            - sms
+    #==============================================>> API
+    api: 
+        container_name: sms-api-v1
+        restart: unless-stopped
+        build: 
+            context: ./api/.
+            dockerfile: Dockerfile
+        command: npm run start:dev
+        ports:
+            - "8003:1000"
+        environment: 
+            APP: sms
+            PORT: 1000
+            #==========================>> DB Config
+            DB_CONNECTION: postgres
+            DB_HOST: postgres
+            DB_PORT: 5432
+            DB_USERNAME: postgres
+            DB_PASSWORD: pw@2024
+            DB_DATABASE: sms
+
+            #==========================>> JWT
+            JWT_SECRET: 'havsbdbfhvahksdblfjbh'
+            JWT_EXPIRES: '1w'
+
+            #==========================>> File
+            FILE_BASE_URL:    https://file-v4-api.uat.camcyber.com
+            FILE_KEY     :    c21zOmtjZUAyMDI0
+            FILE_USERNAME:    sms
+            FILE_PASSWORD:    kce@2024
+
+        volumes:
+            - ./api/src:/myapp/src
+        networks: 
+            - sms
+
+    #==============================================>> WEb
+    web: 
+        container_name: sms-web-v1
+        build:
+            context: ./web/.
+            dockerfile: Dockerfile
+            args:
+                - API_BASE_URL=http://localhost:8003/api
+                - FILE_BASE_URL=https://file-v4-api.uat.camcyber.com/
+        ports:
+            - "8004:80"
+        networks: 
+            - sms
+networks: 
+    sms:

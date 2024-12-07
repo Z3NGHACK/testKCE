@@ -1,0 +1,39 @@
+<div mat-dialog-title>
+    <span class="text-2xl"
+        >ឆ្នាំសិក្សា {{ data?.year }} / {{ data?.item?.branch_name }}</span
+    >
+</div>
+
+<mat-dialog-content class="border-t w-[800px]">
+    <p class="py-5 text-center text-2xl text-black">របាយការណ៍ប្រតិបត្តិការណ៏</p>
+    <div *ngIf="!loading" class="w-full border border-t-1 border-x-0 border-b-0">
+        <div class="w-full" *ngFor="let list of listing">
+            <div class="flex justify-start items-center h-13 border border-b-1 border-x-0 border-t-0 px-3">
+                <span class=" text-xl text-black">{{list.name}}</span>
+            </div>
+            <div class="w-full h-max">
+                <table class="w-full">
+                    <thead>
+                        <th class="h-14 w-10 text-center text-lg text-black">ល.រ</th>
+                        <th class="h-14 text-left text-lg text-black pl-3">ថ្នាក់</th>
+                        <th class="h-14 w-20 text-right text-lg text-black">សិស្សសរុប</th>
+                        <th class="h-14 w-15 text-right pr-3 text-lg text-black">ស្រី</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let grade of list.grades;let i=index;"  class="px-4"   [class.bg-[#f3f4f5]]="(i + 1) % 2 == 1">
+                            <td class="h-12 w-10 text-center">{{i+1}}</td>
+                            <td class="h-12 text-left text-black pl-3">{{grade.name}}</td>
+                            <td class="h-12 w-20 text-right">{{grade.total_student}}</td>
+                            <td class="h-12 w-15 text-right pr-3">{{grade.total_girl}}</td>
+                        </tr>
+                        <tr>
+                            <td class="h-12 text-right text-black  " colspan="2">សរុប :</td>
+                            <td class="h-12 w-20 text-right">{{list.total_student}}</td>
+                            <td class="h-12 w-15 text-right pr-3">{{list.total_girl}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>

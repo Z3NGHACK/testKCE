@@ -1,0 +1,94 @@
+.list-student-section {
+    height: calc(100dvh - 3.5rem) !important; // 56px is header of layout
+    @apply overflow-hidden p-4 #{'!important'};
+
+    .list-student-container {
+        height: calc(100dvh - 5.5rem) !important; // 56px(layout) + 32px(padding-y) is 88px
+        @apply bg-white dark:bg-opacity-5 rounded-xl overflow-hidden  #{'!important'};
+
+        // shared-header-section: have h-14 is 56px
+        .list-student-body,
+        .no-data {
+            height: calc(100dvh - 9rem) !important; // 56px(layout) + 16px(padding-y) + 56px is 144px
+            @apply overflow-hidden border-t mx-4 #{'!important'};
+        }
+
+        // paginatino: have h-12 is 48px
+        .list-student-body {
+            @apply overflow-auto #{'!important'};
+            .list-student-data {
+                height: calc(100dvh - 9rem); //9rem + 3rem is 192px
+                @apply overflow-y-auto overflow-x-hidden px-4 #{'!important'};
+            }
+        }
+    }
+
+}
+
+
+.header-section{
+    height: 80px;
+    @apply flex flex-1 items-center px-2 font-medium justify-between border-b border-slate-100 #{'!important'};
+}
+
+
+::ng-deep .mat-button-toggle-group{
+    border: 1px solid !important;
+    @apply rounded-full bg-slate-100 border-slate-100  #{'!important'};
+
+    .mat-button-toggle{
+        width: 8rem !important;
+        @apply px-3 rounded-none #{'!important'};
+    }
+
+    .mat-button-toggle:nth-child(2){
+        @apply border-y border-slate-100 #{'!important'};
+    }
+
+
+}
+
+.branches {
+    display: flex;
+    flex-direction: column;
+  }
+  
+.branch-names {
+    display: flex;
+    font-weight: bold;
+} 
+  
+.cell{
+    height: 54px;
+    @apply p-3 #{'!important'};
+}
+  
+.branch-n-o{
+    width: 5rem !important;
+    min-width: 5rem !important;
+    @apply flex items-center justify-center #{'!important'}
+
+}
+
+.branch-header-academic{
+    width: 15rem !important;
+    min-width: 15rem !important;
+    @apply flex items-center justify-start #{'!important'}
+
+}
+
+.cell-total{
+    min-width: 10rem !important;
+    width: 10rem !important;
+    @apply mr-10 flex items-center justify-end #{'!important'}
+}
+
+.cell-branch{
+    @apply w-full px-2 flex items-center justify-end #{'!important'}
+}
+
+.branch-total-academic{
+    width: 20rem !important;
+    min-width: 20rem !important;
+    @apply flex items-center justify-end #{'!important'}
+}

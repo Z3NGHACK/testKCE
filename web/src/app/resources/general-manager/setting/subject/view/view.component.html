@@ -1,0 +1,162 @@
+<div mat-dialog-title  class="shared-header-section">
+  <!-- header of student detail -->
+  <div class="flex flex-1 items-center font-medium"> 
+      <div class="flex items-center ">
+          <span class="text-3xl font-semibold text-gray-600 -mb-0.5"> មើលប្រភេទកម្មវិធីសិក្សា </span>
+      </div>
+  </div>
+  <div class="flex items-center gap-4">
+      <button mat-icon-button class="flex items-center border" (click)="closeDialog()" >
+          <mat-icon class="icon-size-6 -mb-0.5" svgIcon="mat_outline:close" />
+      </button>
+  </div>      
+</div>
+<mat-dialog-content class="view-system-content relative overflow-x-hidden">
+    <div class="absolute right-0.5 top-2">
+      <button mat-icon-button class="flex items-center border" (click)="udpate()" >
+          <mat-icon class="icon-size-6 -mb-0.5" svgIcon="feather:edit" />
+      </button>
+    </div> 
+    <div class=" flex flex-col items-center gap-4 h-50 min-h-50">
+      <img [src]="fileUrl + data?.icon" class="language-icon pt-4" alt="{{ data?.name }}" />
+      <span class="text-4xl font-bold text-black dark:text-white">{{ data?.name }}</span>
+    </div>
+
+    <!-- Header: Star Icon, Text, and Add Button -->
+    <div class="flex h-24 min-h-24 w-full justify-between items-center border-y">
+      <div class="flex items-center gap-3 pl-4">
+        <mat-icon class="icon-size-6" svgIcon="heroicons_outline:star"></mat-icon>
+        <span class="text-xl font-semibold text-black dark:text-white">ប្រព័ន្ធបញ្ចូលពិន្ទុ</span>
+      </div>
+      <div class="right-content">
+        <button mat-button
+          class="helpers-mat-button-sm px-2"
+          (click)="addRate()"
+        >
+          <mat-icon class="icon-size-6" svgIcon="heroicons_outline:plus"></mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Table Section for Existing Rates -->
+    <table mat-table [dataSource]="dataSource" *ngIf="dataSource.data.length > 0" class="custom-table">
+
+      <!-- Index Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> ល.រ </th>
+        <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+      </ng-container>
+
+      <!-- Grade Column -->
+      <ng-container matColumnDef="grade">
+        <th mat-header-cell *matHeaderCellDef> និទេ្ទស </th>
+        <td mat-cell *matCellDef="let element">{{ element.grade }}</td>
+      </ng-container>
+
+      
+      <!-- Range Column -->
+      <ng-container matColumnDef="range">
+        <th mat-header-cell *matHeaderCellDef> ពិន្ទុមធ្យមភាគ </th>
+        <td mat-cell *matCellDef="let element">{{ element.from| number: '1.2-2' }} - {{ element.to | number: '1.2-2'}}</td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions" stickyEnd>
+        <th mat-header-cell *matHeaderCellDef class="z-10"></th>
+        <td mat-cell *matCellDef="let data" class="text-end">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon class="icon-size-6" svgIcon="mat_outline:more_vert"></mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="editRate(data)">
+                    <mat-icon class="icon-size-5 text-gray-500" svgIcon="feather:edit"></mat-icon>
+                    <span class="text-lg text-gray-500">កែប្រែ</span>
+                </button>
+                <button mat-menu-item (click)="deleteRate(data.id)">
+                    <mat-icon class="icon-size-5 text-red-400"
+                        svgIcon="mat_solid:delete_outline"></mat-icon>
+                    <span class="text-lg text-red-400">លុប</span>
+                </button>
+            </mat-menu>
+            
+        </td>
+    </ng-container>
+
+      <!-- Header and Row Definitions -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <div *ngIf="dataSource.data.length === 0" class="flex flex-col view-file-data justify-center items-center mb-4">
+      <mat-icon class="icon-size-16" svgIcon="toc"></mat-icon>
+      <span class="text-lg -mt-4">គ្មានទិន្នន័យ</span>
+    </div>
+
+
+    <div class="flex h-24 min-h-24 w-full justify-between items-center border-y">
+      <div class="flex items-center gap-3 pl-4">
+        <mat-icon class="icon-size-6" svgIcon="heroicons_outline:star"></mat-icon>
+        <span class="text-xl font-semibold text-black dark:text-white">ប្រភេទមុខវិជ្ជា</span>
+      </div>
+      <div class="right-content">
+        <button mat-button
+          class="helpers-mat-button-sm px-2"
+          (click)="createSubject()"
+        >
+          <mat-icon class="icon-size-6" svgIcon="heroicons_outline:plus"></mat-icon>
+        </button>
+      </div>
+    </div>
+    <table mat-table [dataSource]="SubjectdataSource" *ngIf="SubjectdataSource.data.length > 0" class="custom-table">
+
+      <!-- Index Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> ល.រ </th>
+        <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+      </ng-container>
+
+      <!-- subject Column -->
+      <ng-container matColumnDef="subject">
+        <th mat-header-cell *matHeaderCellDef> មុខវិជ្ជា </th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions" stickyEnd>
+        <th mat-header-cell *matHeaderCellDef class="z-10"></th>
+        <td mat-cell *matCellDef="let data" class="text-end">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon class="icon-size-6" svgIcon="mat_outline:more_vert"></mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="editSubject(data)">
+                    <mat-icon class="icon-size-5 text-gray-500" svgIcon="feather:edit"></mat-icon>
+                    <span class="text-lg text-gray-500">កែប្រែ</span>
+                </button>
+                <button mat-menu-item (click)="deleteEachSubject(data.id)">
+                    <mat-icon class="icon-size-5 text-red-400"
+                        svgIcon="mat_solid:delete_outline"></mat-icon>
+                    <span class="text-lg text-red-400">លុប</span>
+                </button>
+            </mat-menu>
+            
+        </td>
+    </ng-container>
+
+      <!-- Header and Row Definitions -->
+      <tr mat-header-row *matHeaderRowDef="SubjectdisplayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: SubjectdisplayedColumns;"></tr>
+    </table>
+    <div *ngIf="SubjectdataSource.data.length === 0" class="flex flex-col view-file-data justify-center items-center mb-4">
+      <mat-icon class="icon-size-16" svgIcon="toc"></mat-icon>
+      <span class="text-lg -mt-4">គ្មានទិន្នន័យ</span>
+    </div>
+  
+</mat-dialog-content> 
+
+
+<mat-dialog-actions>
+
+</mat-dialog-actions>
+
+
+

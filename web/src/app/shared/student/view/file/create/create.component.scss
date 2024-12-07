@@ -1,0 +1,38 @@
+
+::ng-deep .mat-mdc-dialog-content.mdc-dialog__content {
+    height: 70vh !important;
+    min-height: 70vh !important;
+}
+
+/* For small screens (less than 600px in height) */
+@media (max-height: 500px) {
+    ::ng-deep .mat-mdc-dialog-content.mdc-dialog__content {
+        min-height: 61vh !important;
+    }
+}
+@media  (min-height: 550px) and (max-height: 600px) {
+    ::ng-deep .mat-mdc-dialog-content.mdc-dialog__content {
+        min-height: 78vh !important;
+    }
+}
+
+/* For medium screens (between 600px and 900px in height) */
+@media (min-height: 600px) and (max-height: 900px) {
+    ::ng-deep .mat-mdc-dialog-content.mdc-dialog__content {
+        min-height: 79vh !important;
+    }
+}
+
+/* For larger screens (greater than 900px in height) */
+@media (min-height: 900px) {
+    ::ng-deep .mat-mdc-dialog-content.mdc-dialog__content {
+        height: 85vh !important;
+        min-height: 85vh !important;
+    }
+}
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+    height: 100dvh;
+    border-radius: 0px !important;
+    padding: 0.5rem;
+}

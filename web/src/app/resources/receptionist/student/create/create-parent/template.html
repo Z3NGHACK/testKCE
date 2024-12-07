@@ -1,0 +1,111 @@
+ <div mat-dialog-title class="shared-header-section" *ngIf="!loading">
+    <div *ngIf="updateParent.part" class=" w-full text-start text-2xl">បង្កើតអាណាព្យាបាល</div>
+    <div *ngIf="!updateParent.part" class=" w-full text-start text-2xl">{{updateParent?.parent?.name ? 'កែសម្រួលប្រវត្តិរូប':'បង្កើតប្រវត្តិរូប' }}</div>
+    <mat-icon
+    [mat-dialog-close]="false"
+        class="text-current icon-size-7 cursor-pointer"
+        [svgIcon]="'heroicons_solid:x-mark'"
+    ></mat-icon>
+</div>
+
+<mat-dialog-content class="border-t w-[600px]" *ngIf="!loading">
+    <form class="grid grid-cols-1  md-form-field-appearance-outline" [formGroup]="parent">
+
+        <div class="grid grid-cols-1 sm:grid-cols-1 gap-4 mt-4">
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>ឈ្មោះ</mat-label>
+                <input matInput formControlName="name" placeholder="បញ្ចូលឈ្មោះ">
+                <mat-error>សូមបញ្ចូលឈ្មោះ</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-1 gap-4">
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>មុខរបរ</mat-label>
+                <input matInput formControlName="job" placeholder="បញ្ចូលមុខរបរ">
+                <mat-error>សូមបញ្ចូលមុខរបរ</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-1 gap-4">
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>ត្រូវជា</mat-label>
+                <input matInput formControlName="relation" placeholder="បញ្ចូលត្រូវជា">
+                <mat-error>សូមបញ្ចូលត្រូវជា</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-1 gap-4">
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>លេខទូរសព្ទទី​ ១</mat-label>
+                <input matInput formControlName="phone1" placeholder="បញ្ចូលលេខទូរសព្ទទី​ ១" (keyup)="[oncheckPhone(),validatePhone1Input($event)]">
+                <mat-error *ngIf="parent.get('phone1').hasError('samePhone')">
+                    លេខទូរសព្ទទី​ ២ មិនត្រូវដូច លេខទូរសព្ទទី​ ១
+                  </mat-error>
+                <mat-error *ngIf="parent.get('phone1').hasError('required')">សូមបញ្ចូលលេខទូរសព្ទទី​ ១</mat-error>
+                <mat-error *ngIf="parent.get('phone1').hasError('pattern')">លេខទូរសព្ទទី​ ១ មិនត្រឹមត្រូវ</mat-error>
+                <mat-error *ngIf="parent.get('phone1').hasError('invalidPhoneNumber')">
+                    លេខទូរសព្ទប្រើរួចរាល់
+                  </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-1 gap-4">
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>លេខទូរសព្ទទី​ ២</mat-label>
+                <input matInput formControlName="phone2" placeholder="បញ្ចូលលេខទូរសព្ទទី​ ២" (keyup)="[oncheckPhone2(),validatePhone2Input($event)]">
+                  <mat-error *ngIf="parent.get('phone2').hasError('phone2Invalid')">
+                    លេខទូរសព្ទទី​ ២ មិនត្រូវដូច លេខទូរសព្ទទី​ ១
+                  </mat-error>
+                  <mat-error *ngIf="parent.get('phone2').hasError('invalidPhoneNumber')">
+                    លេខទូរសព្ទប្រើរួចរាល់
+                  </mat-error>
+                <mat-error *ngIf="parent.get('phone2').hasError('pattern')">លេខទូរសព្ទទី​ ២ មិនត្រឹមត្រូវ</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-1 gap-4">
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>អុីម៉ែល</mat-label>
+                <input matInput formControlName="email" placeholder="បញ្ចូលអុីម៉ែល">
+            </mat-form-field>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-1 gap-4">
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Telegram</mat-label>
+                <input matInput formControlName="telegram" placeholder="បញ្ចូល Telegram">
+            </mat-form-field>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-1 gap-4">
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>ហ្វេសប៊ុក</mat-label>
+                <input matInput formControlName="facebook" placeholder="បញ្ចូលហ្វេសប៊ុក">
+            </mat-form-field>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-1 gap-4">
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>អាសាយដ្ឋាន</mat-label>
+                <input matInput formControlName="address" placeholder="បញ្ចូលអាសាយដ្ឋាន">
+                <mat-error>សូមបញ្ចូលអាសាយដ្ឋាន</mat-error>
+            </mat-form-field>
+        </div>
+
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="flex items-center justify-between gap-2">
+    <!-- <button [class.helpers-mat-button-red]="parent.enabled" class="helpers-mat-button-md bg-red-500" [disabled]="parent.disabled"
+        mat-flat-button [mat-dialog-close]="false">
+        <span class="text-white">បោះបង់</span>
+    </button> -->
+    <div></div>
+
+    <button class="helpers-mat-button-md min-w-20 bg-blue-900" mat-flat-button (click)="submit()"
+        [disabled]="parent.invalid || parent.disabled">
+        <span *ngIf="!parent.disabled" class="text-white">រក្សាទុក</span>
+        <mat-progress-spinner *ngIf="parent.disabled" [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
+    </button>
+</mat-dialog-actions>

@@ -1,0 +1,47 @@
+<form class="md-form-field-appearance-outline flex flex-col w-full h-full motion-ease-spring-smooth motion-preset-fade-sm motion-duration-200 " [formGroup]="signInForm" #signInNgForm="ngForm">
+    <!-- form description -->
+    <div class="my-4 flex flex-col gap-2 items-center">
+        <div class="p-3 bg-gray-100 w-fit h-fit flex items-center justify-center rounded-full scale-90 md:scale-100">
+            <mat-icon class="icon-size-10 text-black" [svgIcon]="'mat_outline:phone_android'"></mat-icon>
+        </div>
+        <p class="text-xl md:text-2xl w-fit font-bold"> {{ 'Login' }} </p>s
+        <p class="text-center text-wrap text-sm sm:text-lg">
+            សូមបញ្ចូលលេខទូរស័ព្ទដៃ ដែលត្រូវបានចុះបញ្ជីដើម្បីបង្កើតគណនី។
+            ប្រសិនបើលោកអ្នកមិនទាន់មានគណនីសូមធ្វើការទាក់ទងអគ្គលេខាធីការដ្ឋាន ឬរដ្ឋបាលប្រចាំអង្គភាពរបស់លោកអ្នក។
+        </p>
+    </div>
+    <!-- username field -->
+    <mat-form-field class="w-full thick-border">
+        <mat-label>លេខទូរស័ព្ទ</mat-label>
+        <input id="username" matInput [formControlName]="'username'" />
+        @if (signInForm.get('username').hasError('required')) {
+        <mat-error> សូមបញ្ចូលលេខទូរស័ព្ទ </mat-error>
+        }
+        @if (signInForm.get('username').hasError('username')) {
+        <mat-error>
+            Please enter a valid username address
+        </mat-error>
+        }
+        <button mat-icon-button type="button" matSuffix>
+            <mat-icon class="icon-size-5 " [svgIcon]="'mat_outline:phone_android'"></mat-icon>
+        </button>
+
+    </mat-form-field>
+    <div class="flex flex-col gap-2">
+        <button class="helper-mat-button-large mt-5 w-full bg-[#09235f] rounded-lg text-center"
+            mat-flat-button [color]="'primary'" [disabled]="signInForm.invalid || isLoading" (click)="signIn()">
+
+            <span *ngIf="!signInForm.disabled" class="text-white text-center"> បន្ទាប់ </span>
+            
+            <mat-progress-spinner *ngIf="isLoading" [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
+            
+        </button>
+        <span class="text-center">ឬ</span>
+        <button class="helper-mat-button-large w-full rounded-lg bg-white ring-1 ring-[#09235f] text-center"
+            mat-flat-button [color]="'primary'" [disabled]="signInForm.disabled" [routerLink]="['/auth/sign-up']">
+            
+            <span *ngIf="!signInForm.disabled" class="text-[#09235f] text-center"> បង្កើតគណនី </span>
+            
+        </button>
+    </div>
+</form>

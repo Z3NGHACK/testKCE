@@ -1,0 +1,288 @@
+<div mat-dialog-title class="shared-header-section relative">
+    <!-- header of student detail -->
+    <div class="flex w-150 flex-1 items-center justify-start font-medium">
+        <div class="flex items-center ml-1.5">
+            <span class="text-3xl font-semibold text-gray-600 -mb-0.5">
+                របាយការណ៍ខែ {{ data.data.name }} របស់​ {{ data.title }}
+            </span>
+        </div>
+    </div>
+    <!-- header of student detail -->
+    <mat-icon
+        (click)="closeDialog()"
+        class="text-current icon-size-7 cursor-pointer"
+        [svgIcon]="'heroicons_solid:x-mark'"
+    ></mat-icon>
+</div>
+<div class="view-student-content">
+    <div class="lg-shared-header-section header-section">
+        <div class="flex items-center ml-1.5 gap-4">
+            <span class="text-2xl font-semibold text-gray-600 -mb-0.5">
+                ការវាយតម្លៃប្រចាំខែ
+            </span>
+        </div>
+    </div>
+    <div class="w-150 py-2">
+        <div class="flex h-[3rem] items-center pl-4">
+            <div class="flex gap-3 items-center">
+                <mat-icon
+                    class="icon-size-6 -mb-0.5"
+                    svgIcon="mat_outline:front_hand"
+                />
+                <span class="text-xl w-28"> សីលធម៌ </span>
+            </div>
+            <mat-slider
+                class="w-full"
+                min="0"
+                max="5"
+                [(ngModel)]="sliderValue1"
+                [ngClass]="getSliderClass(sliderValue2)"
+            >
+                <input
+                    matSliderThumb
+                    [value]="sliderValue2"
+                    readonly
+                    style="pointer-events: none"
+                />
+            </mat-slider>
+            <span
+                [ngClass]="getGradeColor(sliderValue2)"
+                class="w-36 text-center text-xl"
+            >
+                {{ getGrade(sliderValue2) }}
+            </span>
+        </div>
+        <div class="flex h-[3rem] items-center pl-4">
+            <div class="flex gap-3 items-center">
+                <mat-icon
+                    class="icon-size-6 -mb-0.5"
+                    svgIcon="mat_outline:clean_hands"
+                />
+                <span class="text-xl w-28"> អនាម័យ </span>
+            </div>
+            <mat-slider
+                class="w-full"
+                min="0"
+                max="5"
+                [(ngModel)]="sliderValue2"
+                [ngClass]="getSliderClass(sliderValue2)"
+            >
+                <input
+                    matSliderThumb
+                    [value]="sliderValue2"
+                    readonly
+                    style="pointer-events: none"
+                />
+            </mat-slider>
+            <span
+                [ngClass]="getGradeColor(sliderValue2)"
+                class="w-36 text-center text-xl"
+            >
+                {{ getGrade(sliderValue2) }}
+            </span>
+        </div>
+        <div class="flex h-[3rem] items-center pl-4">
+            <div class="flex gap-3 items-center">
+                <mat-icon
+                    class="icon-size-6 -mb-0.5"
+                    svgIcon="mat_solid:music_note"
+                />
+                <span class="text-xl w-28"> សិល្បៈ និងតន្ត្រី </span>
+            </div>
+            <mat-slider
+                class="w-full"
+                min="0"
+                max="5"
+                [(ngModel)]="sliderValue3"
+                [ngClass]="getSliderClass(sliderValue3)"
+            >
+                <input
+                    matSliderThumb
+                    [value]="sliderValue3"
+                    readonly
+                    style="pointer-events: none"
+                />
+            </mat-slider>
+            <span
+                [ngClass]="getGradeColor(sliderValue3)"
+                class="w-36 text-center text-xl"
+            >
+                {{ getGrade(sliderValue3) }}
+            </span>
+        </div>
+        <div class="flex h-[3rem] items-center pl-4">
+            <div class="flex gap-3 items-center">
+                <mat-icon
+                    class="icon-size-6 -mb-0.5"
+                    svgIcon="heroicons_mini:computer-desktop"
+                />
+                <span class="text-xl w-28"> កុំព្យូទ័រ </span>
+            </div>
+            <mat-slider
+                class="w-full"
+                min="0"
+                max="5"
+                [(ngModel)]="sliderValue4"
+                [ngClass]="getSliderClass(sliderValue4)"
+            >
+                <input
+                    matSliderThumb
+                    [value]="sliderValue4"
+                    readonly
+                    style="pointer-events: none"
+                />
+            </mat-slider>
+            <span
+                [ngClass]="getGradeColor(sliderValue4)"
+                class="w-36 text-center text-xl"
+            >
+                {{ getGrade(sliderValue4) }}
+            </span>
+        </div>
+    </div>
+    <div class="w-150 border-t" *ngIf="!loading">
+        <!-- <mat-tab-group class="mat-tab-flex-grow">
+            <mat-tab *ngFor="let language of languages" class="">
+
+            </mat-tab>
+        </mat-tab-group> -->
+        <div class="flex h-[10rem] justify-between items-center gap-2">
+            <div
+                class="flex bg-slate-100 items-center gap-3 p-4 rounded-2xl w-[15rem] h-[7rem]"
+            >
+                <div
+                    class="flex justify-center items-center rounded-full bg-yellow-100 w-[56px] h-[56px]"
+                >
+                    <mat-icon
+                        class="icon-size-6 -mb-0.5 text-yellow-600"
+                        svgIcon="feather:user"
+                    />
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-3xl">{{
+                        languages[0].attendent.total_p
+                    }}</span>
+                    <span class="text-lg"> អវត្តមានមានច្បាប់ </span>
+                </div>
+            </div>
+            <div
+                class="flex bg-slate-100 items-center gap-3 p-4 rounded-2xl w-[15rem] h-[7rem]"
+            >
+                <div
+                    class="flex justify-center items-center rounded-full bg-red-100 w-[56px] h-[56px]"
+                >
+                    <mat-icon
+                        class="icon-size-6 -mb-0.5 text-red-600"
+                        svgIcon="feather:user-x"
+                    />
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-3xl">
+                        {{ languages[0].attendent.total_a }}
+                    </span>
+                    <span class="text-lg"> អវត្តមានអត់ច្បាប់ </span>
+                </div>
+            </div>
+            <div
+                class="flex bg-slate-100 items-center gap-3 p-4 rounded-2xl w-[15rem] h-[7rem]"
+            >
+                <div
+                    class="flex justify-center items-center rounded-full bg-blue-100 w-[56px] h-[56px]"
+                >
+                    <mat-icon
+                        class="icon-size-6 -mb-0.5 text-blue-600"
+                        svgIcon="feather:plus"
+                    />
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-3xl">{{
+                        languages[0].attendent.total_anp
+                    }}</span>
+                    <span class="text-lg"> អវត្តមានសរុប </span>
+                </div>
+            </div>
+        </div>
+        <div class="view-subject-data">
+            <table mat-table [dataSource]="dataSources[languages[0].id]">
+                <ng-container matColumnDef="position">
+                    <th mat-header-cell *matHeaderCellDef>ល.រ</th>
+                    <td mat-cell *matCellDef="let item; let i = index">
+                        <div class="flex gap-2">
+                            <span class="text-gray-500">{{ i + 1 }} </span>
+                        </div>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="subject">
+                    <th mat-header-cell *matHeaderCellDef>មុខវិជ្ជា</th>
+                    <td mat-cell *matCellDef="let item">
+                        <span class="text-gray-500">{{ item?.name }} </span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="point">
+                    <th mat-header-cell *matHeaderCellDef>ពិន្ទុ</th>
+                    <td mat-cell *matCellDef="let item">
+                        <span class="truncate text-gray-500"
+                            >{{ item.score }}
+                        </span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="action" stickyEnd>
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let item">
+                        <button mat-icon-button [matMenuTriggerFor]="menu">
+                            <mat-icon
+                                class="icon-size-6"
+                                svgIcon="mat_outline:more_vert"
+                            ></mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button
+                                mat-menu-item
+                                (click)="viewDetail(item, languages[0].id)"
+                            >
+                                <mat-icon
+                                    class="icon-size-5 text-gray-500"
+                                    svgIcon="heroicons_outline:eye"
+                                ></mat-icon>
+                                <span class="text-lg text-gray-500">មើល</span>
+                            </button>
+                        </mat-menu>
+                    </td>
+                </ng-container>
+
+                <tr
+                    mat-header-row
+                    *matHeaderRowDef="displayedColumns; sticky: true"
+                ></tr>
+                <tr
+                    mat-row
+                    *matRowDef="let row; columns: displayedColumns"
+                ></tr>
+            </table>
+        </div>
+        <div class="flex justify-end gap-2 px-15">
+            <div class="flex-col">
+                <div class="flex justify-end text-gray-500">
+                    <span class="text-xl">ពិន្ទុសរុប ៖</span>
+                    <span class="text-xl w-20 text-center">{{
+                        languages[0].total_score
+                    }}</span>
+                </div>
+                <div class="flex justify-end text-gray-500 pt-2">
+                    <span class="text-xl">មធ្យមភាគប្រចាំខែ ៖</span>
+                    <span class="text-xl w-20 text-center">{{
+                        languages[0].avg
+                    }}</span>
+                </div>
+                <div class="flex justify-end text-gray-500 pt-2">
+                    <span class="text-xl">និទ្តេស ៖</span>
+                    <span class="text-xl w-20 text-center">{{
+                        languages[0].grade
+                    }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<mat-dialog-actions> </mat-dialog-actions>

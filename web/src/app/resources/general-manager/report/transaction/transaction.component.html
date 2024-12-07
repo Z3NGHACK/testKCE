@@ -1,0 +1,123 @@
+<section class="list-student-section w-full" >
+    <div class="list-student-container">
+        <!-- header of student  -->
+        <div class="shared-header-section">
+            <div class="flex flex-1 items-center font-medium">
+                <div class="flex items-center">
+                    <mat-icon class="icon-size-5 -mt-0.5" svgIcon="heroicons_outline:home" />
+                </div>
+                <div class="flex items-center ml-2.5">
+                    <span class="text-lg text-gray-600 -mb-0.5"> របាយការណ៍ </span>
+                </div>
+                <div class="flex items-center">
+                    <mat-icon class="-mb-0.5" [svgIcon]="'mat_solid:chevron_right'">
+                    </mat-icon>
+                    <span class="text-lg text-gray-600 -mb-0.5"> ប្រតិបត្តិការ </span>
+                </div>
+            </div>
+        </div>
+        <div class="list-student-body ">
+            <div class="lg-shared-header-section header-section">
+                <div class="flex items-center ml-1.5 gap-2">
+                    <mat-icon class="icon-size-7" svgIcon="mdi:account-school-outline" />
+                    <span class="text-xl font-semibold -mb-0.5"> ចំនួនសិស្ស </span>
+                </div>
+                <mat-button-toggle-group [(value)]="selectedFilter" (change)="updateValue($event.value)">
+                    <mat-button-toggle value="សរុប"> សរុប </mat-button-toggle>
+                    <mat-button-toggle value="ប្រុស"> ប្រុស </mat-button-toggle>
+                    <mat-button-toggle value="ស្រី"> ស្រី </mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+            <div class="branches pt-1">
+                <div class="branch-names border-b ">
+                    <div class="branch-n-o cell">
+                        <span class="font-semibold">ល.រ</span>
+                    </div>
+                    <div class="branch-header-academic cell">
+                        <span class="font-semibold">
+                            ឆ្នាំសិក្សា
+                        </span>
+                    </div>
+                    <div class="w-full flex">
+                        <div *ngFor="let data of branch; let i = index" class="cell-branch">
+                            <span class="font-semibold"> {{ data.branch_name }}</span>
+                        </div>
+                    </div>
+                    <div class="cell-total cell">
+                        <span class="font-semibold">សរុប</span>
+                    </div>
+                </div>
+                <div class="branch-names border-b" *ngFor="let item of data ; let i = index">
+                    <div class="branch-n-o cell">
+                        {{ i + 1 }}
+                    </div>
+                    <div class="branch-header-academic cell">
+                        {{item.academic_name}}
+                    </div>
+                    <div *ngFor="let branch of item.branches ;" class="cell-branch">
+                        <span *ngIf="selectedFilter === 'សរុប'">
+                            {{ branch.n_student }} ( {{branch.n_female_student}})
+                        </span>
+                        <span *ngIf="selectedFilter === 'ប្រុស'">
+                             {{branch.n_male_student}}
+                        </span>
+                        <span *ngIf="selectedFilter === 'ស្រី'">
+                            {{branch.n_female_student}}
+                       </span>
+                    </div>
+                    <div class="cell-total cell">
+                        <span *ngIf="selectedFilter === 'សរុប'">
+                            {{item.total_students}} ({{item.total_female_students}})
+                        </span>
+                        <span *ngIf="selectedFilter === 'ប្រុស'">
+                             {{item.total_male_students}}
+                        </span>
+                        <span *ngIf="selectedFilter === 'ស្រី'">
+                            {{item.total_female_students}}
+                        </span>
+                    </div>     
+                </div>
+                <div class="branch-names ">
+                    <div class="branch-total-academic cell">
+                        <span class="">
+                            សរុប ៖
+                        </span>
+                    </div>
+                    <div class="w-full flex">
+                        <div *ngFor="let data of branch; let i = index" class="cell-branch">
+                            <span *ngIf="selectedFilter === 'សរុប'" class="font-semibold">
+                                {{ data.total_students }} ({{data.total_female_students}})
+                            </span>
+                            <span *ngIf="selectedFilter === 'ប្រុស'" class="font-semibold">
+                                {{ data.total_male_students}}
+                            </span>
+                            <span *ngIf="selectedFilter === 'ស្រី'" class="font-semibold">
+                                {{data.total_female_students}}
+                           </span>
+                           
+                        </div>
+                    </div>
+                    <div class="cell-total cell">
+                        <span *ngIf="selectedFilter === 'សរុប'" class="font-semibold">
+                            {{this.total_students}} ({{this.total_female_students}})
+                        </span>
+                        <span *ngIf="selectedFilter === 'ប្រុស'" class="font-semibold">
+                            {{ this.total_male_students}}
+                        </span>
+                        <span *ngIf="selectedFilter === 'ស្រី'" class="font-semibold">
+                            {{this.total_female_students}}
+                       </span>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="f-full h-[600px]">
+                <helper-line-chart-V2
+                [data]="lineChartData"
+                [categories]="xAxisCategories">
+                </helper-line-chart-V2>
+            </div>
+              
+        </div>
+    </div>
+</section>

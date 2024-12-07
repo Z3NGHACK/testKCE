@@ -1,0 +1,89 @@
+<div mat-dialog-title  class="shared-header-section">
+    <!-- header of student detail -->
+    <div class="flex flex-1 items-center font-medium"> 
+        <div class="flex items-center ml-1.5">
+            <span class="text-3xl font-semibold text-gray-600 -mb-0.5"> កែប្រែឆ្នាំសិក្សា </span>
+        </div>
+    </div>
+    <div class="flex items-center gap-4">
+        <button mat-icon-button class="flex items-center" (click)="closeDialog()" >
+            <mat-icon class="icon-size-6 mt-1 mr-2" svgIcon="mat_outline:close" />
+        </button>
+    </div>      
+</div>
+<mat-dialog-content class="w-[600px] h-full">
+    <form [formGroup]="firstFormGroup" class="md-form-field-appearance-outline" >
+        <div class="view-student-detail-data relative flex flex-col items-center overflow-auto border-t-2 pt-5 "> 
+            <div class="w-full pt-4 overflow-hidden flex flex-col ">
+                <mat-form-field appearance="outline">
+                    <mat-label>ឆ្នាំសិក្សា</mat-label>
+                    <input matInput 
+                           formControlName="name" 
+                           placeholder="ចាប់ផ្តើម-បញ្ចប់ "
+                           pattern="\d{4}-\d{4}" 
+                           (input)="onInputChange($event)">
+                    <mat-error *ngIf="firstFormGroup.get('name').hasError('required')">
+                        សូមបញ្ចូលឆ្នាំសិក្សា
+                    </mat-error>
+                    <mat-error *ngIf="firstFormGroup.get('name').hasError('invalidFormat')">
+                        សូមបញ្ចូលឆ្នាំសិក្សាក្នុងទ្រង់ទ្រាយ "YYYY-YYYY"
+                    </mat-error>
+                </mat-form-field>
+                
+                <span class="text-lg pb-2 pl-1">ឆមាសទី 1</span>
+                <div class="grid grid-cols-2 gap-4">
+
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label class="text-md">ចាប់ផ្តើម</mat-label>
+                        <input id="s1_start" matInput [matDatepicker]="s1_Picker" formControlName="s1_start" placeholder="ចាប់ផ្តើម">
+                        <mat-datepicker-toggle matIconSuffix [for]="s1_Picker"></mat-datepicker-toggle>
+                        <mat-datepicker #s1_Picker startView="multi-year" (monthSelected)="setMonthAndYear($event, s1_Picker, 's1_start')"></mat-datepicker>
+                      </mat-form-field>
+
+                      <mat-form-field appearance="outline" class="w-full">
+                        <mat-label class="text-md">បញ្ចប់</mat-label>
+                        <input id="s1_end" matInput [matDatepicker]="s1_Picker_end" formControlName="s1_end" placeholder="បញ្ចប់">
+                        <mat-datepicker-toggle matSuffix [for]="s1_Picker_end"></mat-datepicker-toggle>
+                        <mat-datepicker #s1_Picker_end startView="multi-year" (monthSelected)="setMonthAndYear($event, s1_Picker_end, 's1_end')"></mat-datepicker>
+                      </mat-form-field>
+                      
+                </div>  
+                <span class="text-lg pb-2 pl-1">ឆមាសទី 2</span>
+                <div class="grid grid-cols-2 gap-4">
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label class="text-md">ចាប់ផ្តើម</mat-label>
+                        <input id="s2_start" matInput [matDatepicker]="s2_Picker" formControlName="s2_start" placeholder="ចាប់ផ្តើម">
+                        <mat-datepicker-toggle matSuffix [for]="s2_Picker"></mat-datepicker-toggle>
+                        <mat-datepicker #s2_Picker startView="multi-year" (monthSelected)="setMonthAndYear($event, s2_Picker, 's2_start')" ></mat-datepicker>
+                      </mat-form-field>
+                      
+                      <mat-form-field appearance="outline" class="w-full">
+                        <mat-label class="text-md">បញ្ចប់</mat-label>
+                        <input id="s2_end" matInput [matDatepicker]="s2_Picker_end" formControlName="s2_end" placeholder="បញ្ចប់">
+                        <mat-datepicker-toggle matSuffix [for]="s2_Picker_end"></mat-datepicker-toggle>
+                        <mat-datepicker #s2_Picker_end  startView="multi-year" (monthSelected)="setMonthAndYear($event, s2_Picker_end , 's2_end')"   ></mat-datepicker>
+                      </mat-form-field>
+                </div>
+                <mat-form-field>
+                    <mat-label>ស្ថានភាព</mat-label>
+                    <mat-select formControlName="academics_status_id">
+                        <mat-option *ngFor="let data of status" [value]="data.id">
+                            {{data.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div class="flex items-center justify-end">
+                    <button mat-button [disabled]="!firstFormGroup.valid" (click)="onSubmit()" class="bg-blue-700 px-6 py-3 rounded-xl hover:bg-blue-500 cursor-pointer">
+                        <span class="text-xl text-white">រួចរាល់</span>
+                    </button>
+                </div>
+             
+            </div>
+            
+        </div>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+
+</mat-dialog-actions>

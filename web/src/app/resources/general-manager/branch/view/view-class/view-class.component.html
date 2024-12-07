@@ -1,0 +1,101 @@
+<div mat-dialog-title class="shared-header-section">
+    <!-- header of student detail -->
+    <div class="absolute left-2">
+        <button
+            mat-icon-button
+            class="flex items-center border"
+            (click)="closeDialog()"
+        >
+            <mat-icon
+                class="icon-size-6 -mb-0.5"
+                svgIcon="feather:arrow-left"
+            />
+        </button>
+    </div>
+    <div class="flex-1 flex items-center justify-center   ml-1.5">
+        <span class="text-3xl font-semibold text-gray-600 -mb-0.5">
+            {{ user?.general?.grade_name }}
+        </span>
+    </div>
+
+</div>
+<div class="view-student-content">
+    <div class="flex h-[3rem] items-center pl-4">
+        <div class="flex gap-3 items-center ">
+            <mat-icon class="icon-size-6 -mb-0.5" svgIcon="heroicons_mini:calendar-days" />
+        </div>
+        <span class="text-xl "> ៖ </span>
+        <span class="text-xl pl-3 text-gray-500">
+            {{user?.general?.academic_name }}
+        </span>
+    </div>
+    <div class="flex h-[3rem] items-center pl-4">
+        <div class="flex gap-3 items-center">
+            <mat-icon class="icon-size-6 -mb-0.5" svgIcon="mdi:account-school-outline" />
+        </div>
+        <span class="text-xl "> ៖ </span>
+        <span class="text-xl pl-3 " [ngClass]="{'text-green-500': data.status?.id == 1,'text-red-500': data.status?.id == 2,'text-orange-500': data.status?.id == 3}">
+            {{user?.general?.total_students}} (ស្រី {{user?.general?.total_female_students}})
+        </span>
+    </div>
+    
+    <div class="flex h-[3rem] items-center pl-4">
+        <div class="flex gap-3 items-center">
+            <mat-icon class="icon-size-6 -mb-0.5" svgIcon="mat_outline:door_front" />
+        </div>
+        <span class="text-xl "> ៖ </span>
+        <span class="text-xl pl-3 text-gray-500">
+            {{user?.general?.room_name}}
+        </span>
+    </div>
+
+    <div class="lg-shared-header-section header-section">
+        <div class="flex items-center ml-1.5 gap-4">
+            <mat-icon class="icon-size-8 -mb-0.5" svgIcon="mdi:account-school-outline" />
+            <span class="text-2xl font-semibold text-gray-600 -mb-0.5"> សិស្ស </span>
+        </div>
+    </div>    
+    <div class="view-file2-data">
+        <table mat-table [dataSource]="dataSource" *ngIf="dataSource.data.length > 0" >
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef class="h-0"> ឈ្មោះ </th>
+                <td mat-cell *matCellDef="let item">
+                    <div class="flex">
+                        <img class="student-avatar" [src]="fileUrl + item.avatar" alt="avatar">
+                        <div class="flex flex-col justify-center pl-2">
+                            <strong class="text-lg font-medium text-slate-900 dark:text-white">{{ item?.name}}</strong>
+                            <span class="text-sm text-gray-500">{{ item?.code }}</span>
+                        </div>
+                    </div>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="action" stickyEnd>
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let item">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon class="icon-size-6" svgIcon="mat_outline:more_vert"></mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item>
+                            <mat-icon class="icon-size-5 text-gray-500"
+                                svgIcon="heroicons_outline:eye"></mat-icon>
+                            <span class="text-lg text-gray-500">មើល</span>
+                        </button>
+                      
+                    </mat-menu>
+                </td>
+            </ng-container>
+            
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <!-- <div *ngIf="dataSource.data.length === 0" class="flex flex-col view-file-data justify-center items-center mb-4">
+            <mat-icon class="icon-size-16" svgIcon="toc"></mat-icon>
+            <span class="text-lg -mt-4">គ្មានទិន្នន័យ</span>
+        </div> -->
+    </div>
+ 
+</div>
+<mat-dialog-actions>
+    
+</mat-dialog-actions>

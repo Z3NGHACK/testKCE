@@ -1,0 +1,86 @@
+<section class="list-payment-section">
+    <div class="list-payment-container" @fadeInCustom>
+        <!-- body of student  -->
+        <div class="list-payment-body ">
+            <!-- data  -->
+            <div class="list-payment-data" *ngIf="data.length > 0">
+                <table mat-table [dataSource]="dataSource">
+                    <!-- Column for Invoice Code (N.0) -->
+                    <ng-container matColumnDef="N.0">
+                      <th mat-header-cell *matHeaderCellDef> ល.រ </th>
+                      <td mat-cell *matCellDef="let item">
+                        <div class="flex">
+                          <div class="flex flex-col justify-center pl-2">
+                            <strong class="text-lg font-medium text-slate-900 dark:text-white">{{ item?.code }}</strong>
+                          </div>
+                        </div>
+                      </td>
+                    </ng-container>
+                  
+                    <!-- Column for Total Price (price) -->
+                    <ng-container matColumnDef="total_price">
+                      <th mat-header-cell *matHeaderCellDef> ចំនួនប្រាក់ </th>
+                      <td mat-cell *matCellDef="let item">
+                        <span class="text-gray-500">{{ item?.total_price | currency }}</span>
+                      </td>
+                    </ng-container>
+                  
+                    <!-- Column for Receiver Name (recive) -->
+                    <ng-container matColumnDef="receiver_name">
+                      <th mat-header-cell *matHeaderCellDef> ទទួលដោយ </th>
+                      <td mat-cell *matCellDef="let item">
+                        <span class="text-gray-500">{{ item?.receiver_name }}</span>
+                      </td>
+                    </ng-container>
+                  
+                    <!-- Column for Created At Date (date) -->
+                    <ng-container matColumnDef="date">
+                      <th mat-header-cell *matHeaderCellDef> កាលបរិច្ឆេទ </th>
+                      <td mat-cell *matCellDef="let item">
+                        <span class="text-gray-500">{{ item?.created_at | date: 'dd-MM-y' }}</span>
+                      </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef> ស្ថានភាព </th>
+                        <td mat-cell *matCellDef="let item">
+                          <span [ngClass]="getStatusClass(item.status)" class="text-gray-500">{{ item?.status }}</span>
+                        </td>
+                    </ng-container>
+                  
+                    <!-- Column for Action (action) -->
+                    <ng-container matColumnDef="action" stickyEnd>
+                      <th mat-header-cell *matHeaderCellDef></th>
+                      <td mat-cell *matCellDef="let item">
+                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="More options">
+                          <mat-icon class="icon-size-6" svgIcon="mat_outline:more_vert"></mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                          <button mat-menu-item (click)="viewPayment(item)" aria-label="View payment">
+                            <mat-icon class="icon-size-5 text-gray-500" svgIcon="heroicons_outline:eye"></mat-icon>
+                            <span class="text-lg text-gray-500"> មើល </span>
+                          </button>
+                        </mat-menu>                        
+                      </td>
+                    </ng-container>
+                  
+                    <!-- Header and Row Definitions -->
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  </table>
+                
+            </div>
+            <div *ngIf="data.length === 0" class="flex flex-col justify-center items-center mb-4">
+              <mat-icon class="icon-size-16" svgIcon="toc"></mat-icon>
+              <span class="text-lg -mt-4">គ្មានទិន្នន័យ</span>
+            </div>
+            <mat-paginator class="flex justify-end overflow-hidden"*ngIf="data.length > 0" [pageSizeOptions]="[15, 30, 45]"
+                  [showFirstLastButtons]="true" [pageIndex]="page - 1" [length]="total" [pageSize]="limit"
+                  (page)="onPageChanged($event)">
+                </mat-paginator>
+            <!-- pagination -->
+          
+        </div>
+    </div>
+</section>

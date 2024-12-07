@@ -1,0 +1,382 @@
+<div mat-dialog-title  class="shared-header-section">
+    <!-- header of student detail -->
+    <div class="flex flex-1 items-center font-medium">
+        <div class="flex items-center ml-1.5">
+            <span class="text-3xl font-semibold text-gray-600 -mb-0.5"> {{ data.kh_name }} </span>
+        </div>
+    </div>
+    <div class="flex items-center gap-4">
+        <button mat-icon-button class="flex items-center" >
+            <mat-icon class="icon-size-6 mt-1" svgIcon="mat_outline:print" />
+        </button>
+        <button mat-icon-button class="flex items-center" (click)="closeDialog()" >
+            <mat-icon class="icon-size-6 mt-1" svgIcon="mat_outline:close" />
+        </button>
+    </div>
+</div>
+<mat-dialog-content class="w-[600px] h-full border-t-2">
+    <div class="view-student-detail-data relative flex flex-col items-center ">
+        <button mat-icon-button class="top-6 right-6 absolute" (click)="update(this.data)">
+            <mat-icon class="icon-size-6 " svgIcon="mat_outline:edit_note"   />
+        </button>
+        <div class="w-64 scale-75 h-64">
+            <helper-portrait class="pfp"  [title]="'បញ្ចូលរូបភាព'" [src]="fileUrl + data?.avatar" ></helper-portrait>
+        </div>
+        <div class="w-full pt-2">
+            <!-- data -->
+            <div class="flex flex-1 px-4 items-center font-medium h-[2.7rem] bg-slate-100">
+                <div class="flex items-center ml-1.5 w-2/5 justify-between">
+                    <div class="flex items-center gap-3">
+                        <mat-icon class="icon-size-6 mt-1" svgIcon="feather:user" />
+                        <span class="text-lg -mb-0.5 text-gray-900"> ឈ្មោះជាភាសាខ្មែរ </span>
+                    </div>
+                    <span class="text-lg -mb-0.5 text-gray-900"> ៖ </span>
+                </div>
+                <span class="text-lg -mb-0.5 pl-4 text-gray-500"> {{ data?.kh_name }}</span>
+            </div>
+
+            <div class="flex flex-1 px-4 items-center font-medium h-[2.7rem]">
+                <div class="flex items-center ml-1.5 w-2/5 justify-between">
+                    <div class="flex items-center gap-3">
+                        <mat-icon class="icon-size-6 mt-1" svgIcon="feather:user" />
+                        <span class="text-lg -mb-0.5 text-gray-900"> ឈ្មោះជាភាសាឡាតាំង </span>
+                    </div>
+                    <span class="text-lg -mb-0.5 text-gray-900"> ៖ </span>
+                </div>
+                <span class="text-lg -mb-0.5 pl-4 text-gray-500"> {{ data?.en_name }}</span>
+            </div>
+
+            <div class="flex flex-1 px-4 items-center font-medium h-[2.7rem] bg-slate-100">
+                <div class="flex items-center ml-1.5 w-2/5 justify-between">
+                    <div class="flex items-center gap-3">
+                        <mat-icon class="icon-size-6 mt-1" svgIcon="feather:user" />
+                        <span class="text-lg -mb-0.5 text-gray-900"> ភេទ </span>
+                    </div>
+                    <span class="text-lg -mb-0.5 text-gray-900"> ៖ </span>
+                </div>
+                <span class="text-lg -mb-0.5 pl-4 text-gray-500"> {{ data?.sex }}</span>
+            </div>
+
+            <div class="flex flex-1 px-4 items-center font-medium h-[2.7rem]">
+                <div class="flex items-center ml-1.5 w-2/5 justify-between">
+                    <div class="flex items-center gap-3">
+                        <mat-icon class="icon-size-6 mt-1" svgIcon="mat_outline:cake" />
+                        <span class="text-lg -mb-0.5 text-gray-900"> ថ្ងៃខែ​ឆ្នាំ​កំណើត </span>
+                    </div>
+                    <span class="text-lg -mb-0.5 text-gray-900"> ៖ </span>
+                </div>
+                    <span class="text-lg -mb-0.5 pl-4 text-gray-500"> {{ data?.dob | date:'MM-dd-yyyy' }}</span>
+            </div>
+
+            <div class="flex flex-1 pt-2.5 pb-1 px-4 font-medium min-h-[2.7rem] bg-slate-100">
+                <div class="flex ml-1.5 min-w-[210px] w-2/5 justify-between">
+                    <div class="flex gap-3">
+                        <mat-icon class="icon-size-6" svgIcon="mat_outline:location_on" />
+                        <span class="text-lg -mb-0.5 text-gray-900"> ទី​កន្លែង​កំណើត </span>
+                    </div>
+                    <span class="text-lg -mb-0.5 text-gray-900"> ៖ </span>
+                </div>
+                <span class="text-lg max-w-[324px] min-w-[324px] mb-2 pl-4 text-gray-500 break-words"> {{ data?.pob }}</span>
+            </div>
+
+            <div class="flex flex-1 px-4 items-center font-medium h-[2.7rem]">
+                <div class="flex items-center ml-1.5 w-2/5 justify-between">
+                    <div class="flex items-center gap-3">
+                        <mat-icon class="icon-size-6 mt-1" svgIcon="heroicons_outline:academic-cap" />
+                        <span class="text-lg -mb-0.5 text-gray-900"> ថ្នាក់ </span>
+                    </div>
+                    <span class="text-lg -mb-0.5 text-gray-900"> ៖ </span>
+                </div>
+                <span  class="text-lg -mb-0.5 pl-4 text-gray-500"> {{ data?.grade }}</span>
+            </div>
+
+            <div class="flex flex-1 px-4 items-center font-medium h-[2.7rem] bg-slate-100">
+                <div class="flex items-center ml-1.5 w-2/5 justify-between">
+                    <div class="flex items-center gap-3">
+                        <mat-icon class="icon-size-6 mt-1" svgIcon="heroicons_outline:identification" />
+                        <span class="text-lg -mb-0.5 text-gray-900"> អត្តលេខសិស្ស </span>
+                    </div>
+                    <span class="text-lg -mb-0.5 text-gray-900"> ៖ </span>
+                </div>
+                <span class="text-lg -mb-0.5 pl-4 text-gray-500"> {{ data?.code }}</span>
+            </div>
+
+            <div class="flex flex-1 px-4 items-center font-medium h-[2.7rem]">
+                <div class="flex items-center ml-1.5 w-2/5 justify-between">
+                    <div class="flex items-center gap-3">
+                        <mat-icon class="icon-size-6 mt-1" svgIcon="feather:calendar" />
+                        <span class="text-lg -mb-0.5 text-gray-900"> ថ្ងៃចុះឈ្មោះចូលរៀន </span>
+                    </div>
+                    <span class="text-lg -mb-0.5 text-gray-900"> ៖ </span>
+                </div>
+                    <span  class="text-lg -mb-0.5 pl-4 text-gray-500"> {{ data?.register_date | date:'MM-dd-yyyy' }}</span>
+            </div>
+
+
+            <div class="flex flex-1 px-4 items-center font-medium h-[2.7rem] bg-slate-100 mb-4">
+                <div class="flex items-center ml-1.5 w-2/5 justify-between">
+                    <div class="flex items-center gap-3">
+                        <mat-icon class="icon-size-6 mt-1" svgIcon="feather:calendar" />
+                        <span class="text-lg -mb-0.5 text-gray-900"> ឆ្នាំសិក្សា </span>
+                    </div>
+                    <span class="text-lg -mb-0.5 text-gray-900"> ៖ </span>
+                </div>
+                    <span  class="text-lg -mb-0.5 pl-4 text-gray-500"> {{ data?.languages[0]?.academic?.name }}</span>
+            </div>
+
+
+        </div>
+
+        <div class="flex items-center w-full border-t h-20  gap-4 border border-x-0">
+            <div class="flex justify-start items-center w-full">
+                <mat-icon class="icon-size-6 mt-1" svgIcon="heroicons_outline:user-group" />
+                <span class="text-lg font-medium text-gray-600 -mb-0.5">ព័ត៌មានគ្រួសារ</span>
+            </div>
+            <div
+                                                class="w-[30px] h-[30px] border border-gray-400 rounded-full flex items-center justify-center cursor-pointer"
+                                                (click)="createParentDialog()"
+                                            >
+                                                <mat-icon
+                                                    class="icon-size-6"
+                                                    svgIcon="heroicons_outline:plus"
+                                                ></mat-icon>
+                                            </div>
+        </div>
+
+        <ng-container *ngFor="let item of data?.parents; let i = index;" class="border-t ">
+            <div class="relative w-140 mt-5 flex border rounded-xl min-h-32 max-h-32 overflow-hidden">
+                <div class="min-h-32 max-h-32 min-w-6 max-w-6 bg-blue-500 text-white ">
+                    <div class="min-h-32 max-h-32 -rotate-90 flex items-center justify-center">
+                        {{item.relation}}
+                    </div>
+                </div>
+                <div class="flex flex-col w-full">
+                    <div class="flex w-full pt-1">
+                        <div class="text-lg pl-3 ">{{item.name}}</div>
+                        <div *ngIf="item.existparent" class="flex flex-col ml-4">
+                            <div class="text-green-500" style="font-size: 12px;">
+                                Existed Parent!
+                            </div>
+                            <div class="text-yellow-500" style="font-size: 12px;">
+                                Note: This existed parent information can't be update in here!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h-full w-full grid grid-cols-2 pt-2">
+                        <div class="grid grid-rows-3 pl-2 ">
+                            <div class="w-full flex h-4 items-center">
+                                <div class="h-full flex items-center">
+                                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_outline:device-phone-mobile'"></mat-icon>
+                                </div>
+                                <div class="w-full flex justify-start items-center gap-2 pl-2 ">
+                                    <div class="flex items-center gap-2 ">
+                                        <span class=" text-[16px] leading-8">
+                                            {{item.phone1}}
+                                        </span>
+                                        <span *ngIf="item.phone2" class="ml-2 text-[16px] leading-8">
+                                            /  {{item.phone2}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-full flex h-4 items-center">
+                                <div class="h-full flex items-center">
+                                    <mat-icon class="icon-size-5" [svgIcon]="'feather:send'"></mat-icon>
+                                </div>
+                                <div class="w-full flex justify-start items-center gap-2 pl-2 ">
+                                    <div class="flex items-center gap-2 ">
+                                        <span *ngIf="item.telegram" class="truncate text-[15px] leading-8">
+                                            {{item.telegram}}
+                                        </span>
+                                        <span *ngIf="!item.telegram" class="truncate text-[15px]">
+                                            N/A
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-full flex h-4 items-center">
+                                <div class="h-full flex items-center ">
+                                    <mat-icon class="icon-size-5"  [svgIcon]="'mat_outline:location_on'"></mat-icon>
+                                </div>
+                                <div class="w-full flex justify-start items-center gap-2 pl-2 ">
+                                    <div class="flex items-center gap-2 ">
+                                        <span *ngIf="item.address" class=" text-[16px] leading-8">
+                                            {{item.address}}
+                                        </span>
+                                        <span *ngIf="!item.address" class=" text-[16px] leading-8">
+                                            N/A
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-rows-3 pl-2 ">
+                            <div class="w-full flex h-4 items-center">
+                                <div class="h-full flex items-center">
+                                    <mat-icon class="icon-size-5" [svgIcon]="'feather:mail'"></mat-icon>
+                                </div>
+                                <div class="w-full flex justify-start items-center gap-2 pl-2 ">
+                                    <div class="flex items-center gap-2 ">
+                                        <span *ngIf="item.email" class="truncate text-[15px] leading-8">
+                                            {{item.email}}
+                                        </span>
+                                        <span *ngIf="!item.email" class="truncate text-[15px]">
+                                            N/A
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-full flex h-4 items-center">
+                                <div class="h-full flex items-center">
+                                    <mat-icon class="icon-size-5" [svgIcon]="'mdi:facebook'"></mat-icon>
+                                </div>
+                                <div class="w-full flex justify-start items-center gap-2 pl-2 ">
+                                    <div class="flex items-center gap-2 ">
+                                        <span *ngIf="item.facebook" class="truncate text-[15px] leading-8">
+                                            {{item.facebook}}
+                                        </span>
+                                        <span *ngIf="!item.facebook" class="truncate text-[15px]">
+                                            N/A
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-full flex h-4 items-center">
+                                <div class="h-full flex items-center ">
+                                    <mat-icon class="icon-size-5" [svgIcon]="'mdi:account-tie'"></mat-icon>
+                                </div>
+                                <div class="w-full flex justify-start items-center gap-2 pl-2 ">
+                                    <div class="flex items-center gap-2 ">
+                                        <span *ngIf="item.job" class=" text-[16px] leading-8">
+                                            {{item.job}}
+                                        </span>
+                                        <span *ngIf="!item.job" class=" text-[16px] leading-8">
+                                            N/A
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="grid grid">
+                        <div class=" ">
+                            <div class="">
+
+                                <div class="flex justify-between">
+
+                                </div>
+
+                                <div class="flex justify-between">
+                                    <div class="w-full h-full flex flex-col">
+                                        <div class="min-w-15 max-w-15 flex justify-start items-center">
+                                            <mat-icon class="icon-size-5" [svgIcon]="'feather:send'"></mat-icon>
+                                        </div>
+                                        <div class="w-full flex justify-start items-center gap-2 -ml-8">
+                                            <div class="flex items-center gap-2 min-w-26">
+                                                <span class="truncate text-[15px] leading-8">
+                                                    {{item.telegram}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex justify-between">
+                                    <div class="w-full flex">
+                                        <div class="min-w-15 max-w-15 flex justify-start items-center">
+                                            <mat-icon class="icon-size-5" [svgIcon]="'mat_outline:location_on'"></mat-icon>
+                                        </div>
+                                        <div class="w-full flex justify-start items-center gap-2 -ml-8">
+                                            <div class="flex items-center gap-2 min-w-26">
+                                                <span class="truncate text-[15px] leading-8">
+                                                    {{item.address}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="w-[40%] p-2">
+                            <div class="flex justify-between">
+                                <div class="w-full flex">
+                                    <div class="min-w-15 max-w-15 flex justify-start items-center">
+                                        <mat-icon class="icon-size-5" [svgIcon]="'feather:mail'"></mat-icon>
+                                    </div>
+                                    <div class="w-full flex justify-start items-center gap-2 -ml-8">
+                                        <div class="flex items-center gap-2 min-w-26">
+                                            <span class="truncate text-[15px] leading-8">
+                                                {{item.email}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-between">
+                                <div class="w-full flex">
+                                    <div class="min-w-15 max-w-15 flex justify-start items-center">
+                                        <mat-icon class="icon-size-5" [svgIcon]="'mdi:facebook'"></mat-icon>
+                                    </div>
+                                    <div class="w-full flex justify-start items-center gap-2 -ml-8">
+                                        <div class="flex items-center gap-2 min-w-26">
+                                            <span class="truncate text-[15px] leading-8">
+                                                {{item.facebook}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-between">
+                                <div class="w-full flex">
+                                    <div class="min-w-15 max-w-15 flex justify-start items-center">
+                                        <mat-icon [svgIcon]="'mdi:account-tie'"></mat-icon>
+                                    </div>
+                                    <div class="w-full flex justify-start items-center gap-2 -ml-8">
+                                        <div class="flex items-center gap-2 min-w-26">
+                                            <span class="truncate text-[15px] leading-8">
+                                                {{item.job}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+
+                    </div> -->
+                </div>
+                <div class="absolute right-0 top-12 flex items-center justify-end mr-4">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon class="icon-size-6" svgIcon="mat_outline:more_vert"></mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="updateParent(item)">
+                            <mat-icon class="icon-size-5 text-blue-500" svgIcon="heroicons_outline:pencil"></mat-icon>
+                            <span class="text-lg text-blue-500">កែប្រែ</span>
+                        </button>
+                        <!-- <button mat-menu-item (click)="deleteParent(item)">
+                            <mat-icon class="icon-size-5 text-red-500" svgIcon="heroicons_outline:trash"></mat-icon>
+                            <span class="text-lg text-red-500">លុប</span>
+                        </button> -->
+                    </mat-menu>
+                </div>
+            </div>
+
+
+
+
+        </ng-container>
+
+    </div>
+</mat-dialog-content>
+
+<!-- <mat-dialog-actions></mat-dialog-actions> -->

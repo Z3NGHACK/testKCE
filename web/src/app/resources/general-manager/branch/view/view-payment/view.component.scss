@@ -1,0 +1,44 @@
+::ng-deep .shared-header-section {
+    padding: 4px !important;
+    height: 4rem;
+}
+
+
+::ng-deep .mat-mdc-dialog-container {
+
+    .mdc-dialog__surface {
+        border-radius: 0px !important;
+        padding: 0.5rem;
+    }
+
+}
+.md-shared-header-section {
+    @apply flex min-h-20 max-h-20 items-center justify-between pl-4 pr-2.5 #{'!important'}
+}
+
+
+::ng-deep .mdc-tab{   
+    font-size: large;
+}
+
+
+
+::placeholder {
+    color: rgb(100 116 139) !important;
+}
+
+::-ms-input-placeholder {
+    color: rgb(100 116 139) !important;
+}
+.mat-mdc-dialog-content.mdc-dialog__content{
+    min-height: 85vh !important;
+}
+::ng-deep .noError {
+    .mat-mdc-form-field-subscript-wrapper {
+        height: 0px !important; 
+    }
+}
+
+::ng-deep .mat-mdc-tab-body-wrapper{
+    height: calc(100vh - 24rem);
+}

@@ -1,0 +1,42 @@
+<div mat-dialog-title class="shared-header-section border-b relative">
+        <!-- header of student  -->
+        <div class="flex flex-1 items-center font-medium"> 
+            <span class="text-3xl font-semibold text-gray-500 text-start -mb-0.5">{{data?.academic_name}}/ {{data.grade}}/ {{data?.level_name}}  / {{data?.schedule}}  </span>
+        </div>
+        <div class="absolute right-0 justify-end font-medium"> 
+            <button mat-icon-button class="flex items-center" (click)="back()" >
+                <mat-icon class="icon-size-6 mt-1" svgIcon="mdi:close"/>
+            </button>
+        </div>
+  
+</div>
+<div class="view-student-container" @fadeInCustom>          
+         <div class="view-student-body">
+             <!-- body of tabs -->
+             <mat-tab-group class="mat-tab-flex-grow" [dynamicHeight]="true" >
+                 <mat-tab label="ទូទៅ" >
+                    <Shared-class-room-general [id]="data?.id" [path]="path"></Shared-class-room-general>
+                 </mat-tab>
+
+                 <mat-tab label="សិស្ស">
+                    <Shared-class-room-student [id]="data?.id" [path]="path"></Shared-class-room-student>
+                 </mat-tab>
+
+                <mat-tab label="កាលវិភាគ">
+                    <Shared-classroom-schedule [id]="data?.id" [path]="path" ></Shared-classroom-schedule>
+                </mat-tab>
+                <mat-tab label="ការបង្រៀន"> 
+                    <shared-class-room-teaching [id]="data?.id" [path]="path"></shared-class-room-teaching>
+                </mat-tab>
+                <mat-tab label="របាយការណ៍"> 
+                    <shared-class-room-report [id]="data?.id" [path]="path"></shared-class-room-report>
+                </mat-tab>
+             </mat-tab-group>
+         </div>
+</div>
+<mat-dialog-actions>
+
+</mat-dialog-actions>
+
+ 
+ 

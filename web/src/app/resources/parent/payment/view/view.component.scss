@@ -1,0 +1,12 @@
+.mat-mdc-dialog-content {
+    display: block;
+    flex-grow: 1;
+    box-sizing: border-box;
+    margin: 0;
+    overflow: auto;
+    max-height: 75vh !important;
+}
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+    border-radius: 0px !important;
+    padding: 0.5rem;
+}

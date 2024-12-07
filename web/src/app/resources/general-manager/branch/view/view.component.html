@@ -1,0 +1,41 @@
+<section class="view-student-section w-screen">
+    <div class="view-student-container">
+         <div class="shared-header-section relative">
+             <!-- header of student  -->
+             <button mat-icon-button class="absolute left-2 mt-1 items-center" (click)="back()" >
+                <mat-icon class="icon-size-8 " svgIcon="mat_outline:chevron_left"/>
+            </button>
+             <div class="flex flex-1 items-center justify-center font-medium"> 
+                 
+                 <div class="flex items-center">
+                     <span class="text-3xl text-center font-semibold text-gray-600 -mb-0.5">សាលាអត្តរជាតិ ខេ​ សុី អុី {{name}} </span>
+                 </div>
+             </div>
+         </div>    
+         <div class="view-student-body">
+             <!-- body of tabs -->
+             <mat-tab-group class="mat-tab-flex-grow"  [dynamicHeight]="true">
+                
+                 <mat-tab label="ទូទៅ">
+                    <ng-template matTabContent>
+                      <general-manager-branch-general [id]="id"></general-manager-branch-general>
+                    </ng-template>
+                 </mat-tab>
+                 <mat-tab label="គ្រូបង្រៀន និងបុគ្គលិក">
+                        <branch-teacher-staff [id]="id"></branch-teacher-staff>
+                 </mat-tab>     
+                 <mat-tab label="ថ្នាក់រៀន"> 
+                    <general-manager-classroom [id]="id"></general-manager-classroom>
+                 </mat-tab>
+                 <mat-tab label="ការបង់ប្រាក់">
+                    <ng-template matTabContent>
+                        <general-manager-branch-payment [id]="id"></general-manager-branch-payment>
+                    </ng-template>
+                 </mat-tab> 
+                
+             </mat-tab-group>
+         </div>
+    </div>
+</section>
+ 
+ 

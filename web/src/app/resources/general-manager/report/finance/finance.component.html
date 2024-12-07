@@ -1,0 +1,111 @@
+<section class="list-student-section w-full" >
+    <div class="list-student-container">
+        <!-- header of student  -->
+        <div class="shared-header-section">
+            <div class="flex flex-1 items-center font-medium">
+                <div class="flex items-center">
+                    <mat-icon class="icon-size-5 -mt-0.5" svgIcon="heroicons_outline:home" />
+                </div>
+                <div class="flex items-center ml-2.5">
+                    <span class="text-lg text-gray-600 -mb-0.5"> របាយការណ៍ </span>
+                </div>
+                <div class="flex items-center">
+                    <mat-icon class="-mb-0.5" [svgIcon]="'mat_solid:chevron_right'">
+                    </mat-icon>
+                    <span class="text-lg text-gray-600 -mb-0.5"> ហិរញ្ញវត្ថុ </span>
+                </div>
+            </div>
+        </div>
+        <div class="list-student-body ">
+            <div class="lg-shared-header-section header-section">
+                <div class="flex items-center ml-1.5 gap-2">
+                    <mat-icon class="icon-size-6" svgIcon="mat_outline:attach_money" />
+                    <span class="text-xl font-semibold -mb-0.5"> ប្រាក់ចំណូល </span>
+                </div>
+                <mat-button-toggle-group [(value)]="selectedFilter" (change)="updateValue($event.value)">
+                    <mat-button-toggle value="ដុល្លារ"> ដុល្លារ </mat-button-toggle>
+                    <mat-button-toggle value="រៀល"> រៀល </mat-button-toggle>
+                </mat-button-toggle-group>
+                
+            </div>
+            <div class="branches pt-1">
+                <div class="branch-names border-b ">
+                    <div class="branch-n-o cell">
+                        <span class="font-semibold">ល.រ</span>
+                    </div>
+                    <div class="branch-header-academic cell">
+                        <span class="font-semibold">
+                            ឆ្នាំសិក្សា
+                        </span>
+                    </div>
+                    <div class="w-full flex">
+                        <div *ngFor="let data of branch; let i = index" class="cell-branch">
+                            <span class="font-semibold"> {{ data.branch_name }}</span>
+                        </div>
+                    </div>
+                    <div class="cell-total cell">
+                        <span class="font-semibold">សរុប</span>
+                    </div>
+                </div>
+                <div class="branch-names border-b" *ngFor="let item of data ; let i = index">
+                    <div class="branch-n-o cell">
+                        {{ i + 1 }}
+                    </div>
+                    <div class="branch-header-academic cell">
+                        {{item.academic_name}}
+                    </div>
+                    <div *ngFor="let branch of item.branches ;" class="cell-branch">
+                        <span *ngIf="selectedFilter === 'ដុល្លារ'">
+                            {{ branch.total_invoices | number: '1.0-0'}} 
+                        </span>
+                        <span *ngIf="selectedFilter === 'រៀល'">
+                             {{branch.total_invoices_in_riels | number: '1.0-0'}}
+                        </span>
+                       
+                    </div>
+                    <div class="cell-total cell">
+                        <span *ngIf="selectedFilter === 'ដុល្លារ'">
+                            {{item.total_price | number: '1.0-0'}}
+                        </span>
+                        <span *ngIf="selectedFilter === 'រៀល'">
+                             {{item.total_price_in_riels | number: '1.0-0'}}
+                        </span>
+                    </div>     
+                </div>
+                <div class="branch-names ">
+                    <div class="branch-total-academic cell">
+                        <span class="">
+                            សរុប ៖
+                        </span>
+                    </div>
+                    <div class="w-full flex">
+                        <div *ngFor="let data of branch; let i = index" class="cell-branch">
+                            <span *ngIf="selectedFilter === 'ដុល្លារ'" class="font-semibold">
+                                {{ data.total_invoices | number: '1.0-0'}} 
+                            </span>
+                            <span *ngIf="selectedFilter === 'រៀល'" class="font-semibold">
+                                {{ data.total_invoices_in_riels | number: '1.0-0'}}
+                            </span>
+                            
+                        </div>
+                    </div>
+                    <div class="cell-total cell">
+                        <span *ngIf="selectedFilter === 'ដុល្លារ'" class="font-semibold">
+                            {{this.total_invoices | number: '1.0-0'}}
+                        </span>
+                        <span *ngIf="selectedFilter === 'រៀល'" class="font-semibold">
+                            {{ this.total_invoices_in_riels | number: '1.0-0'}}
+                        </span>
+                       
+                    </div>
+                </div>
+            </div>
+            <div class="f-full h-[600px]">
+                <helper-line-chart-V2
+                [data]="lineChartData"
+                [categories]="xAxisCategories">
+                </helper-line-chart-V2>
+            </div>      
+        </div>
+    </div>
+</section>

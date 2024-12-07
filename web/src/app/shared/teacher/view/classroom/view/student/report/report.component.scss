@@ -1,0 +1,121 @@
+::ng-deep .mat-mdc-dialog-container {
+    .mdc-dialog__surface {
+        border-radius: 0px !important;
+        padding: 0.5rem;
+    }
+}
+
+.view-student-content {
+    width: 48rem;
+    @apply h-full pt-2 border-t-2 mx-2 #{'!important'};
+}
+
+::ng-deep .mat-mdc-dialog-component-host {
+    .mat-mdc-dialog-content {
+        padding: 0px !important;
+    }
+}
+.header-section {
+    height: 80px;
+    @apply flex flex-1 items-center px-2 font-medium justify-between border-b #{'!important'};
+}
+
+::ng-deep .mat-mdc-slider-visual-thumb {
+    display: none !important;
+}
+
+::ng-deep .mat-slider-thumb-label {
+    transform: rotate(45deg) !important;
+    background-color: #ffd740 !important;
+    border-radius: 50% 50% 0 !important;
+}
+/* In your component CSS file */
+::ng-deep .mat-mdc-slider .mdc-slider__track--inactive {
+    opacity: 0.24;
+    @apply bg-slate-300 #{'!important'};
+}
+
+::ng-deep .mdc-slider__track--active_fill {
+    @apply bg-red-500 border-red-500 #{'!important'};
+}
+
+::ng-deep .slider-orange .mdc-slider__track--active_fill {
+    @apply bg-orange-500 border-orange-500 #{'!important'};
+}
+
+::ng-deep .slider-green .mdc-slider__track--active_fill {
+    @apply bg-green-700 border-green-700 #{'!important'};
+}
+
+::ng-deep .slider-darkblue .mdc-slider__track--active_fill {
+    @apply bg-blue-900 border-blue-900 #{'!important'};
+}
+
+::ng-deep .slider-blue .mdc-slider__track--active_fill {
+    @apply bg-blue-500 border-blue-500 #{'!important'};
+}
+
+.view-table-content {
+    width: 48rem;
+    @apply h-full border-t mx-2 #{'!important'};
+}
+
+::ng-deep .view-subject-data {
+    @apply border-t #{'!important'};
+
+    .mat-mdc-header-cell {
+        height: 4rem !important;
+        font-size: 18px !important;
+        padding: 0 !important;
+        color: #0f172a !important;
+        z-index: 10 !important;
+        padding: 0.5rem !important;
+        @apply dark:text-white border-b-0 #{'!important'};
+    }
+
+    .mat-mdc-cell {
+        border: none;
+        height: 4rem !important;
+    }
+
+    .mdc-data-table__content tr:nth-child(odd) {
+        @apply bg-slate-100 hover:bg-slate-100 #{'!important'};
+    }
+
+    /* Style odd rows */
+    .mat-row:nth-child(odd) {
+        background-color: #f5f5f5; /* Light grey background for odd rows */
+    }
+
+    /* Style even rows */
+    .mat-row:nth-child(even) {
+        background-color: #ffffff; /* White background for even rows */
+    }
+
+    .mat-column-position {
+        min-width: 3rem;
+        width: 3rem !important;
+        max-width: 3rem;
+        text-align: left;
+    }
+
+    .mat-column-subject {
+        min-width: 26rem;
+        width: 20rem;
+        max-width: 20rem;
+        text-align: left;
+    }
+
+    .mat-column-point {
+        min-width: 9rem;
+        width: 9rem;
+        max-width: 9rem;
+        text-align: right;
+    }
+
+    .mat-column-action {
+        flex: none;
+        width: 2rem;
+        text-align: right;
+    }
+}

@@ -1,0 +1,78 @@
+::ng-deep .mat-mdc-dialog-container {
+    .mdc-dialog__surface {
+        border-radius: 0px !important;
+        padding: 0.5rem;
+    }
+}
+
+.view-student-content {
+    width: 48rem;
+    @apply h-full pt-2 border-t-2 mx-2 #{'!important'};
+}
+
+::ng-deep .mat-mdc-dialog-component-host {
+    .mat-mdc-dialog-content {
+        padding: 0px !important;
+    }
+}
+.header-section {
+    height: 80px;
+    @apply flex flex-1 items-center px-2 font-medium justify-between border-b #{'!important'};
+}
+
+::ng-deep .mat-mdc-slider-visual-thumb {
+    display: none !important;
+}
+
+::ng-deep .mat-slider-thumb-label {
+    transform: rotate(45deg) !important;
+    background-color: #ffd740 !important;
+    border-radius: 50% 50% 0 !important;
+}
+/* In your component CSS file */
+::ng-deep .mat-mdc-slider .mdc-slider__track--inactive {
+    opacity: 0.24;
+    @apply bg-slate-300 #{'!important'};
+}
+
+::ng-deep .mdc-slider__track--active_fill {
+    @apply bg-red-500 border-red-500 #{'!important'};
+}
+
+::ng-deep .slider-orange .mdc-slider__track--active_fill {
+    @apply bg-orange-500 border-orange-500 #{'!important'};
+}
+
+::ng-deep .slider-green .mdc-slider__track--active_fill {
+    @apply bg-green-700 border-green-700 #{'!important'};
+}
+
+::ng-deep .slider-darkblue .mdc-slider__track--active_fill {
+    @apply bg-blue-900 border-blue-900 #{'!important'};
+}
+
+::ng-deep .slider-blue .mdc-slider__track--active_fill {
+    @apply bg-blue-500 border-blue-500 #{'!important'};
+}
+
+.view-table-content {
+    width: 48rem;
+    @apply h-full border-t mx-2 #{'!important'};
+}
+
+::ng-deep .view-subject-data {
+    @apply border-t #{'!important'};
+    .semester {
+        @apply pt-2 #{!important};
+
+        .header-row {
+            height: 4rem;
+            @apply px-4 flex items-center #{!important};
+        }
+
+        .cell-row {
+            height: 4rem;
+            @apply px-4 flex items-center justify-between #{!important};
+        }
+    }
+}

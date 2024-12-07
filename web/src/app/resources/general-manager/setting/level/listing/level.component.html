@@ -1,0 +1,75 @@
+
+<section class="list-student-section w-full" >
+    <div class="list-student-container" @fadeInCustom>
+        <!-- header of student  -->
+        <div class="shared-header-section">
+            <div class="flex flex-1 items-center font-medium">
+                <div class="flex items-center">
+                    <mat-icon class="icon-size-5 -mt-0.5" svgIcon="heroicons_outline:home" />
+                </div>
+                <div class="flex items-center ml-2.5">
+                    <span class="text-lg text-gray-600 -mb-0.5"> ការកំណត់ </span>
+                </div>
+                <div class="flex items-center">
+                    <mat-icon class="-mb-0.5" [svgIcon]="'mat_solid:chevron_right'">
+                    </mat-icon>
+                    <span class="text-lg text-gray-600 -mb-0.5"> កម្រិតសិក្សា </span>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <button class="helpers-mat-button-sm px-2" mat-stroked-button (click)="create()">
+                    <mat-icon class="icon-size-4" svgIcon="heroicons_outline:plus" />
+                </button>
+            </div>
+        </div>
+        <!-- body of student  -->
+        <div class="list-student-body ">
+            <!-- data  -->
+            <div class="list-student-data">
+                <table mat-table [dataSource]="dataSource">
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef> កម្រិត </th>
+                        <td mat-cell *matCellDef="let data">
+                            <div class="flex">
+                                <div class="pl-0 mt-2">
+                                    <mat-icon class="icon-size-6 text-slate-500" svgIcon="heroicons_outline:academic-cap"></mat-icon>
+                                </div>
+                                <div class="flex flex-col justify-center pl-2">
+                                    <strong class="text-lg font-medium text-slate-900 dark:text-white">{{ data?.name }} </strong>
+                                </div>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="class">
+                        <th mat-header-cell *matHeaderCellDef class="z-10 text-end"> ចំនួនថ្នាក់ </th>
+                        <td mat-cell *matCellDef="let data" class="text-end">
+                            <span class="truncate w-20  ">{{ data?.n_class  }} </span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="action" stickyEnd>
+                        <th mat-header-cell *matHeaderCellDef class="z-10"></th>
+                        <td mat-cell *matCellDef="let data" class="text-end">
+                            <button mat-icon-button [matMenuTriggerFor]="menu">
+                                <mat-icon class="icon-size-6" svgIcon="mat_outline:more_vert"></mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item (click)="update(data)">
+                                    <mat-icon class="icon-size-5 text-gray-500" svgIcon="feather:edit"></mat-icon>
+                                    <span class="text-lg text-gray-500">កែប្រែ</span>
+                                </button>
+                                <button mat-menu-item (click)="delete(data)" *ngIf="data?.n_class <= 0 " >
+                                    <mat-icon class="icon-size-5 text-red-400"
+                                        svgIcon="mat_solid:delete_outline"></mat-icon>
+                                    <span class="text-lg text-red-400">លុប</span>
+                                </button>
+                            </mat-menu>
+                            
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,149 @@
+.list-student-section {
+    height: calc(100dvh - 3.5rem) !important; // 56px is header of layout
+    @apply overflow-hidden p-4 w-screen #{'!important'};
+
+    .list-student-container {
+        height: calc(100dvh - 5.5rem) !important; // 56px(layout) + 32px(padding-y) is 88px
+        @apply bg-white dark:bg-opacity-5 rounded-xl overflow-hidden #{'!important'};
+
+        // shared-header-section: have h-14 is 56px
+        .list-student-body,
+        .no-data {
+            height: calc(100dvh - 9rem) !important; // 56px(layout) + 16px(padding-y) + 56px is 144px
+            @apply overflow-hidden border-t mx-4 #{'!important'};
+        }
+
+        // paginatino: have h-12 is 48px
+        .list-student-body {
+            .list-student-data {
+                height: calc(100dvh - 9rem); //9rem + 3rem is 192px
+                @apply overflow-auto #{'!important'};
+
+                .header-section{
+                    height: 80px;
+                    @apply flex flex-1 items-center px-2 font-medium justify-between border-b #{'!important'}
+                }
+            }
+        }
+    }
+
+}
+
+.list-student-data {
+
+    .teacher-avatar {
+        @apply rounded-full min-w-[38px] max-w-[38px] min-h-[38px] max-h-[38px] object-cover #{'!important'};
+    }
+
+    .flag-avatar {
+        @apply min-w-[38px] max-w-[38px] min-h-[28px] max-h-[28px] object-cover #{'!important'};
+    }
+
+    .mat-mdc-header-cell {
+        font-size: 1rem !important;
+        padding: 0 !important;
+        color: #0f172a !important;
+        z-index: 10 !important;
+        padding: 0.5rem !important;
+        @apply dark:text-white #{'!important'};
+    }
+
+    .mat-mdc-cell {
+        padding: 0.5rem !important;
+    }
+
+    .mat-column-n {
+        min-width: 2rem !important;
+        width: 2rem !important;
+        max-width: 2rem;
+        text-align: left;
+    }
+
+    .mat-column-class {
+        min-width: 30rem !important;
+        max-width: 30rem !important;
+        width: 30rem !important;
+        text-align: left;
+    }
+
+    .mat-column-teacher {
+        min-width:8rem;
+        width: 8rem;
+        max-width: 8rem;
+        text-align: left;
+    }
+
+    .mat-column-year {
+        min-width:8rem;
+        width: 8rem;
+        max-width: 8rem;
+        text-align: left;
+    }
+
+    .mat-column-student {
+        min-width: 5rem;
+        width: 5rem;
+        max-width: 5rem;
+        text-align: right;
+    }
+
+    .mat-column-action {
+        flex: none;
+        width: 1rem;
+        text-align: right;
+    }
+}
+
+::ng-deep .shared-header-section {
+    .custom-icon-button {
+        height: 34px !important;
+        min-height: 34px !important;
+        max-height: 34px !important;
+        width: 34px !important;
+        min-width: 34px !important;
+        max-width: 34px !important;
+    }
+}
+
+
+.view-file-section{
+    height: calc(100dvh - 11.5rem);
+
+
+
+    .view-file-data{
+        height:  calc(100dvh - 16.5rem);
+    }
+}
+
+.triangle-container {
+    position: relative;
+    width: 0;
+    height: 0;
+    // border-left: 50px solid transparent;
+    border-right: 64px solid transparent;
+    border-bottom: 64px solid ;
+    @apply border-b-gray-500 /* The color of the triangle */
+}
+
+::ng-deep .mat-button-toggle-group{
+    border: 1px solid !important;
+    @apply rounded-full bg-slate-100 border-slate-100  #{'!important'};
+
+    .mat-button-toggle{
+        width: 8rem !important;
+        @apply px-3 rounded-none #{'!important'};
+    }
+
+    .mat-button-toggle:nth-child(2){
+        @apply border-y border-slate-100 #{'!important'};
+    }
+
+
+}
+.fixed-width{
+    width: 2rem !important;
+    @apply text-center #{'!important'};
+}
+
+

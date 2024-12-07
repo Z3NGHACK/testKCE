@@ -1,0 +1,209 @@
+<section class="receptionist-dashbord-section">
+    <div
+
+        class="receptionist-dashbord-container overflow-scroll"
+    >
+        <div class="dashbord-header">
+            <div class="flex items-center">
+                <img
+                    class="dashbord-avatar"
+                    [src]="fileUri + user.avatar"
+                    alt="avatar"
+                />
+                <div class="flex flex-col justify-center pl-4 pb-2">
+                    <strong
+                        class="text-3xl font-medium text-slate-900 dark:text-white"
+                        >សូមស្វាគមន៍, {{ user.name }}</strong
+                    >
+                    <span class="text-xl text-gray-500"> គ្រូបង្រៀន</span>
+                </div>
+            </div>
+            <button
+                mat-button
+                class="bg-blue-500 px-8 py-6 rounded-2xl hover:bg-blue-500 cursor-pointer"
+
+            >
+                <span class="text-xl text-white">ទាញយករបាយការណ៏</span>
+            </button>
+        </div>
+        <div class="grid grid-cols-3 gap-5 w-full px-5">
+            <div class="h-[550px] w-full col-span-2 rounded-lg bg-white p-6" >
+                <div class="w-full h-9 flex justify-between items-center" *ngIf="!loading">
+                    <div>
+                        <span class="text-xl"
+                            >ថ្នាក់បង្រៀនសម្រាប់ឆ្នាំ
+                            {{ data.academic?.name }}</span
+                        >
+                    </div>
+                    <mat-button-toggle-group
+                    name="classroom"
+                    aria-label="classroom"
+                    [(ngModel)]="level_id"
+                    [value]="level_id"
+                    (change)="toggleSingleSelectionIndicator($event)"
+                >
+                    <mat-button-toggle value="1"> មត្តេយ្យ </mat-button-toggle>
+                    <mat-button-toggle value="2">
+                        បឋមសិក្សា                    </mat-button-toggle>
+                    <mat-button-toggle value="3"> អនុវិទ្យាល័យ </mat-button-toggle>
+                    <mat-button-toggle value="4"> វិទ្យាល័យ </mat-button-toggle>
+                </mat-button-toggle-group>
+                </div>
+                <div *ngIf="!loading" class="pt-6">
+                    <div *ngIf="data.classrooms.length > 0">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div *ngFor="let item of data.classrooms[0].classrooms">
+                                <div
+                        class="relative w-full mt-5 flex border rounded-xl min-h-28 max-h-28 overflow-hidden"
+                    >
+                        <div
+                            class="min-h-28 max-h-28 min-w-6 max-w-6 bg-blue-500 text-white"
+                        >
+                            <span
+                                class="text-sm min-h-28 max-h-28 -translate-x-7 -rotate-90 w-20 flex items-center justify-center"
+                            >
+                                {{item?.grade}} / {{item?.language}}
+                            </span>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="flex">
+                                <div class="w-1/3 flex justify-start p-2">
+                                    <div class="flex flex-col">
+                                        <div class="flex justify-between">
+                                            <div class="w-full flex">
+                                                <div
+                                                    class="min-w-15 max-w-15 flex justify-start items-center"
+                                                >
+                                                    <mat-icon
+                                                        class="icon-size-5"
+                                                        [svgIcon]="
+                                                            'feather:user'
+                                                        "
+                                                    ></mat-icon>
+                                                </div>
+                                                <div
+                                                    class="max-w-90 min-w-90 flex justify-start items-center gap-2 -ml-8"
+                                                >
+                                                    <div
+                                                        class="flex items-center gap-2 min-w-26"
+                                                    >
+                                                        <span
+                                                            class="text-[15px] leading-8"
+                                                        >
+                                                            {{item.teacher_name}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex justify-between">
+                                            <div class="w-full flex">
+                                                <div
+                                                    class="min-w-15 max-w-15 flex justify-start items-center"
+                                                >
+                                                    <mat-icon
+                                                        class="icon-size-5"
+                                                        [svgIcon]="
+                                                            'heroicons_outline:academic-cap'
+                                                        "
+                                                    ></mat-icon>
+                                                </div>
+                                                <div
+                                                    class="max-w-90 min-w-90 flex justify-start items-center gap-2 -ml-8"
+                                                >
+                                                    <div
+                                                        class="flex items-center gap-2 min-w-26"
+                                                    >
+                                                        <span
+                                                            class="truncate text-[15px] leading-8"
+                                                        >
+                                                        ​សរុប {{item?.total_students}} ( ស្រី {{item?.total_female_students}} នាក់)
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex justify-between">
+                                            <div class="w-full flex">
+                                                <div
+                                                    class="min-w-15 max-w-15 flex justify-start items-center"
+                                                >
+                                                    <mat-icon
+                                                        class="icon-size-5"
+                                                        [svgIcon]="
+                                                            'mat_outline:door_front'
+                                                        "
+                                                    ></mat-icon>
+                                                </div>
+                                                <div
+                                                    class="max-w-90 min-w-90 flex justify-start items-center gap-2 -ml-8"
+                                                >
+                                                    <div
+                                                        class="flex items-center gap-2 min-w-26"
+                                                    >
+                                                        <span
+                                                            class="truncate text-[15px] leading-8"
+                                                        >
+                                                        បន្ទប់លេខ 4
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <span
+                                    class="absolute top-[9px] -right-1 z-10 rotate-45 text-white text-center w-[48px]"
+                                >
+                                    {{item.schedule}}
+                                </span>
+                                <div
+                                    class="absolute top-0 right-0 triangle-container -rotate-180"
+                                ></div>
+
+                        <div
+                            class="absolute right-0 top-10 flex items-center justify-end mr-4"
+                        >
+                            <button mat-icon-button [matMenuTriggerFor]="menu">
+                                <mat-icon
+                                    class="icon-size-6"
+                                    svgIcon="mat_outline:more_vert"
+                                ></mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item (click)="view(item?.id)">
+                                    <mat-icon
+                                        class="icon-size-5 text-gray-500"
+                                        svgIcon="mat_outline:remove_red_eye"
+                                    ></mat-icon>
+                                    <span class="text-lg text-gray-500"
+                                        >មើលលម្អិត</span
+                                    >
+                                </button>
+                            </mat-menu>
+                        </div>
+                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="data.classrooms.length === 0 && !loading" class="flex flex-col justify-center items-center mb-4">
+                        <mat-icon class="icon-size-16" svgIcon="toc"></mat-icon>
+                        <span class="text-lg -mt-4">គ្មានទិន្នន័យ</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="h-[550px] rounded-lg bg-white">
+
+                <div class="rounded-xl bg-white w-full min-w-80 max-w-120 py-2">
+                    <mat-calendar [(selected)]="selected" [dateClass]="dateClass"></mat-calendar>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

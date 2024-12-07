@@ -1,0 +1,114 @@
+<section class="list-student-section">
+    <div class="list-student-container" @fadeInCustom>
+        <!-- header of student  -->
+        <div class="min-h-14 max-h-14 flex gap-2 justify-between items-center py-2 pl-5 pr-2.5 ">
+            <div class="flex flex-1 items-center font-medium">
+                <div class="flex items-center">
+                    <mat-icon class="icon-size-5 -mt-0.5" svgIcon="heroicons_outline:home" />
+                </div>
+                <div class="flex items-center ml-1.5">
+                    <span class="text-lg text-gray-600 -mb-0.5"> ថ្នាក់រៀន </span>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <div class="sm-form-field-appearance-outline height-header hidden sm:flex">
+                    <mat-form-field appearance="outline" class="max-w-40">
+                        <mat-select [(ngModel)]="academic_name" (selectionChange)="onSelectionChange($event)" >
+                            <mat-option [value]="''">ទាំងអស់</mat-option>
+                            <mat-option *ngFor="let item of academics" [value]="item.academic_name">{{item.academic_name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="min-w-56 max-w-56 shared-input-filter">
+                    <button class="min-w-10 max-w-10 pl-1 h-full pt-1.5 hover:opacity-[0.96] transition-all">
+                        <mat-icon class="icon-size-6 text-slate-500" svgIcon="heroicons_outline:magnifying-glass" />
+                    </button>
+                    <input placeholder="ស្វែងរក" class="w-full pr-3 h-10" [(ngModel)]="key" (keyup.enter)="listing()">
+                    <button mat-icon-button class="mr-1 custom-icon-button" (click)="search()">
+                        <mat-icon class="icon-size-6 text-slate-500" svgIcon="filter_list" />
+                    </button>
+                </div>
+                <button class="helpers-mat-button-sm px-2" mat-stroked-button (click)="create()">
+                    <mat-icon class="icon-size-4" svgIcon="heroicons_outline:plus" />
+                </button>
+              
+            </div>
+        </div>
+        <!-- body of student  -->
+        <div class="list-student-body ">
+            <!-- data  -->
+            <div class="list-student-data"  >
+                <table mat-table [dataSource]="dataSource" *ngIf="dataSource.data.length > 0">
+                    <ng-container matColumnDef="n">
+                        <th mat-header-cell *matHeaderCellDef> ល.រ </th>
+                        <td mat-cell *matCellDef="let item; let i = index">
+                            <span class="text-gray-500">{{ i + 1 }} </span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="class">
+                        <th mat-header-cell *matHeaderCellDef> ថ្នាក់ </th>
+                        <td mat-cell *matCellDef="let item">
+                            <duv class="flex items-center gap-1">
+                                <img *ngIf="item?.language === 'ខ្មែរ'" class="flag-avatar" src="images/flags/kh.svg" alt="avatar">
+                                <img *ngIf="item?.language === 'អង់គ្លេស'" class="flag-avatar" src="images/flags/gb.svg" alt="avatar">
+                                <img *ngIf="item?.language === 'ចិន'" class="flag-avatar" src="images/flags/cn.svg" alt="avatar">
+                                <div class="flex flex-col justify-center pl-2">
+                                    <strong class="text-lg font-medium text-slate-900 dark:text-white">{{ item?.grade}}</strong>
+                                    <span class="text-sm text-gray-500">{{ item?.level_name}} 
+                                        <span *ngIf="item?.room_name" class="text-sm text-gray-500"> | {{item?.room_name}}   </span>  
+                                        <span *ngIf="item?.schedule" class="text-sm text-gray-500"> | {{item?.schedule}}   </span>  
+                                    </span>
+                                </div>
+                            </duv>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="year">
+                        <th mat-header-cell *matHeaderCellDef> ឆ្នាំសិក្សា  </th>
+                        <td mat-cell *matCellDef="let item">
+                          <div class="flex items-center gap-1">
+                            <span class="text-gray-500">{{ item?.academic_name }} </span>
+                          </div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="teacher">
+                        <th mat-header-cell *matHeaderCellDef> គ្រូបង្រៀន</th>
+                        <td mat-cell *matCellDef="let item">
+                          <div class="flex items-center gap-1">
+                            <img class="teacher-avatar" [src]="fileUrl + item?.teacher_avatar" alt="">
+                            <span class="text-gray-500">{{ item?.teacher_name }} </span>
+                          </div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="student">
+                        <th mat-header-cell *matHeaderCellDef> សិស្ស </th>
+                        <td mat-cell *matCellDef="let item">
+                            <span class="text-gray-500"> {{ item?.total_students }} (ស្រី {{ item?.total_female_students }} )</span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="action" stickyEnd>
+                        <th mat-header-cell *matHeaderCellDef></th>
+                        <td mat-cell *matCellDef="let item">
+                            <button mat-icon-button [matMenuTriggerFor]="menu">
+                                <mat-icon class="icon-size-6" svgIcon="mat_outline:more_vert"></mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item (click)="view(item)">
+                                    <mat-icon class="icon-size-5 text-gray-500"
+                                        svgIcon="heroicons_outline:eye"></mat-icon>
+                                    <span class="text-lg text-gray-500">មើល</span>
+                                </button>
+                            </mat-menu>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <div *ngIf="dataSource.data.length === 0" class="flex flex-col justify-center items-center mb-4">
+                    <mat-icon class="icon-size-16" svgIcon="toc"></mat-icon>
+                    <span class="text-lg -mt-4">គ្មានទិន្នន័យ</span>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>

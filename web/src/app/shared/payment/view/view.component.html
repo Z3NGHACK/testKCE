@@ -1,0 +1,127 @@
+<div mat-dialog-title  class="shared-header-section">
+    <!-- header of student detail -->
+    <div class="flex flex-1 items-center font-medium"> 
+        <div class="flex items-center ml-1.5">
+            <span class="text-3xl font-semibold text-gray-600 -mb-0.5"> វិក្កយបត្រ {{data?.code}} </span>
+        </div>
+    </div>
+    <div class="flex items-center gap-4">
+        <button mat-icon-button class="flex items-center" (click)="closeDialog()" >
+            <mat-icon class="icon-size-8 mt-1" svgIcon="mat_outline:close" />
+        </button>
+    </div>      
+</div>
+<mat-dialog-content class="w-[600px] border-t-2">
+    <div class="w-full grid grid-cols-2 gap-x-4 px-2 "> 
+        <div class="flex flex-1 items-center font-medium h-12"> 
+            <div class="flex items-center ml-1.5 w-1/2 justify-between">
+                <div class="flex items-center gap-1">
+                    <mat-icon class="icon-size-6 mt-1" svgIcon="mdi:account-outline" />
+                    <span class="text-xl -mb-0.5 font-semibold"> ឈ្មោះ​អតិថិជន </span>
+                </div>
+                <span class="text-xl -mb-0.5"> ៖ </span>
+            </div>
+            <span class="text-lg -mb-0.5 pl-4 text-gray-500"> {{ data?.customer?.name}} </span>
+        </div>
+        <div class="flex flex-1 items-center font-medium h-12"> 
+            <div class="flex items-center ml-1.5 w-1/2 justify-between">
+                <div class="flex items-center gap-3">
+                    <mat-icon class="icon-size-5 mt-1" svgIcon="heroicons_outline:calendar-days" />
+                    <span class="text-xl -mb-0.5 font-semibold"> កាលបរិច្ឆេទ </span>
+                </div>
+                <span class="text-xl -mb-0.5"> ៖ </span>
+            </div>
+            <span class="text-lg -mb-0.5 pl-4 text-gray-500"> {{data?.created_at | date: 'dd-MM-y' }} </span>
+        </div>
+        <div class="flex flex-1 items-center font-medium h-12"> 
+            <div class="flex items-center ml-1.5 w-1/2 justify-between">
+                <div class="flex items-center gap-3">
+                    <mat-icon class="icon-size-6 mt-1" svgIcon="mdi:account-school-outline" />
+                    <span class="text-xl -mb-0.5 font-semibold"> សិស្ស </span>
+                </div>
+                <span class="text-xl -mb-0.5"> ៖ </span>
+            </div>
+            <span class="text-lg -mb-0.5 pl-4 text-gray-500"> {{data?.student?.kh_name}} </span>
+        </div>
+        <div class="flex flex-1 items-center font-medium h-12"> 
+            <div class="flex items-center ml-1.5 w-1/2 justify-between">
+                <div class="flex items-center gap-3">
+                    <mat-icon class="icon-size-5 mt-1" svgIcon="mdi:sync" />
+                    <span class="text-xl -mb-0.5 font-semibold"> ស្ថានភាព </span>
+                </div>
+                <span class="text-xl -mb-0.5"> ៖ </span>
+            </div>
+            <span class="text-lg -mb-0.5 pl-4 text-gray-500" [ngClass]="getStatusClass(data?.status?.name)"> {{data?.status?.name}}</span>
+        </div>
+        
+    </div>
+
+   <div class="py-4">
+        <div class="flex flex-1 items-center font-medium h-16 "> 
+            <div class="flex items-center w-4/5 justify-between">
+                <div class="flex items-center">
+                    <span class="pl-4 text-2xl font-bold -mb-0.5"> ល.រ </span>
+                    <span class="pl-8 text-2xl font-bold -mb-0.5"> បរិយាយមុខទំនេញ ឬសេវាកម្ម </span>
+                </div>
+            </div>
+            <span class="text-2xl w-1/5 -mb-0.5 font-bold text-center"> បរិមាណ </span>
+            <span class="text-2xl w-1/5 -mb-0.5 pr-5 font-bold text-end"> តម្លៃ </span>
+        </div>
+        <!-- First Loop -->
+        <div *ngFor="let item of data?.details; let i = index"   [ngClass]="{'bg-slate-100': i % 2 === 0}" class="flex flex-1 px-1 items-center font-medium h-12 py-2 ">
+            <div class="flex items-center ml-1.5 w-4/5 justify-between" 
+              >
+            <div class="flex items-center gap-3">
+                <span class="w-10 text-center">{{ i + 1 }}</span>
+                <div class="flex flex-col justify-center pl-4">
+                    <strong class="text-lg font-medium text-slate-500 dark:text-white">
+                        {{item?.name}}
+                    </strong>
+                    <span class="text-sm -mb-0.5 text-slate-500">
+                        ( {{item?.step?.name}}
+                        <span class="text-sm -mb-0.5 text-slate-500" *ngIf="item?.payment_discount?.percentage >  0">
+                            , {{item?.payment_discount?.percentage}}%
+                        </span>
+                        )
+                    </span>
+                </div>
+            </div>
+            </div>
+            <span class="pr-4 text-lg w-1/5 text-center -mb-0.5 pl-4 text-gray-500">
+                 {{item?.qty}}
+            </span>
+            <span class="pr-4 text-lg w-1/5 text-end -mb-0.5 pl-4 text-gray-500">
+                 {{item?.unit_price  | currency: '' : 'symbol' : '1.2-2'}}
+            </span>
+        </div>
+   </div>
+
+   <div class="flex flex-col items-end px-4 py-6 gap-3 ">
+        <div class="flex justify-end">
+            <span class="text-xl font-medium"> តម្លៃសរុប ៖ </span>
+            <span class="text-xl font-semibold w-30 text-end">{{ data?.price | currency: '' : '' : '1.2-2' }}</span>
+        </div>
+
+        <div class="flex justify-end">
+            <span class="text-xl font-medium"> សរុបរួម​ជាប្រាក់ដុល្លារ ៖ </span>
+            <span class="text-xl font-semibold w-30 text-end">{{ data?.price | currency: '' : '' : '1.2-2' }}</span>
+        </div>
+        <div class="flex justify-end">
+            <span class="text-xl font-medium"> សរុបរួម​ជាប្រាក់រៀល ៖ </span>
+            <span class="text-xl font-semibold w-30 text-end">{{kh_price | currency: '' : '' : '1.2-2'}}</span>
+        </div>
+   </div>
+   @if(path === 'accountant'){
+        <div class="flex justify-end items-center">
+            <button class="helpers-mat-button-md flex justify-center items-center min-w-20 bg-blue-900 rounded-lg py-2" *ngIf="data?.status?.name !== 'បានទូទាត់'" [ngClass]="{'bg-gray-200 cursor-not-allowed': disable}" mat-flat-button (click)="updatePayment()">
+                <span  class="text-white" >ទូទាត់</span>      
+            </button>
+            <button class="helpers-mat-button-md  bg-gray-200 cursor-not-allowed flex justify-center items-center min-w-20 rounded-lg py-2" *ngIf="data?.status?.name === 'បានទូទាត់'" mat-flat-button>
+                <span  class="text-white" >ទូទាត់</span>      
+            </button>
+        </div>
+    }
+</mat-dialog-content>
+<mat-dialog-actions >
+   
+</mat-dialog-actions>

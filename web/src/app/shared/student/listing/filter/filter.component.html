@@ -1,0 +1,71 @@
+<div mat-dialog-title class="relative">
+    <span class="text-2xl">ស្វែងរកសិស្ស</span>
+    <div class="absolute right-2">
+        <button mat-icon-button class="flex items-center" (click)="closeDialog()" >
+            <mat-icon class="icon-size-6 mt-1" svgIcon="mat_outline:close" />
+        </button>
+    </div>      
+</div>
+
+<mat-dialog-content class="border-t w-[600px]">
+    <form class="grid grid-cols-1  md-form-field-appearance-outline" [formGroup]="filter">
+        <mat-form-field appearance="outline" class="w-full" >
+            <mat-label>កម្រិត</mat-label>
+            <mat-select formControlName="level_id" (selectionChange)="onChnageLevel()">
+                @for (item of data?.setup?.levels; track item.id) {
+                <mat-option [value]="item.id">
+                    <div class="flex justify-start">
+                        <span class="text-md">{{item.name }}</span>
+                    </div>
+                </mat-option>
+                } @empty {
+                <span>គ្មានទិន្នន័យ</span>
+                }
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-full"  >
+            <mat-label>ថ្នាក់</mat-label>
+            <mat-select formControlName="grade_id" >
+                @for (item of grades; track item.id) {
+                <mat-option [value]="item.id">
+                    <div class="flex justify-start">
+                        <span class="text-md">{{item.name }}</span>
+                    </div>
+                </mat-option>
+                } @empty {
+                <span>គ្មានទិន្នន័យ</span>
+                }
+            </mat-select>
+        </mat-form-field>
+        <div class="px-4 pb-4">
+            <mat-radio-group
+                formControlName="sex_id"
+            >
+                <ng-container
+                    *ngFor="
+                        let sex of data.setup.sexes
+                    "
+                >
+                    <mat-radio-button
+                        [value]="sex.id"
+                        >{{ sex.name }}
+                    </mat-radio-button>
+                </ng-container>
+            </mat-radio-group>
+        </div>
+    </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions class="flex items-center justify-end gap-2 !bottom-0">
+    <button (click)="clear()" class="helpers-mat-button-md bg-gray-200"
+        mat-flat-button >
+        <span class="text-blue-950">សារដើម</span>
+    </button>
+
+    <button class="helpers-mat-button-md min-w-20 bg-blue-900" mat-flat-button (click)="submit()"
+        [disabled]="filter.invalid || filter.disabled">
+        <span *ngIf="!filter.disabled" class="text-white">ស្វែងរក</span>
+        <mat-progress-spinner *ngIf="filter.disabled" [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
+    </button>
+</mat-dialog-actions>

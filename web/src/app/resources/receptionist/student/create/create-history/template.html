@@ -1,0 +1,149 @@
+
+<div mat-dialog-title class="shared-header-section">
+    <div class=" w-full text-start text-2xl">បង្កើតប្រវត្តិការសិក្សា</div>
+    <mat-icon
+    [mat-dialog-close]="false"
+        class="text-current icon-size-7 cursor-pointer"
+        [svgIcon]="'heroicons_solid:x-mark'"
+    ></mat-icon>
+</div>
+
+<mat-dialog-content class="border-t w-[600px]">
+    <form
+        class="grid grid-cols-1 md-form-field-appearance-outline"
+        [formGroup]="history"
+    >
+        <div class="grid grid-cols-1 gap-x-4">
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>កំរិតវប្បធម៌</mat-label>
+                <mat-select formControlName="level_id">
+                    @for (item of datasetup; track item.id) {
+                    <mat-option [value]="item.id" (click)="level(item)">
+                        <span>{{item.name}}</span>
+                    </mat-option>
+                    } @empty {
+                    <span>គ្មានទិន្នន័យ</span>
+                    }
+                </mat-select>
+                <mat-error>សូមជ្រើសរើសប្រភេទអ្នកប្រើប្រាស់</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="grid grid-cols-2 gap-x-4">
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>ថ្នាក់</mat-label>
+                <mat-select formControlName="start_grade_id">
+                    @for (item of grades; track item.id) {
+                    <mat-option [value]="item.id" (click)="startGrade(item)">
+                        <span>{{item.name}}</span>
+                    </mat-option>
+                    } @empty {
+                    <span>គ្មានទិន្នន័យ</span>
+                    }
+                </mat-select>
+                <mat-error>សូមជ្រើសរើសថ្នាក់</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>ដល់ថ្នាក់</mat-label>
+                <mat-select formControlName="end_grade_id">
+                    @for (item of grades; track item.id) {
+                    <mat-option [value]="item.id" (click)="endGrade(item)">
+                        <span>{{item.name}}</span>
+                    </mat-option>
+                    } @empty {
+                    <span>គ្មានទិន្នន័យ</span>
+                    }
+                </mat-select>
+                <mat-error>សូមជ្រើសរើសដល់ថ្នាក់</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-1 gap-x-4">
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>ឈ្មោះ</mat-label>
+                <input
+                    matInput
+                    formControlName="school_name"
+                    placeholder="បញ្ចូលឈ្មោះ"
+                />
+                <mat-error>សូមបញ្ចូលឈ្មោះ</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
+            <mat-form-field>
+                <mat-label>ឆ្នាំ</mat-label>
+                <input
+                    id="start_date"
+                    matInput
+                    [matDatepicker]="dp"
+                    formControlName="start_date"
+                    (click)="dp.open()"
+                    readonly
+                />
+                <mat-datepicker-toggle
+                    matIconSuffix
+                    [for]="dp"
+                ></mat-datepicker-toggle>
+                <mat-datepicker
+                    #dp
+                    startView="multi-year"
+                    (yearSelected)="chosenStartYearHandler($event, dp)"
+                    panelClass="example-month-picker"
+                >
+                </mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label class="text-md text-gray-500"
+                    >ជ្រើសរើសឆ្នាំបញ្ចប់</mat-label
+                >
+                <input
+                    id="end_date"
+                    matInput
+                    readonly
+                    [matDatepicker]="endDatePicker"
+                    formControlName="end_date"
+                    (click)="endDatePicker.open()"
+                />
+
+                <mat-datepicker-toggle
+                    matSuffix
+                    [for]="endDatePicker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker
+                    #endDatePicker
+                    startView="multi-year"
+                    (yearSelected)="chosenEndYearHandler($event, endDatePicker)"
+                ></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </form>
+
+    <mat-dialog-actions class="flex items-center justify-between gap-2">
+        <button
+            [class.helpers-mat-button-red]="history.enabled"
+            class="helpers-mat-button-md bg-red-500"
+            [disabled]="history.disabled"
+            mat-flat-button
+            [mat-dialog-close]="false"
+        >
+            <span class="text-white">បោះបង់</span>
+        </button>
+
+        <button
+            class="helpers-mat-button-md min-w-20 bg-blue-900"
+            mat-flat-button
+            (click)="submit()"
+            [disabled]="history.invalid || history.disabled"
+        >
+            <span *ngIf="!history.disabled" class="text-white">រក្សាទុក</span>
+            <mat-progress-spinner
+                *ngIf="history.disabled"
+                [diameter]="24"
+                [mode]="'indeterminate'"
+            ></mat-progress-spinner>
+        </button>
+    </mat-dialog-actions>
+</mat-dialog-content>

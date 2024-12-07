@@ -1,0 +1,105 @@
+<section class="receptionist-dashbord-section">
+
+    <div *ngIf="!loading" class="receptionist-dashbord-container">
+        <div class="dashbord-header">
+            <div class="flex items-center">
+                <img class="dashbord-avatar" [src]="fileUri+user.avatar" alt="avatar">
+                <div class="flex flex-col justify-center pl-4 pb-2">
+                    <strong class="text-3xl font-medium text-slate-900 dark:text-white">សូមស្វាគមន៍, {{user.name}}</strong>
+                    <span class="text-xl text-gray-500"> អ្នកទទួលភ្ញៀវ</span>
+                </div>
+            </div>
+            <button mat-button class="bg-blue-500 px-8 py-6 rounded-2xl hover:bg-blue-500 cursor-pointer" (click)="create()">
+                <span class="text-xl text-white">ចុះឈ្មោះ</span>
+            </button>
+        </div>
+        <div class="receptionist-dashbord-body">
+            <div class="receptionist-dashbord-data flex justify-between">
+                 <div class="cart-container ">
+                     <div class="cart-container-header">
+                        <span class="text-xl font-semibold text-slate-900 dark:text-white"> ទិន្នន័យសង្ខេប </span>
+                        <button mat-icon-button>
+                            <mat-icon mat-icon-button class="icon-size-6" svgIcon="mat_outline:calendar_today"></mat-icon>
+                        </button>
+                     </div>
+                     <div class="cart-container-data">
+                        <div class="state-item">
+                            <div class="item-icon bg-yellow-100" >
+                                <mat-icon class="icon-size-8 -mb-0.5 text-yellow-600" svgIcon="mat_outline:groups" />
+                            </div>
+                            <div class="item-text">
+                                <span class="text-3xl font-medium" > {{data.statistic.student.total}} </span>
+                                <span class="text-xl text-gray-500"> ចំនួនសិស្ស </span>
+                            </div>
+                        </div>
+                        <div class="state-item">
+                            <div class="item-icon bg-blue-100" >
+                                <mat-icon class="icon-size-8 -mb-0.5 text-blue-600" svgIcon="mat_outline:groups" />
+                            </div>
+                            <div class="item-text">
+                                <span class="text-3xl font-medium" > {{data.statistic.student.new}}  </span>
+                                <span class="text-xl text-gray-500"> ចំនួនសិស្សថ្មីៗ </span>
+                            </div>
+                        </div>
+                        <div class="state-item">
+                            <div class="item-icon bg-yellow-100" >
+                                <mat-icon class="icon-size-8 -mb-0.5 text-yellow-600" svgIcon="mat_outline:check" />
+                            </div>
+                            <div class="item-text">
+                                <span class="text-3xl font-medium" > {{data.statistic.student.total_male}}  </span>
+                                <span class="text-xl text-gray-500"> ចំនួនសិស្សប្រុស </span>
+                            </div>
+                        </div>
+                        <div class="state-item">
+                            <div class="item-icon bg-green-100" >
+                                <mat-icon class="icon-size-8 -mb-0.5 text-green-600" svgIcon="mat_outline:check" />
+                            </div>
+                            <div class="item-text">
+                                <span class="text-3xl font-medium" >  {{data.statistic.student.total_female}}  </span>
+                                <span class="text-xl text-gray-500"> ចំនួនសិស្សស្រី </span>
+                            </div>
+                        </div>
+                     </div>
+                 </div>
+                 <div class="cart-container ml-10 dark:bg-black">
+                    <div class="cart-container-header ">
+                        <span class="text-xl font-semibold text-slate-900 dark:text-white"> សិស្សថ្មីៗ </span>
+                    </div>
+                    <div *ngIf="data.students.length > 0;"   class="cart-container-table">
+                        <div *ngFor="let student of data.students; let i = index;" class="flex h-16 px-4 py-2  w-full" [ngClass]="{ 'bg-gray-100': (i + 1) % 2 == 1 }">
+                            <div class="flex items-center">
+                                <img [src]="fileUri+student?.avatar" class="student-avatar" alt="avatar">
+                                <div class="flex flex-col justify-center pl-2">
+                                    <strong class="text-[17px] font-[500] text-black dark:text-white">{{student?.name}}</strong>
+                                    <span class="text-[11px] text-gray-500">{{student.code}}</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center ml-auto ">
+                                <span class="w-50 truncate text-center pr-4 text-gray-400">
+                                    {{student.date | date:'dd-MM-y'}}
+                                </span>
+                                <div class="flex items-center">
+                                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                                        <mat-icon class="icon-size-6" svgIcon="mat_outline:more_vert"></mat-icon>
+                                    </button>
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item (click)="viewStudent(student)">
+                                            <mat-icon class="icon-size-5 text-gray-500"
+                                                svgIcon="heroicons_outline:eye"></mat-icon>
+                                            <span class="text-lg text-gray-500">មើល</span>
+                                        </button>
+                                    </mat-menu>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="data.students.length === 0" class="flex flex-col justify-center items-center mb-4">
+                        <mat-icon class="icon-size-16" svgIcon="toc"></mat-icon>
+                        <span class="text-lg -mt-4">គ្មានទិន្នន័យ</span>
+                    </div>
+                 </div>
+            </div>
+         </div>
+    </div>
+
+</section>

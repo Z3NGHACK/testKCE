@@ -1,0 +1,59 @@
+<div mat-dialog-title class="shared-header-section border-b">
+    <div class="flex flex-1 items-center font-medium"> 
+        <div class="flex items-center ml-2">
+            <span class="text-3xl font-semibold text-gray-600 -mb-0.5"> ស្វែងរកថ្នាក់សិក្សា </span>
+        </div>
+    </div>
+    <div class="flex items-center gap-4">
+        <button mat-icon-button class="flex items-center" (click)="closeDialog()" >
+            <mat-icon class="icon-size-6 mt-1" svgIcon="mat_outline:close" />
+        </button>
+    </div>      
+</div>
+
+<mat-dialog-content class="w-[600px] h-full">
+    <form [formGroup]="firstFormGroup" class="md-form-field-appearance-outline">    
+        <div class="grid grid-cols-1 pt-2">
+            <mat-form-field>
+                <mat-label>កម្មវិធីសិក្សា</mat-label>
+                <mat-select formControlName="gradeid" class="pb-3">
+                    <mat-option *ngFor="let grade of setup_grade" [value]="grade.id">
+                        {{ grade.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>កម្រិតសិក្សា</mat-label>
+                <mat-select formControlName="levelid" class="pb-3">
+                    <mat-option *ngFor="let level of setup_level" [value]="level.id">
+                        {{level.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+           
+            <mat-form-field>
+                <mat-label>បន្ទប់</mat-label>
+                <mat-select formControlName="roomid" class="pb-3">
+                    <mat-option *ngFor="let room of setup_rooms" [value]="room.id">
+                        {{ room.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>  
+        <div class="grid grid-cols-1 gap-4">
+            <mat-radio-group class="grid grid-cols-1 sm:grid-cols-4 gap-4" formControlName="scheduleid">
+                <mat-radio-button class="custom-radio" [value]="1">ព្រឹក</mat-radio-button>
+                <mat-radio-button class="custom-radio" [value]="2">រសៀល</mat-radio-button>
+            </mat-radio-group>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <div class="w-full flex justify-end ">
+        <button (click)="onSubmit()" class="helpers-mat-button-md flex justify-center items-center min-w-20 bg-blue-900 rounded-lg py-2" [ngClass]="{'bg-gray-200 cursor-not-allowed': disable}" mat-flat-button >
+            <span  class="text-white" *ngIf="!disable">រួចរាល់</span>
+            <mat-progress-spinner *ngIf="disable" [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
+        </button>
+    </div>
+</mat-dialog-actions>

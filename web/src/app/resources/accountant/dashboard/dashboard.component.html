@@ -1,0 +1,110 @@
+<section class="receptionist-dashbord-section">
+    <div class="receptionist-dashbord-container">
+        <div class="dashbord-header">
+            <div class="flex items-center">
+                <img class="dashbord-avatar"[src]="fileUrl + user?.avatar" alt="avatar">
+                <div class="flex flex-col justify-center pl-4 pb-2">
+                    <strong class="text-3xl font-medium text-slate-900 dark:text-white">សូមស្វាគមន៍, {{user?.name}}</strong>
+                    <span class="text-xl text-gray-500"> {{user?.role_name}} </span>
+                </div>
+            </div>
+            <button mat-button class="bg-blue-500 px-8 py-6 rounded-2xl hover:bg-blue-500 cursor-pointer" (click)="view()">
+                <span class="text-xl text-white"> ការបង់ប្រាក់ </span>
+            </button>
+        </div>
+        <form [formGroup]="firstFormGroup">
+            <div class="receptionist-dashbord-body">
+                <div class="receptionist-dashbord-data flex justify-between">
+                    <div class="flex w-4/5 flex-col gap-5">
+                        <div class="cart-container mr-5">
+                            <div class="cart-container-header">
+                               <span class="text-xl font-semibold text-slate-900 dark:text-white"> ស្ថិតិបឋម </span>
+                               <div class="flex items-center">
+                                    <span class="text-xl font-semibold text-end text-slate-900 dark:text-white"> {{this.monthDisplay.month}} </span>
+                                    <mat-form-field class="hidden-input">
+                                        <input matInput [matDatepicker]="picker" formControlName="month" readonly>
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker 
+                                        startView="multi-year" 
+                                        (yearSelected)="setYear($event, picker, 'month')" 
+                                        #picker 
+                                        panelClass="year-picker">
+                                        </mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="cart-container-data">
+                               <div class="state-item">
+                                   <div class="item-icon bg-green-100" >
+                                       <mat-icon class="icon-size-8 -mb-0.5 text-green-600" svgIcon="mat_outline:attach_money" />
+                                   </div>
+                                   <div class="item-text">
+                                       <span class="text-3xl font-medium" > {{ data?.data.statistic.invoice.total_income | number: '1.0-0' }} $  
+                                        <!-- <span class="text-xl text-green-600"> (+10%) </span> -->
+                                    </span>
+                                       <span class="text-xl text-gray-500"> ប្រាក់ចំណូលសរុប </span>
+                                   </div>
+                               </div>
+                               <div class="state-item">
+                                   <div class="item-icon bg-red-100" >
+                                       <mat-icon class="icon-size-8 -mb-0.5 text-red-600" svgIcon="mat_outline:attach_money" />
+                                   </div>
+                                   <div class="item-text">
+                                       <span class="text-3xl font-medium" >{{ data?.data.statistic.invoice.total_debt | number: '1.0-0' }} $</span>
+                                       <span class="text-xl text-gray-500"> ប្រាក់ចំពាក់ </span>
+                                   </div>
+                               </div>
+                       
+                            </div>
+                        </div>
+                        <div class="cart-container-chart mr-5">
+                            <div class="cart-container-header">
+                               <span class="text-xl font-semibold text-slate-900 dark:text-white"> ស្ថិតិចំណូល(ប្រចាំឆ្នាំ) </span>
+                               <div class="flex items-center">
+                                <span class="text-xl font-semibold text-end text-slate-900 dark:text-white"> {{this.monthDisplay.income_month}} </span>
+                                <mat-form-field class="hidden-input">
+                                    <input matInput [matDatepicker]="picker1" formControlName="income_month" readonly>
+                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <mat-datepicker 
+                                    startView="multi-year" 
+                                    (yearSelected)="setYear($event, picker1, 'income_month')" 
+                                    #picker1 
+                                    panelClass="year-picker">
+                                    </mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            </div>
+                            <div class="cart-container-data-chart">
+                                <helper-bar-chart [data]="datas" [label]="label" class="w-full"></helper-bar-chart>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cart-container-statistic ml-5">
+                       <div class="cart-container-header">
+                           <span class="text-xl font-semibold text-slate-900 dark:text-white"> ស្ថិតិចំណូល </span>
+                           <div class="flex items-center">
+                                <span class="text-xl font-semibold text-end text-slate-900 dark:text-white"> {{this.monthDisplay.primary_income_month}} </span>
+                                <mat-form-field class="hidden-input">
+                                    <input matInput [matDatepicker]="picker2" formControlName="primary_income_month" readonly>
+                                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                    <mat-datepicker 
+                                    startView="multi-year" 
+                                    (yearSelected)="setYear($event, picker2, 'primary_income_month')" 
+                                    #picker2
+                                    panelClass="year-picker">
+                                    </mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                       <div class="cart-container-data">
+                           <div class="w-[400px] h-[300px] flex justify-center" >
+                               <helper-semi-pie-chart [data]="semi_chart" [value]="value"></helper-semi-pie-chart>
+                           </div>
+                       </div>
+                    </div>
+               </div>
+             </div>
+        </form>
+
+    </div>
+</section>

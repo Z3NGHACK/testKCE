@@ -1,0 +1,169 @@
+.user-create-section {
+    width: 100%;
+    height: calc(100dvh - 4.25rem) !important;
+    overflow: hidden;
+
+    .user-create-header {
+      @apply min-h-14 max-h-14 flex gap-2 justify-between rounded-t-xl items-center px-2 mt-4 mx-4 bg-white #{'!important'}
+    }
+
+    .user-create-body {
+        width: 100%;
+        height: calc(100dvh - 7.75rem);
+        overflow: hidden;
+
+
+
+        .user-create-content::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+        }
+    }
+}
+.user-create-content {
+    width: 100%;
+    height: calc(100dvh - 8.75rem);
+    background: white;
+    overflow: auto;
+}
+// ::ng-deep .mat-step-header .mat-step-icon-selected {
+//     background-color: rgb(0, 0, 0);
+//  }
+
+.custom-stepper-icon {
+    font-size: 24px; /* Adjust the size as needed */
+  }
+
+  .edit-icon {
+    color: #007bff; /* Color for active state */
+  }
+
+  .done-icon {
+    color: #28a745; /* Color for completed state */
+  }
+
+  .error-icon {
+    color: #dc3545; /* Color for error state */
+  }
+
+
+:host :ng-deep .mdc-notched-outline{
+  .mdc-notched-outline__notch{
+    @apply border-0 #{!important}
+  }
+}
+::ng-deep .mat-horizontal-stepper-header-container{
+  @apply pb-4 #{!important}
+}
+
+::ng-deep  .mat-step-header {
+
+      .mat-step-icon{
+        height: 2.5rem !important;
+        width: 2.5rem !important;
+        @apply bg-transparent border text-gray-500 #{'!important'}
+
+      }
+
+      .mat-step-label-selected{
+        @apply text-yellow-500 #{'!important'}
+      }
+
+      .mat-step-icon-state-user{
+        @apply border-yellow-500 text-yellow-500 #{'!important'}
+      }
+      .mat-step-icon-selected{
+        @apply border-yellow-500 bg-yellow-500 text-white #{'!important'}
+      }
+
+      .mat-step-icon-state-done{
+        @apply border-yellow-500 text-yellow-500 #{'!important'}
+      }
+
+
+  }
+::ng-deep .mat-step-header .mat-step-icon-state-error{
+    @apply border-red-500 text-red-500 #{'!important'}
+}
+
+::ng-deep  .stepper-step-1{
+  .mat-step-header {
+
+      .mat-step-icon-state-user{
+        @apply border-yellow-500 text-yellow-500 #{'!important'}
+      }
+
+      .mat-step-icon-selected{
+        @apply border-yellow-500 bg-yellow-500 text-white #{'!important'}
+      }
+      .mat-step-icon-state-done{
+        @apply border-yellow-500 text-yellow-500 #{'!important'}
+      }
+
+  }
+}
+
+::ng-deep .stepper-step-2{
+  .mat-step-header {
+      .mat-step-icon{
+        @apply bg-transparent border text-gray-500 #{'!important'}
+
+      }
+      .mat-step-icon-state-user{
+        @apply border-yellow-500 text-yellow-500 #{'!important'}
+      }
+
+      .mat-step-label-error{
+        .label-user{
+          @apply text-red-500 #{'!important'}
+        }
+      }
+      .label-user{
+        @apply text-yellow-500 #{'!important'}
+      }
+      .mat-step-icon-selected{
+        @apply border-yellow-500 bg-yellow-500 text-white #{'!important'}
+      }
+
+      .mat-step-icon-state-error{
+        @apply border-red-500 text-red-500 #{'!important'}
+      }
+
+      .mat-step-icon-state-done{
+        @apply border-yellow-500 text-yellow-500 #{'!important'}
+      }
+  }
+}
+
+::ng-deep .stepper-step-3{
+  .mat-step-header {
+      .mat-step-icon-state-user{
+        @apply border-yellow-500 text-yellow-500 #{'!important'}
+      }
+      .label-user{
+        @apply text-yellow-500 #{'!important'}
+      }
+
+      .mat-step-label-error{
+        .label-user{
+          @apply text-red-500 #{'!important'}
+        }
+        .label-class{@apply text-red-500 #{'!important'}}
+      }
+      .mat-step-icon-state-class{
+        @apply border-yellow-500 text-yellow-500 #{'!important'}
+      }
+      .label-class{
+        @apply text-yellow-500 #{'!important'}
+      }
+
+      .mat-step-icon-selected{
+        @apply border-yellow-500 bg-yellow-500 text-white #{'!important'}
+      }
+
+      .mat-step-icon-state-done{
+        @apply border-yellow-500 text-yellow-500 #{'!important'}
+      }
+
+  }
+}

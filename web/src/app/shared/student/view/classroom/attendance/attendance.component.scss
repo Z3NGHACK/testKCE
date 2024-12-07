@@ -1,0 +1,25 @@
+::ng-deep .mat-mdc-dialog-container {
+
+    .mdc-dialog__surface {
+        border-radius: 0px !important;
+        padding: 0.5rem;
+    }
+
+}
+
+.view-student-content{
+    width: 48rem;
+    @apply h-full pt-2 border-t-2 mx-2 #{'!important'};
+}
+
+::ng-deep .mat-mdc-dialog-component-host{
+    
+    .mat-mdc-dialog-content{
+        padding: 0px !important;
+    }
+}
+.header-section{
+    height: 80px;
+    @apply flex flex-1 items-center px-2 font-medium justify-between border-b #{'!important'} 
+}
+

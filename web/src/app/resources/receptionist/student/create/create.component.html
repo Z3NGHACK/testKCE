@@ -1,0 +1,1805 @@
+<div class="user-create-section">
+    <div class="user-create-header">
+        <div class="flex flex-1 items-center font-medium">
+            <div class="flex items-center">
+                <button class="px-2" mat-button (click)="back()">
+                    <mat-icon
+                        class="icon-size-5 mt-1"
+                        svgIcon="mat_outline:chevron_left"
+                    />
+                </button>
+            </div>
+            <div class="flex items-center ml-1.5">
+                <span class="text-2xl text-gray-600 -mb-0.5">ចុះឈ្មោះ</span>
+            </div>
+        </div>
+    </div>
+    <div class="user-create-body px-4 pb-4 rounded-lg">
+        <div class="user-create-content rounded-b-xl pb-1">
+            <form [formGroup]="createStudent">
+                <!--[linear]="true"  -->
+                <mat-horizontal-stepper
+                    #stepper
+                    [linear]="true"
+                    *ngIf="!loading"
+                    [ngClass]="getStepperClass()"
+                >
+                    <ng-template matStepperIcon="edit">
+                        <mat-icon
+                            class="-mb-0.5"
+                            svgIcon="feather:user"
+                            *ngIf="stepperInd === 0"
+                        ></mat-icon>
+                        <mat-icon
+                            class="-mb-0.5"
+                            svgIcon="heroicons_outline:academic-cap"
+                            *ngIf="stepperInd === 1"
+                        ></mat-icon>
+                        <mat-icon
+                            class="-mb-0.5"
+                            svgIcon="mat_solid:payment"
+                            *ngIf="stepperInd === 2"
+                        ></mat-icon>
+                    </ng-template>
+                    <ng-template matStepperIcon="error">
+                        <mat-icon
+                            class="-mb-0.5"
+                            svgIcon="heroicons_outline:pencil"
+                        ></mat-icon>
+                    </ng-template>
+                    <ng-template matStepperIcon="user">
+                        <mat-icon class="-mb-0.5" svgIcon="feather:user">
+                        </mat-icon>
+                    </ng-template>
+                    <ng-template matStepperIcon="class">
+                        <mat-icon
+                            class="-mb-0.5"
+                            svgIcon="heroicons_outline:academic-cap"
+                        >
+                        </mat-icon>
+                    </ng-template>
+                    <ng-template matStepperIcon="payment">
+                        <mat-icon class="-mb-0.5" svgIcon="mat_solid:payment">
+                        </mat-icon>
+                    </ng-template>
+                    <ng-template matStepperIcon="done">
+                        <mat-icon class="-mb-0.5" svgIcon="mat_outline:check">
+                        </mat-icon>
+                    </ng-template>
+
+                    <mat-step state="user" [stepControl]="firstFormGroup">
+                        <form
+                            [formGroup]="firstFormGroup"
+                            class="grid grid-cols-1 md:grid-cols-6 gap-4 md-form-field-appearance-outline"
+                        >
+                            <ng-template matStepLabel
+                                ><span class="label-user"
+                                    >ព័ត៌មានទូទៅ</span
+                                ></ng-template
+                            >
+                            <div
+                                class="md:col-span-3 lg:col-span-2 h-fit lg:h-auto flex justify-center"
+                            >
+                                <div
+                                    [ngClass]="{
+                                        'border-red-500':
+                                            src ===
+                                                'images/avatars/avatar.jpeg' &&
+                                            is_change_cover
+                                    }"
+                                    class="h-[250px] w-[250px] rounded-[50%] border-dashed border-4 border-blue-500 hover:border-blue-300 flex items-center justify-center relative cover"
+                                    (click)="selectCoverFile()"
+                                >
+                                    <img
+                                        class="h-[245px] w-[245px] object-cover rounded-[50%] cursor-pointer"
+                                        [src]="src"
+                                        alt=""
+                                    />
+                                    <div class="absolute -bottom-3 iconCamera">
+                                        <mat-icon
+                                            svgIcon="mat_solid:camera_alt"
+                                            class="text-[#5f81b5]"
+                                        ></mat-icon>
+                                    </div>
+                                    <div
+                                        class="absolute top-2 right-4 text-xl text-gray-400"
+                                    >
+                                        *
+                                    </div>
+                                </div>
+                                <input
+                                    [id]="'portrait-fileCover'"
+                                    class="hidden"
+                                    type="file"
+                                    accept="image/*"
+                                    (change)="onFileChange($event)"
+                                />
+                            </div>
+
+                            <div
+                                class="md:col-span-3 lg:col-span-4 rounded-xl h-fit pt-4"
+                            >
+                                <div class="px-5">
+                                    <div
+                                        class="grid grid-cols-1 sm:grid-cols-2 gap-4"
+                                    >
+                                        <mat-form-field
+                                            appearance="outline"
+                                            class="w-full"
+                                        >
+                                            <mat-label
+                                                >ឈ្មោះជាភាសាខ្មែរ</mat-label
+                                            >
+                                            <input
+                                                matInput
+                                                formControlName="kh_name"
+                                                placeholder="បញ្ចូលឈ្មោះជាភាសាខ្មែរ"
+                                                (keyup)="
+                                                    validateKhmerInput($event)
+                                                "
+                                                maxlength="30"
+                                            />
+                                            <mat-error
+                                                >សូមបញ្ចូលឈ្មោះជាភាសាខ្មែរ</mat-error
+                                            >
+                                        </mat-form-field>
+                                        <mat-form-field
+                                            appearance="outline"
+                                            class="w-full"
+                                        >
+                                            <mat-label
+                                                >ឈ្មោះជាអក្សរឡាតាំង</mat-label
+                                            >
+                                            <input
+                                                matInput
+                                                formControlName="en_name"
+                                                placeholder="បញ្ចូលឈ្មោះជាអក្សរឡាតាំង"
+                                                (keyup)="
+                                                    validateEnglishInput($event)
+                                                "
+                                                maxlength="30"
+                                            />
+                                            <mat-error
+                                                >សូមបញ្ចូលឈ្មោះជាអក្សរឡាតាំង</mat-error
+                                            >
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="px-4 pb-4">
+                                        <mat-radio-group
+                                            formControlName="sex_id"
+                                        >
+                                            <ng-container
+                                                *ngFor="
+                                                    let sex of data?.education
+                                                        ?.general?.sexes
+                                                "
+                                            >
+                                                <mat-radio-button
+                                                    [value]="sex.id"
+                                                    >{{ sex.name }}
+                                                </mat-radio-button>
+                                            </ng-container>
+                                        </mat-radio-group>
+                                    </div>
+                                    <div
+                                        class="grid grid-cols-1 sm:grid-cols-2 gap-4"
+                                    >
+                                        <mat-form-field
+                                            appearance="outline"
+                                            class="w-full"
+                                        >
+                                            <mat-label
+                                                class="text-md text-gray-500"
+                                                >ជ្រើសរើសឆ្នាំកំណើត</mat-label
+                                            >
+                                            <input
+                                                id="dob_date"
+                                                matInput
+                                                readonly
+                                                [matDatepicker]="dobDatePicker"
+                                                formControlName="dob"
+                                                (click)="dobDatePicker.open()"
+                                            />
+
+                                            <mat-datepicker-toggle
+                                                matSuffix
+                                                [for]="dobDatePicker"
+                                            ></mat-datepicker-toggle>
+                                            <mat-datepicker
+                                                #dobDatePicker
+                                                (dateChange)="
+                                                    chosenDobHandler($event)
+                                                "
+                                            ></mat-datepicker>
+                                            <mat-error
+                                                >សូមបញ្ចូលឆ្នាំកំណើត</mat-error
+                                            >
+                                        </mat-form-field>
+                                        <mat-form-field
+                                            appearance="outline"
+                                            class="w-full"
+                                        >
+                                            <mat-label>សញ្ជាតិ</mat-label>
+                                            <input
+                                                matInput
+                                                formControlName="nationality"
+                                                placeholder="បញ្ចូលឈ្មោះ"
+                                            />
+                                            <mat-error
+                                                >សូមបញ្ចូលសញ្ជាតិ</mat-error
+                                            >
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div>
+                                        <mat-form-field
+                                            appearance="outline"
+                                            class="w-full"
+                                        >
+                                            <mat-label>ទីកន្លែងក៉ណើត</mat-label>
+                                            <input
+                                                matInput
+                                                formControlName="pob"
+                                                placeholder="បញ្ចូលទីកន្លែងក៉ណើត"
+                                            />
+                                            <mat-error
+                                                >សូមបញ្ចូលទីកន្លែងក៉ណើត</mat-error
+                                            >
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="">
+                                        <mat-form-field
+                                            appearance="outline"
+                                            class="w-full"
+                                        >
+                                            <mat-label>អាសាយដ្ឋាន</mat-label>
+                                            <input
+                                                matInput
+                                                formControlName="address"
+                                                placeholder="បញ្ចូលអាសាយដ្ឋាន"
+                                            />
+                                            <mat-error
+                                                >សូមបញ្ចូលអាសាយដ្ឋាន</mat-error
+                                            >
+                                        </mat-form-field>
+                                    </div>
+                                    <div
+                                        class="flex bg-slate-100 h-[50px] items-center rounded-lg"
+                                        [ngClass]="{
+                                            'border border-red-500':
+                                                parents.length === 0 &&
+                                                is_click_create_parent
+                                        }"
+                                    >
+                                        <mat-icon
+                                            class="icon-size-6 ml-4"
+                                            [svgIcon]="
+                                                'heroicons_outline:user-group'
+                                            "
+                                        >
+                                        </mat-icon>
+                                        <div class="text-xl ml-2">
+                                            អាណាព្យាបាល
+                                        </div>
+                                        <div
+                                            class="flex ml-auto mr-4 gap-4 items-center"
+                                        >
+                                            <p
+                                                *ngIf="
+                                                    parents.length === 0 &&
+                                                    is_click_create_parent
+                                                "
+                                                class="text-red-500"
+                                            >
+                                                សូមបញ្ចូល*
+                                            </p>
+                                            <div
+                                                class="w-[30px] h-[30px] border border-gray-400 rounded-full flex items-center justify-center cursor-pointer"
+                                                (click)="createParentDialog()"
+                                            >
+                                                <mat-icon
+                                                    class="icon-size-6"
+                                                    svgIcon="heroicons_outline:plus"
+                                                ></mat-icon>
+                                            </div>
+                                            <!-- <button class=" rounded-full px-2" mat-stroked-button (click)="createParentDialog()">
+                                                <mat-icon class="icon-size-6" svgIcon="heroicons_outline:plus"></mat-icon>
+                                            </button> -->
+                                        </div>
+                                    </div>
+                                    <ng-container
+                                        *ngFor="
+                                            let item of parents;
+                                            let i = index
+                                        "
+                                        class="border-t"
+                                    >
+                                        <div
+                                            class="relative w-full mt-5 flex border rounded-xl min-h-32 max-h-32 overflow-hidden"
+                                        >
+                                            <div
+                                                class="min-h-32 max-h-32 min-w-6 max-w-6 bg-blue-500 text-white"
+                                            >
+                                                <div
+                                                    class="min-h-32 max-h-32 -rotate-90 flex items-center justify-center"
+                                                >
+                                                    {{ item.relation }}
+                                                </div>
+                                            </div>
+                                            <div class="flex flex-col w-full">
+                                                <div class="flex w-full pt-1">
+                                                    <div class="text-lg pl-3">
+                                                        {{ item.name }}
+                                                    </div>
+                                                    <div
+                                                        *ngIf="item.existparent"
+                                                        class="flex flex-col ml-4"
+                                                    >
+                                                        <div
+                                                            class="text-green-500"
+                                                            style="
+                                                                font-size: 12px;
+                                                            "
+                                                        >
+                                                            Existed Parent!
+                                                        </div>
+                                                        <div
+                                                            class="text-yellow-500"
+                                                            style="
+                                                                font-size: 12px;
+                                                            "
+                                                        >
+                                                            Note: This existed
+                                                            parent information
+                                                            can't be update in
+                                                            here!
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="h-full w-full grid grid-cols-2 pt-2"
+                                                >
+                                                    <div
+                                                        class="grid grid-rows-3 pl-2"
+                                                    >
+                                                        <div
+                                                            class="w-full flex h-4 items-center"
+                                                        >
+                                                            <div
+                                                                class="h-full flex items-center"
+                                                            >
+                                                                <mat-icon
+                                                                    class="icon-size-5"
+                                                                    [svgIcon]="
+                                                                        'heroicons_outline:device-phone-mobile'
+                                                                    "
+                                                                ></mat-icon>
+                                                            </div>
+                                                            <div
+                                                                class="w-full flex justify-start items-center gap-2 pl-2"
+                                                            >
+                                                                <div
+                                                                    class="flex items-center gap-2"
+                                                                >
+                                                                    <span
+                                                                        class="text-[16px] leading-8"
+                                                                    >
+                                                                        {{
+                                                                            item.phone1
+                                                                        }}
+                                                                    </span>
+                                                                    <span
+                                                                        *ngIf="
+                                                                            item.phone2
+                                                                        "
+                                                                        class="ml-2 text-[16px] leading-8"
+                                                                    >
+                                                                        /
+                                                                        {{
+                                                                            item.phone2
+                                                                        }}
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="w-full flex h-4 items-center"
+                                                        >
+                                                            <div
+                                                                class="h-full flex items-center"
+                                                            >
+                                                                <mat-icon
+                                                                    class="icon-size-5"
+                                                                    [svgIcon]="
+                                                                        'feather:send'
+                                                                    "
+                                                                ></mat-icon>
+                                                            </div>
+                                                            <div
+                                                                class="w-full flex justify-start items-center gap-2 pl-2"
+                                                            >
+                                                                <div
+                                                                    class="flex items-center gap-2"
+                                                                >
+                                                                    <span
+                                                                        *ngIf="
+                                                                            item.telegram
+                                                                        "
+                                                                        class="truncate text-[15px] leading-8"
+                                                                    >
+                                                                        {{
+                                                                            item.telegram
+                                                                        }}
+                                                                    </span>
+                                                                    <span
+                                                                        *ngIf="
+                                                                            !item.telegram
+                                                                        "
+                                                                        class="truncate text-[15px]"
+                                                                    >
+                                                                        N/A
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="w-full flex h-4 items-center"
+                                                        >
+                                                            <div
+                                                                class="h-full flex items-center"
+                                                            >
+                                                                <mat-icon
+                                                                    class="icon-size-5"
+                                                                    [svgIcon]="
+                                                                        'mat_outline:location_on'
+                                                                    "
+                                                                ></mat-icon>
+                                                            </div>
+                                                            <div
+                                                                class="w-full flex justify-start items-center gap-2 pl-2"
+                                                            >
+                                                                <div
+                                                                    class="flex items-center gap-2"
+                                                                >
+                                                                    <span
+                                                                        *ngIf="
+                                                                            item.address
+                                                                        "
+                                                                        class="text-[16px] leading-8"
+                                                                    >
+                                                                        {{
+                                                                            item.address
+                                                                        }}
+                                                                    </span>
+                                                                    <span
+                                                                        *ngIf="
+                                                                            !item.address
+                                                                        "
+                                                                        class="text-[16px] leading-8"
+                                                                    >
+                                                                        N/A
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        class="grid grid-rows-3 pl-2"
+                                                    >
+                                                        <div
+                                                            class="w-full flex h-4 items-center"
+                                                        >
+                                                            <div
+                                                                class="h-full flex items-center"
+                                                            >
+                                                                <mat-icon
+                                                                    class="icon-size-5"
+                                                                    [svgIcon]="
+                                                                        'feather:mail'
+                                                                    "
+                                                                ></mat-icon>
+                                                            </div>
+                                                            <div
+                                                                class="w-full flex justify-start items-center gap-2 pl-2"
+                                                            >
+                                                                <div
+                                                                    class="flex items-center gap-2"
+                                                                >
+                                                                    <span
+                                                                        *ngIf="
+                                                                            item.email
+                                                                        "
+                                                                        class="truncate text-[15px] leading-8"
+                                                                    >
+                                                                        {{
+                                                                            item.email
+                                                                        }}
+                                                                    </span>
+                                                                    <span
+                                                                        *ngIf="
+                                                                            !item.email
+                                                                        "
+                                                                        class="truncate text-[15px]"
+                                                                    >
+                                                                        N/A
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="w-full flex h-4 items-center"
+                                                        >
+                                                            <div
+                                                                class="h-full flex items-center"
+                                                            >
+                                                                <mat-icon
+                                                                    class="icon-size-5"
+                                                                    [svgIcon]="
+                                                                        'mdi:facebook'
+                                                                    "
+                                                                ></mat-icon>
+                                                            </div>
+                                                            <div
+                                                                class="w-full flex justify-start items-center gap-2 pl-2"
+                                                            >
+                                                                <div
+                                                                    class="flex items-center gap-2"
+                                                                >
+                                                                    <span
+                                                                        *ngIf="
+                                                                            item.facebook
+                                                                        "
+                                                                        class="truncate text-[15px] leading-8"
+                                                                    >
+                                                                        {{
+                                                                            item.facebook
+                                                                        }}
+                                                                    </span>
+                                                                    <span
+                                                                        *ngIf="
+                                                                            !item.facebook
+                                                                        "
+                                                                        class="truncate text-[15px]"
+                                                                    >
+                                                                        N/A
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="w-full flex h-4 items-center"
+                                                        >
+                                                            <div
+                                                                class="h-full flex items-center"
+                                                            >
+                                                                <mat-icon
+                                                                    class="icon-size-5"
+                                                                    [svgIcon]="
+                                                                        'mdi:account-tie'
+                                                                    "
+                                                                ></mat-icon>
+                                                            </div>
+                                                            <div
+                                                                class="w-full flex justify-start items-center gap-2 pl-2"
+                                                            >
+                                                                <div
+                                                                    class="flex items-center gap-2"
+                                                                >
+                                                                    <span
+                                                                        *ngIf="
+                                                                            item.job
+                                                                        "
+                                                                        class="text-[16px] leading-8"
+                                                                    >
+                                                                        {{
+                                                                            item.job
+                                                                        }}
+                                                                    </span>
+                                                                    <span
+                                                                        *ngIf="
+                                                                            !item.job
+                                                                        "
+                                                                        class="text-[16px] leading-8"
+                                                                    >
+                                                                        N/A
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- <div class="grid grid">
+                                                    <div class=" ">
+                                                        <div class="">
+
+                                                            <div class="flex justify-between">
+
+                                                            </div>
+
+                                                            <div class="flex justify-between">
+                                                                <div class="w-full h-full flex flex-col">
+                                                                    <div class="min-w-15 max-w-15 flex justify-start items-center">
+                                                                        <mat-icon class="icon-size-5" [svgIcon]="'feather:send'"></mat-icon>
+                                                                    </div>
+                                                                    <div class="w-full flex justify-start items-center gap-2 -ml-8">
+                                                                        <div class="flex items-center gap-2 min-w-26">
+                                                                            <span class="truncate text-[15px] leading-8">
+                                                                                {{item.telegram}}
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="flex justify-between">
+                                                                <div class="w-full flex">
+                                                                    <div class="min-w-15 max-w-15 flex justify-start items-center">
+                                                                        <mat-icon class="icon-size-5" [svgIcon]="'mat_outline:location_on'"></mat-icon>
+                                                                    </div>
+                                                                    <div class="w-full flex justify-start items-center gap-2 -ml-8">
+                                                                        <div class="flex items-center gap-2 min-w-26">
+                                                                            <span class="truncate text-[15px] leading-8">
+                                                                                {{item.address}}
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="w-[40%] p-2">
+                                                        <div class="flex justify-between">
+                                                            <div class="w-full flex">
+                                                                <div class="min-w-15 max-w-15 flex justify-start items-center">
+                                                                    <mat-icon class="icon-size-5" [svgIcon]="'feather:mail'"></mat-icon>
+                                                                </div>
+                                                                <div class="w-full flex justify-start items-center gap-2 -ml-8">
+                                                                    <div class="flex items-center gap-2 min-w-26">
+                                                                        <span class="truncate text-[15px] leading-8">
+                                                                            {{item.email}}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="flex justify-between">
+                                                            <div class="w-full flex">
+                                                                <div class="min-w-15 max-w-15 flex justify-start items-center">
+                                                                    <mat-icon class="icon-size-5" [svgIcon]="'mdi:facebook'"></mat-icon>
+                                                                </div>
+                                                                <div class="w-full flex justify-start items-center gap-2 -ml-8">
+                                                                    <div class="flex items-center gap-2 min-w-26">
+                                                                        <span class="truncate text-[15px] leading-8">
+                                                                            {{item.facebook}}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="flex justify-between">
+                                                            <div class="w-full flex">
+                                                                <div class="min-w-15 max-w-15 flex justify-start items-center">
+                                                                    <mat-icon [svgIcon]="'mdi:account-tie'"></mat-icon>
+                                                                </div>
+                                                                <div class="w-full flex justify-start items-center gap-2 -ml-8">
+                                                                    <div class="flex items-center gap-2 min-w-26">
+                                                                        <span class="truncate text-[15px] leading-8">
+                                                                            {{item.job}}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+
+                                                    </div>
+
+
+
+                                                </div> -->
+                                            </div>
+                                            <div
+                                                class="absolute right-0 top-12 flex items-center justify-end mr-4"
+                                            >
+                                                <button
+                                                    mat-icon-button
+                                                    [matMenuTriggerFor]="menu"
+                                                >
+                                                    <mat-icon
+                                                        class="icon-size-6"
+                                                        svgIcon="mat_outline:more_vert"
+                                                    ></mat-icon>
+                                                </button>
+                                                <mat-menu #menu="matMenu">
+                                                    <button
+                                                        mat-menu-item
+                                                        (click)="
+                                                            updateParentDialog(
+                                                                item
+                                                            )
+                                                        "
+                                                    >
+                                                        <mat-icon
+                                                            class="icon-size-5 text-blue-500"
+                                                            svgIcon="heroicons_outline:pencil"
+                                                        ></mat-icon>
+                                                        <span
+                                                            class="text-lg text-blue-500"
+                                                            >កែប្រែ</span
+                                                        >
+                                                    </button>
+                                                    <button
+                                                        mat-menu-item
+                                                        (click)="
+                                                            deleteParent(item)
+                                                        "
+                                                    >
+                                                        <mat-icon
+                                                            class="icon-size-5 text-red-500"
+                                                            svgIcon="heroicons_outline:trash"
+                                                        ></mat-icon>
+                                                        <span
+                                                            class="text-lg text-red-500"
+                                                            >លុប</span
+                                                        >
+                                                    </button>
+                                                </mat-menu>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+
+                                    <div class="text-lg mt-5 font-medium">
+                                        អ្នកមានបងប្អូនបង្កើតកំពុងសិក្សានៅសាលាអន្តរជាតិខេ
+                                        សុី​ អុី ឬទេ ៖
+                                    </div>
+
+                                    <mat-radio-group
+                                        class="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-4"
+                                        formControlName="sibling"
+                                    >
+                                        <mat-radio-button [value]="true"
+                                            >មាន</mat-radio-button
+                                        >
+                                        <mat-radio-button [value]="false"
+                                            >គ្មាន</mat-radio-button
+                                        >
+                                    </mat-radio-group>
+
+                                    <div
+                                        class="flex bg-slate-100 h-[50px] items-center rounded-lg"
+                                    >
+                                        <mat-icon
+                                            class="icon-size-6 ml-4"
+                                            [svgIcon]="'mdi:plus-outline'"
+                                        >
+                                        </mat-icon>
+                                        <div class="text-xl ml-2">សុខភាព</div>
+                                    </div>
+
+                                    <div class="text-lg mt-5 font-medium">
+                                        បញ្ហាសុខភាពដែលត្រូវសម្គាល់ ៖
+                                    </div>
+
+                                    <div
+                                        class="grid mt-5 grid-cols-1 sm:grid-cols-4 gap-4"
+                                    >
+                                        <ng-container
+                                            *ngFor="
+                                                let item of data?.education
+                                                    ?.general?.diseases
+                                            "
+                                        >
+                                            <mat-checkbox
+                                                [value]="item.id"
+                                                (change)="
+                                                    onCheckboxChange($event)
+                                                "
+                                            >
+                                                {{ item.name }}
+                                            </mat-checkbox>
+                                        </ng-container>
+                                    </div>
+
+                                    <div class="text-lg mt-5 font-medium">
+                                        ការចូលរូមសកម្មភាពកីឡា ៖
+                                    </div>
+
+                                    <mat-radio-group
+                                        class="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-4"
+                                        formControlName="sport_activity"
+                                    >
+                                        <mat-radio-button [value]="true"
+                                            >អាច</mat-radio-button
+                                        >
+                                        <mat-radio-button [value]="false"
+                                            >មិនអាច</mat-radio-button
+                                        >
+                                    </mat-radio-group>
+
+                                    <div class="text-lg font-medium">
+                                        សិស្សកំពុងប្រើប្រាស់ថ្នាំពេទ្យជាប្រចាំ ៖
+                                    </div>
+
+                                    <mat-radio-group
+                                        class="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-4"
+                                        formControlName="used_medicine"
+                                    >
+                                        <mat-radio-button [value]="true"
+                                            >មាន</mat-radio-button
+                                        >
+                                        <mat-radio-button [value]="false"
+                                            >គ្មាន</mat-radio-button
+                                        >
+                                    </mat-radio-group>
+
+                                    <div class="">
+                                        <mat-form-field
+                                            appearance="outline"
+                                            class="w-full"
+                                        >
+                                            <mat-label
+                                                >ថ្នាំនោះជាថ្នាំ</mat-label
+                                            >
+                                            <input
+                                                matInput
+                                                formControlName="medicine_name"
+                                                placeholder="បញ្ចូលឈ្មោះថ្នាំ"
+                                            />
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="text-lg font-medium">
+                                        សិស្សងាយមានប្រតិកម្ម ៖
+                                    </div>
+
+                                    <mat-radio-group
+                                        class="grid grid-cols-1 sm:grid-cols-4 gap-4"
+                                        formControlName="allergy"
+                                    >
+                                        <mat-radio-button [value]="true"
+                                            >មាន</mat-radio-button
+                                        >
+                                        <mat-radio-button [value]="false"
+                                            >គ្មាន</mat-radio-button
+                                        >
+                                    </mat-radio-group>
+
+                                    <div class="text-lg font-medium mb-3">
+                                        ផ្សេងៗ ៖
+                                    </div>
+                                    <div
+                                        class="grid grid-cols-1 sm:grid-cols-1 gap-4"
+                                    >
+                                        <mat-form-field
+                                            appearance="outline"
+                                            class="w-full"
+                                        >
+                                            <mat-label>ផ្សេងៗ</mat-label>
+                                            <input
+                                                matInput
+                                                formControlName="other"
+                                                placeholder="ផ្សេងៗ"
+                                            />
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="flex justify-end gap-5 pb-5">
+                                        <button
+                                            class="flex bg-blue-900 ml-auto md:w-fit min-w-15 helpers-mat-button-md"
+                                            [disabled]="!firstFormGroup.valid"
+                                            matStepperNext
+                                            (click)="stepControll()"
+                                            mat-flat-button
+                                        >
+                                            <span class="text-white"
+                                                >បន្ទាប់</span
+                                            >
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </mat-step>
+
+                    <mat-step state="class" [stepControl]="secondFormGroup">
+                        <form [formGroup]="secondFormGroup">
+                            <ng-template matStepLabel
+                                ><span class="label-class"
+                                    >ការសិក្សា</span
+                                ></ng-template
+                            >
+                            <div class="">
+                                <div
+                                    class="flex bg-slate-100 h-12 items-center rounded-lg justify-between"
+                                >
+                                    <div
+                                        class="flex items-center justify-start"
+                                    >
+                                        <mat-icon
+                                            class="icon-size-5 ml-4"
+                                            [svgIcon]="
+                                                'heroicons_outline:academic-cap'
+                                            "
+                                        >
+                                        </mat-icon>
+                                        <div class="text-xl ml-2">
+                                            ប្រវត្តិការសិក្សា
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="w-[30px] h-[30px] border border-gray-400 rounded-full flex items-center justify-center cursor-pointer"
+                                        (click)="createHistoryDialog()"
+                                    >
+                                        <mat-icon
+                                            class="icon-size-6"
+                                            svgIcon="heroicons_outline:plus"
+                                        ></mat-icon>
+                                    </div>
+                                </div>
+
+                                <div class="flex w-full justify-center">
+                                    <div class="mt-5 w-[1500px]">
+                                        <div
+                                            *ngIf="histories.length === 0"
+                                            class="flex flex-col justify-center items-center mb-4"
+                                        >
+                                            <mat-icon
+                                                class="icon-size-16"
+                                                svgIcon="toc"
+                                            ></mat-icon>
+                                            <span class="text-lg -mt-4"
+                                                >គ្មានទិន្នន័យ</span
+                                            >
+                                        </div>
+                                        <ng-container
+                                            *ngIf="histories.length > 0"
+                                        >
+                                            <header
+                                                class="h-12 flex justify-between items-center"
+                                            >
+                                                <div
+                                                    class="px-2 text-lg ml-2 w-full min-w-40 font-semibold"
+                                                >
+                                                    កម្រិត
+                                                </div>
+                                                <div
+                                                    class="px-2 text-lg w-full min-w-30 max-w-40 font-semibold"
+                                                >
+                                                    ថ្នាក់
+                                                </div>
+                                                <div
+                                                    class="px-2 text-lg w-full min-w-50 max-w-60 font-semibold"
+                                                >
+                                                    ឈ្មោះសាលា
+                                                </div>
+                                                <div
+                                                    class="px-2 text-lg w-full min-w-40 max-w-50 font-semibold"
+                                                >
+                                                    ឆ្នាំសិក្សា
+                                                </div>
+                                                <div
+                                                    class="w-full min-w-12 max-w-12"
+                                                ></div>
+                                            </header>
+                                            <ng-container
+                                                *ngFor="
+                                                    let item of histories;
+                                                    let i = index
+                                                "
+                                            >
+                                                <div
+                                                    [class.bg-slate-200]="
+                                                        i % 2 == 0
+                                                    "
+                                                    class="flex items-center justify-between h-12 p-2"
+                                                >
+                                                    <div
+                                                        class="px-2 text-lg ml-2 w-full min-w-40"
+                                                    >
+                                                        {{ item.level_name }}
+                                                    </div>
+                                                    <div
+                                                        class="px-2 text-lg w-full min-w-30 max-w-40 font-normal"
+                                                    >
+                                                        {{
+                                                            item.start_grade_name
+                                                        }}
+                                                        -
+                                                        {{
+                                                            item.end_grade_name
+                                                        }}
+                                                    </div>
+                                                    <div
+                                                        class="px-2 text-lg w-full min-w-50 max-w-60 font-normal"
+                                                    >
+                                                        {{ item.school_name }}
+                                                    </div>
+                                                    <div
+                                                        class="px-2 text-lg w-full min-w-40 max-w-50 font-normal"
+                                                    >
+                                                        {{ item.start_date }} -
+                                                        {{ item.end_date }}
+                                                    </div>
+                                                    <div
+                                                        class="w-full min-w-12 max-w-12"
+                                                    >
+                                                        <button
+                                                            class="rounded-full min-w-8 max-w-8"
+                                                            mat-button
+                                                            (click)="
+                                                                deleteHistory(
+                                                                    item
+                                                                )
+                                                            "
+                                                        >
+                                                            <mat-icon
+                                                                class="icon-size-6 text-red-500"
+                                                                svgIcon="heroicons_outline:trash"
+                                                            ></mat-icon>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </ng-container>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="flex my-4 bg-slate-100 h-12 items-center rounded-lg sm-form-field-appearance-outline"
+                                >
+                                    <div
+                                        class="flex justify-start items-center"
+                                    >
+                                        <mat-icon
+                                            class="icon-size-5 ml-4"
+                                            [svgIcon]="
+                                                'heroicons_outline:academic-cap'
+                                            "
+                                        >
+                                        </mat-icon>
+                                        <div class="text-xl ml-2 w-24">
+                                            ឆ្នាំការសិក្សា
+                                        </div>
+                                    </div>
+                                    <mat-form-field
+                                        appearance="outline"
+                                        class="w-50"
+                                    >
+                                        <mat-label>ឆ្នាំសិក្សា</mat-label>
+                                        <mat-select
+                                            formControlName="academic_id"
+                                        >
+                                            @for (item of
+                                            data?.study?.academics; track
+                                            item.id) {
+                                            <mat-option
+                                                [value]="item.id"
+                                                (click)="gradeHandler(item)"
+                                            >
+                                                <div class="flex justify-start">
+                                                    <span class="text-md">{{
+                                                        item.name
+                                                    }}</span>
+                                                    <div
+                                                        class="text-sm text-yellow-500 pl-2"
+                                                        *ngIf="
+                                                            item.status.id === 2
+                                                        "
+                                                    >
+                                                        {{ item.status.name }}
+                                                    </div>
+                                                    <div
+                                                        class="text-sm text-green-500 pl-2"
+                                                        *ngIf="
+                                                            item.status.id === 1
+                                                        "
+                                                    >
+                                                        {{ item.status.name }}
+                                                    </div>
+                                                </div>
+                                            </mat-option>
+                                            } @empty {
+                                            <span>គ្មានទិន្នន័យ</span>
+                                            }
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div
+                                    class="grid grid-cols-3 gap-4 md-form-field-appearance-outline"
+                                >
+                                    <mat-form-field
+                                        appearance="outline"
+                                        class="w-full"
+                                    >
+                                        <mat-label>កម្រិត</mat-label>
+                                        <mat-select formControlName="level_id">
+                                            @for (item of
+                                            data?.education?.general?.levels;
+                                            track item.id) {
+                                            <mat-option
+                                                [value]="item.id"
+                                                (click)="gradeHandler(item)"
+                                            >
+                                                <span>{{ item.name }}</span>
+                                            </mat-option>
+                                            }
+                                        </mat-select>
+                                    </mat-form-field>
+
+                                    <mat-form-field
+                                        appearance="outline"
+                                        class="w-full"
+                                    >
+                                        <mat-label>ថ្នាក់</mat-label>
+                                        <mat-select formControlName="grade_id">
+                                            @for (item of grades; track item.id)
+                                            {
+                                            <mat-option
+                                                [value]="item.id"
+                                                (click)="addPrice()"
+                                            >
+                                                <span>{{ item.name }}</span>
+                                            </mat-option>
+                                            } @empty {
+                                            <mat-option [value]="0">
+                                                <span>គ្មានទិន្នន័យ</span>
+                                            </mat-option>
+                                            }
+                                        </mat-select>
+                                        <mat-error
+                                            >សូមជ្រើសរើសកម្រិតជាមុនសិន</mat-error
+                                        >
+                                    </mat-form-field>
+
+                                    <mat-form-field
+                                        appearance="outline"
+                                        class="w-full"
+                                    >
+                                        <mat-label class="text-md text-gray-500"
+                                            >ថ្ងៃចូលរៀន</mat-label
+                                        >
+                                        <input
+                                            id="enroll_date"
+                                            matInput
+                                            readonly
+                                            [matDatepicker]="enrollDatePicker"
+                                            formControlName="enroll_date"
+                                            (click)="enrollDatePicker.open()"
+                                        />
+
+                                        <mat-datepicker-toggle
+                                            matSuffix
+                                            [for]="enrollDatePicker"
+                                        ></mat-datepicker-toggle>
+                                        <mat-datepicker
+                                            #enrollDatePicker
+                                            (yearSelected)="
+                                                chosenEnrollHandler(
+                                                    $event,
+                                                    enrollDatePicker
+                                                )
+                                            "
+                                        ></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="flex w-full justify-center">
+                                    <div class="w-full">
+                                        <ng-container>
+                                            <header
+                                                class="h-12 flex justify-between items-center"
+                                            >
+                                                <div
+                                                    class="px-2 text-xl ml-12 w-full min-w-40 font-semibold"
+                                                >
+                                                    កម្មវិធីសិក្សា
+                                                </div>
+                                                <div
+                                                    class="px-2 text-xl w-full min-w-30 max-w-30 font-semibold"
+                                                    *ngFor="
+                                                        let schedule of data
+                                                            ?.study?.schedules
+                                                    "
+                                                >
+                                                    {{ schedule.name }}
+                                                </div>
+                                            </header>
+                                            <ng-container
+                                                *ngFor="
+                                                    let item of data?.payment
+                                                        ?.languages;
+                                                    let i = index
+                                                "
+                                            >
+                                                <mat-radio-group
+                                                    (change)="
+                                                        onRadioChange(
+                                                            item.id,
+                                                            $event.value
+                                                        )
+                                                    "
+                                                >
+                                                    <div
+                                                        [class.bg-slate-200]="
+                                                            i % 2 == 0
+                                                        "
+                                                        class="flex items-center justify-between h-12 p-2"
+                                                    >
+                                                        <div
+                                                            class="px-2 text-xl ml-12 w-full min-w-40 font-semibold"
+                                                        >
+                                                            <div
+                                                                class="flex items-center"
+                                                                style="
+                                                                    margin-left: -55px;
+                                                                "
+                                                            >
+                                                                <mat-checkbox
+                                                                    class="ml-3"
+                                                                    [value]="
+                                                                        item.id
+                                                                    "
+                                                                    (change)="
+                                                                        onCheckboxLanguage(
+                                                                            $event,
+                                                                            i
+                                                                        )
+                                                                    "
+                                                                    >{{
+                                                                        item.name
+                                                                    }}</mat-checkbox
+                                                                >
+                                                            </div>
+                                                        </div>
+                                                        <mat-radio-button
+                                                            *ngFor="
+                                                                let schedule of data
+                                                                    ?.study
+                                                                    ?.schedules
+                                                            "
+                                                            [value]="
+                                                                schedule.id
+                                                            "
+                                                            class="px-2 w-full min-w-30 max-w-30"
+                                                            [disabled]="
+                                                                !item.checked
+                                                            "
+                                                        ></mat-radio-button>
+                                                    </div>
+                                                </mat-radio-group>
+                                            </ng-container>
+                                        </ng-container>
+                                    </div>
+                                </div>
+
+                                <div class="flex mt-10">
+                                    <div
+                                        class="rounded-lg border border-blue-500"
+                                    >
+                                        <button
+                                            class="md:w-fit min-w-15 helpers-mat-button-md"
+                                            matStepperPrevious
+                                            mat-flat-button
+                                        >
+                                            <span class="text-blue-500"
+                                                >ត្រលប់ក្រោយ</span
+                                            >
+                                        </button>
+                                    </div>
+                                    <button
+                                        class="flex bg-blue-900 ml-auto md:w-fit min-w-15 helpers-mat-button-md"
+                                        matStepperNext
+                                        [disabled]="
+                                            !secondFormGroup.valid ||
+                                            gradePrices.length == 0
+                                        "
+                                        mat-flat-button
+                                    >
+                                        <span class="text-white">បន្ទាប់</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </mat-step>
+
+                    <mat-step state="payment">
+                        <form [formGroup]="thirdFormGroup">
+                            <ng-template matStepLabel
+                                ><span class="label-payment"
+                                    >ការបង់ប្រាក់</span
+                                ></ng-template
+                            >
+                            <div class="md-form-field-appearance-outline">
+                                <div
+                                    class="grid grid-cols-1 gap-4 mt-5"
+                                    *ngFor="
+                                        let price of gradePrices;
+                                        let k = index
+                                    "
+                                >
+                                    <mat-accordion>
+                                        <mat-expansion-panel
+                                            (opened)="panelOpenState.set(true)"
+                                            (closed)="panelOpenState.set(false)"
+                                        >
+                                            <mat-expansion-panel-header
+                                                class="bg-slate-200"
+                                            >
+                                                <mat-panel-title class="flex">
+                                                    <mat-icon
+                                                        class="icon-size-5"
+                                                        svgIcon="mdi:currency-usd"
+                                                    ></mat-icon>
+                                                    <div class="text-xl">
+                                                        កម្មវិធីភាសា{{
+                                                            price.language.name
+                                                        }}
+                                                    </div>
+                                                </mat-panel-title>
+                                                <mat-panel-description
+                                                    class="flex ml-auto justify-end"
+                                                >
+                                                    <div
+                                                        *ngIf="
+                                                            price.step ||
+                                                            price.discount > 0
+                                                        "
+                                                        style="font-size: 14px"
+                                                    >
+                                                        ({{ price.step }}
+                                                    </div>
+                                                    <div
+                                                        *ngIf="
+                                                            price.discount > 0
+                                                        "
+                                                        style="font-size: 14px"
+                                                    >
+                                                        , {{ price.discount }}%
+                                                    </div>
+                                                    <div
+                                                        *ngIf="
+                                                            price.step ||
+                                                            price.discount > 0
+                                                        "
+                                                        class="mr-2"
+                                                        style="font-size: 14px"
+                                                    >
+                                                        )
+                                                    </div>
+                                                    $
+                                                    {{
+                                                        price.realprice
+                                                            | number : "1.2-2"
+                                                    }}
+                                                </mat-panel-description>
+                                            </mat-expansion-panel-header>
+
+                                            <div class="my-3">
+                                                <mat-radio-group
+                                                    (change)="
+                                                        onRadioSetStep(
+                                                            price.language.id,
+                                                            $event.value,
+                                                            gradePrices[k]
+                                                        )
+                                                    "
+                                                >
+                                                    <mat-accordion
+                                                        *ngFor="
+                                                            let item of gradePrices[
+                                                                k
+                                                            ].steps;
+                                                            let i = index
+                                                        "
+                                                    >
+                                                        <mat-expansion-panel
+                                                            (opened)="
+                                                                inPanelOpenState.set(
+                                                                    true
+                                                                )
+                                                            "
+                                                            (closed)="
+                                                                inPanelOpenState.set(
+                                                                    false
+                                                                )
+                                                            "
+                                                        >
+                                                            <mat-expansion-panel-header
+                                                                [class.bg-slate-100]="
+                                                                    i % 2 == 0
+                                                                "
+                                                            >
+                                                                <mat-panel-title>
+                                                                    <mat-radio-button
+                                                                        class="text-xl"
+                                                                        [value]="
+                                                                            item
+                                                                        "
+                                                                    >
+                                                                        <div
+                                                                            class="text-xl"
+                                                                        >
+                                                                            {{
+                                                                                item.name
+                                                                            }}
+                                                                        </div>
+                                                                    </mat-radio-button>
+                                                                </mat-panel-title>
+                                                                <mat-panel-description
+                                                                    class="flex ml-auto justify-end"
+                                                                >
+                                                                    <div
+                                                                        *ngIf="
+                                                                            item.discount >
+                                                                            0
+                                                                        "
+                                                                        class="mr-2"
+                                                                        style="
+                                                                            font-size: 14px;
+                                                                        "
+                                                                    >
+                                                                        ({{
+                                                                            item.discount
+                                                                        }}%)
+                                                                    </div>
+                                                                    <div
+                                                                        class="text-xl"
+                                                                    >
+                                                                        $
+                                                                        {{
+                                                                            item.price
+                                                                                | number
+                                                                                    : "1.2-2"
+                                                                        }}
+                                                                    </div>
+                                                                </mat-panel-description>
+                                                            </mat-expansion-panel-header>
+                                                            <div
+                                                                class="mt-6 shadow"
+                                                            >
+                                                                <mat-radio-group
+                                                                    (change)="
+                                                                        onRadioSetDiscount(
+                                                                            price
+                                                                                .language
+                                                                                .id,
+                                                                            $event.value,
+                                                                            gradePrices[
+                                                                                k
+                                                                            ],
+                                                                            gradePrices[
+                                                                                k
+                                                                            ]
+                                                                                .steps[
+                                                                                i
+                                                                            ]
+                                                                        )
+                                                                    "
+                                                                >
+                                                                    <ng-container
+                                                                        *ngFor="
+                                                                            let discount of gradePrices[
+                                                                                k
+                                                                            ]
+                                                                                .steps[
+                                                                                i
+                                                                            ]
+                                                                                .discounts;
+                                                                            let t = index
+                                                                        "
+                                                                    >
+                                                                        <div
+                                                                            [class.bg-slate-100]="
+                                                                                t %
+                                                                                    2 ==
+                                                                                0
+                                                                            "
+                                                                            class="flex items-center"
+                                                                        >
+                                                                            <mat-panel-title>
+                                                                                <mat-radio-button
+                                                                                    class="ml-3"
+                                                                                    [value]="
+                                                                                        discount
+                                                                                    "
+                                                                                    [disabled]="
+                                                                                        !item.checked
+                                                                                    "
+                                                                                >
+                                                                                    <div
+                                                                                        class="text-lg text-green-500"
+                                                                                    >
+                                                                                        {{
+                                                                                            discount.percentage
+                                                                                                | number
+                                                                                                    : "1.2-2"
+                                                                                        }}%
+                                                                                    </div>
+                                                                                </mat-radio-button>
+                                                                            </mat-panel-title>
+                                                                            <mat-panel-description
+                                                                                class="flex ml-auto justify-end text-lg"
+                                                                            >
+                                                                                <div
+                                                                                    class="text-lg"
+                                                                                >
+                                                                                    $
+                                                                                    {{
+                                                                                        discount.price
+                                                                                            | number
+                                                                                                : "1.2-2"
+                                                                                    }}
+                                                                                </div>
+                                                                            </mat-panel-description>
+                                                                        </div>
+                                                                    </ng-container>
+                                                                </mat-radio-group>
+                                                            </div>
+                                                        </mat-expansion-panel>
+                                                    </mat-accordion>
+                                                </mat-radio-group>
+                                            </div>
+                                        </mat-expansion-panel>
+                                    </mat-accordion>
+                                </div>
+
+                                <div class="grid grid-cols-1 gap-4 mt-5">
+                                    <mat-accordion>
+                                        <mat-expansion-panel
+                                            (opened)="panelOpenState.set(true)"
+                                            (closed)="panelOpenState.set(false)"
+                                        >
+                                            <mat-expansion-panel-header
+                                                class="bg-slate-200"
+                                            >
+                                                <mat-panel-title>
+                                                    <mat-icon
+                                                        class="icon-size-5"
+                                                        svgIcon="mdi:currency-usd"
+                                                    ></mat-icon>
+                                                    <div class="text-xl">
+                                                        តម្លៃផ្សេងៗ
+                                                    </div>
+                                                </mat-panel-title>
+                                                <mat-panel-description
+                                                    class="flex ml-auto text-xl justify-end"
+                                                >
+                                                    $
+                                                    {{
+                                                        otherPaymentFullPrice
+                                                            | number : "1.2-2"
+                                                    }}
+                                                </mat-panel-description>
+                                            </mat-expansion-panel-header>
+
+                                            <div class="my-6">
+                                                <mat-accordion
+                                                    *ngFor="
+                                                        let item of otherPayment;
+                                                        let i = index
+                                                    "
+                                                >
+                                                    <mat-expansion-panel
+                                                        (opened)="
+                                                            inPanelOpenState.set(
+                                                                true
+                                                            )
+                                                        "
+                                                        (closed)="
+                                                            inPanelOpenState.set(
+                                                                false
+                                                            )
+                                                        "
+                                                    >
+                                                        <mat-expansion-panel-header
+                                                            [class.bg-slate-100]="
+                                                                i % 2 == 0
+                                                            "
+                                                        >
+                                                            <mat-panel-title>
+                                                                <mat-checkbox
+                                                                    class="ml-2 text-xl"
+                                                                    (change)="
+                                                                        toggleRequired(
+                                                                            i
+                                                                        )
+                                                                    "
+                                                                    >{{
+                                                                        item.name
+                                                                    }}</mat-checkbox
+                                                                >
+                                                            </mat-panel-title>
+                                                            <mat-panel-description
+                                                                class="flex ml-auto justify-end"
+                                                            >
+                                                                <div
+                                                                    *ngIf="
+                                                                        item.discount >
+                                                                        0
+                                                                    "
+                                                                    class="mr-2"
+                                                                    style="
+                                                                        font-size: 14px;
+                                                                    "
+                                                                >
+                                                                    ({{
+                                                                        item.discount
+                                                                    }}%)
+                                                                </div>
+                                                                $
+                                                                {{
+                                                                    item.price
+                                                                        | number
+                                                                            : "1.2-2"
+                                                                }}
+                                                            </mat-panel-description>
+                                                        </mat-expansion-panel-header>
+                                                        <div
+                                                            formArrayName="other_payments"
+                                                            class="pt-3"
+                                                        >
+                                                            <div
+                                                                [formGroupName]="
+                                                                    i
+                                                                "
+                                                            >
+                                                                <div
+                                                                    class="grid grid-cols-1 sm:grid-cols-2 gap-4"
+                                                                >
+                                                                    <mat-form-field
+                                                                        appearance="outline"
+                                                                        class="w-full"
+                                                                    >
+                                                                        <mat-label
+                                                                            >តម្លៃ($)</mat-label
+                                                                        >
+                                                                        <input
+                                                                            matInput
+                                                                            type="number"
+                                                                            formControlName="price"
+                                                                            placeholder="បញ្ចូលតម្លៃ"
+                                                                            (keyup)="
+                                                                                onInputOtherPayment(
+                                                                                    i
+                                                                                )
+                                                                            "
+                                                                        />
+                                                                        <mat-error
+                                                                            >សូមបញ្ចូលលេខ</mat-error
+                                                                        >
+                                                                    </mat-form-field>
+                                                                    <mat-form-field
+                                                                        appearance="outline"
+                                                                        class="w-full"
+                                                                    >
+                                                                        <mat-label
+                                                                            >បញ្ចុះតម្លៃ(%)</mat-label
+                                                                        >
+                                                                        <input
+                                                                            matInput
+                                                                            formControlName="discount"
+                                                                            placeholder="បញ្ចូលបញ្ចុះតម្លៃ"
+                                                                            (keyup)="
+                                                                                onInputOtherPayment(
+                                                                                    i
+                                                                                )
+                                                                            "
+                                                                        />
+                                                                        <mat-error
+                                                                            >សូមបញ្ចូលលេខនិងមិនឲលើសពី
+                                                                            100</mat-error
+                                                                        >
+                                                                    </mat-form-field>
+                                                                </div>
+                                                                <div
+                                                                    class="grid grid-cols-1 sm:grid-cols-1 gap-4"
+                                                                >
+                                                                    <mat-form-field
+                                                                        appearance="outline"
+                                                                        class="w-full"
+                                                                    >
+                                                                        <mat-label
+                                                                            >សម្គាល់</mat-label
+                                                                        >
+                                                                        <input
+                                                                            matInput
+                                                                            formControlName="note"
+                                                                            placeholder="បញ្ចូលសម្គាល់"
+                                                                        />
+                                                                    </mat-form-field>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </mat-expansion-panel>
+                                                </mat-accordion>
+                                            </div>
+                                        </mat-expansion-panel>
+                                    </mat-accordion>
+                                </div>
+
+                                <div
+                                    class="flex flex-col mt-10 justify-end items-end"
+                                >
+                                    <div
+                                        class="flex min-w-[300px] max-w-[300px] mr-[52px] text-xl"
+                                    >
+                                        សរុបរួមជាប្រាក់ដុលា​
+                                        <div class="text-xl ml-2">៖</div>
+                                        <div class="flex ml-auto">
+                                            {{
+                                                fullPriceDollar
+                                                    | number : "1.2-2"
+                                            }}
+                                            $
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="flex min-w-[300px] max-w-[300px] mr-[52px] text-xl"
+                                    >
+                                        សរុបរួមជាប្រាក់រៀន​
+                                        <div class="text-xl ml-[14.5px]">៖</div>
+                                        <div class="flex ml-auto">
+                                            {{
+                                                fullPriceKHR | number : "1.2-2"
+                                            }}
+                                            រ
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="flex justify-between gap-5 pb-5 mt-20"
+                                >
+                                    <div
+                                        class="rounded-lg border border-blue-500"
+                                    >
+                                        <button
+                                            class="md:w-fit min-w-15 helpers-mat-button-md"
+                                            matStepperPrevious
+                                            mat-flat-button
+                                        >
+                                            <span class="text-blue-500"
+                                                >ត្រលប់ក្រោយ</span
+                                            >
+                                        </button>
+                                    </div>
+                                    <button
+                                        class="w-full md:w-fit min-w-15 helpers-mat-button-md bg-blue-900"
+                                        mat-flat-button
+                                        (click)="submit()"
+                                        [disabled]="
+                                            firstFormGroup.invalid ||
+                                            secondFormGroup.invalid ||
+                                            validStudentLanguagesCount() == 0 ||
+                                            thirdFormGroup.invalid
+                                        "
+                                    >
+                                        <span
+                                            *ngIf="!loading"
+                                            class="text-white"
+                                            >រក្សាទុក</span
+                                        >
+                                        <mat-progress-spinner
+                                            *ngIf="loading"
+                                            [diameter]="24"
+                                            [mode]="'indeterminate'"
+                                        ></mat-progress-spinner>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </mat-step>
+                </mat-horizontal-stepper>
+            </form>
+        </div>
+    </div>
+</div>

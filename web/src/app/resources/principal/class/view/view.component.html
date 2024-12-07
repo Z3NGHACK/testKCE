@@ -1,0 +1,47 @@
+<section class="view-student-section w-screen">
+    <div class="view-student-container" @fadeInCustom>
+         <div class="md-shared-header-section">
+             <!-- header of student  -->
+             <div class="flex flex-1 items-center font-medium">
+                 <button mat-icon-button class="flex items-center" (click)="back( )" >
+                     <mat-icon class="icon-size-8 mt-1" svgIcon="mat_outline:chevron_left"/>
+                 </button>
+
+                 <div class="flex items-center ml-1.5">
+                     <span class="text-3xl font-semibold text-gray-500 -mb-0.5"> {{data?.academic_name}}/ {{data?.grade_name}} / ភាសា{{data?.language_name}} / {{data?.schedule_name}} </span>
+                 </div>
+             </div>
+         </div>
+         <div class="view-student-body">
+             <!-- body of tabs -->
+             <mat-tab-group class="mat-tab-flex-grow" 
+              >
+                 <mat-tab label="ទូទៅ" >
+                    <principle-class-room-general [id]="id"></principle-class-room-general>
+                 </mat-tab>
+
+                 <mat-tab label="សិស្ស">
+                    <!-- body of student classroom -->
+                    <ng-template matTabContent>
+                        <priniciple-class-room-student [id]="id"></priniciple-class-room-student>
+                    </ng-template>
+                 </mat-tab>
+
+                <mat-tab label="កាលវិភាគ">
+                    <ng-template matTabContent>
+                        <principle-classroom-schedule [id]="id" [data]="schedules"></principle-classroom-schedule>
+                    </ng-template>
+                </mat-tab>
+                <mat-tab label="ការបង្រៀន">
+                    <principle-class-room-teaching [id]="id" [general]="data"></principle-class-room-teaching>
+                </mat-tab>
+                <mat-tab label="របាយការណ៍">
+                    <ng-template matTabContent>
+                        <principle-class-room-report [id]="id"></principle-class-room-report>
+                    </ng-template>
+                </mat-tab>
+             </mat-tab-group>
+         </div>
+    </div>
+ </section>
+

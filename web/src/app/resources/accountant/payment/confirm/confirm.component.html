@@ -1,0 +1,73 @@
+
+<div class="w-[600px] flex p-4 rounded-3xl dialog-rounded relative">
+      
+        <div class="absolute top-12 left-14">
+            <div class="w-[45px] h-[45px] bg-yellow-100 rounded-full flex items-center justify-center">
+                <mat-icon class="icon-size-7 -mt-0.5 text-yellow-600" svgIcon="heroicons_outline:exclamation-triangle" />
+            </div>
+        </div>
+        <div class="absolute -bottom-13 right-4 justify-end p-4">
+            <button mat-button class="bg-blue-700 px-6 py-3 rounded-xl hover:bg-blue-500 cursor-pointer">
+                <span class="text-xl text-white"> ទូទាត់ </span>
+            </button>
+       </div>
+        <div class="pl-22 w-full">
+            <div class="shared-header-section">
+                <div class="flex flex-1 items-center font-medium"> 
+                    <div class="flex items-center ml-1.5">
+                        <span class="text-xl font-semibold -mb-0.5"> បញ្ញាក់ការទូរទាត់ </span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button mat-icon-button class="flex items-center" (click)="closeDialog()" >
+                        <mat-icon class="icon-size-6 mt-1" svgIcon="mat_outline:close" />
+                    </button>
+                </div>      
+            </div>
+            <div class="w-full">
+                <div class="flex h-[2rem] items-center pl-2">
+                    <div class="flex gap-3 items-center ">
+                        <mat-icon class="icon-size-6 -mb-0.5" svgIcon="mat_outline:receipt_long" />
+                        <span class="text-xl w-30"> លេខវិក័យប័ត្រ </span>
+                    </div>
+                    <span class="text-xl "> ៖ </span>
+                    <span class="text-lg pl-3 text-gray-500">
+                        {{data?.code}}
+                    </span>
+                </div>
+                <div class="flex h-[2rem] items-center pl-2">
+                    <div class="flex gap-3 items-center ">
+                        <mat-icon class="icon-size-6 -mb-0.5" svgIcon="feather:user" />
+                        <span class="text-xl w-30"> អតិថិជន </span>
+                    </div>
+                    <span class="text-xl "> ៖ </span>
+                    <span class="text-lg pl-3 text-gray-500">
+                        {{ data?.academic_languages?.student?.parents[0]?.name }}
+                    </span>
+                </div>
+                <div class="flex h-[2rem] items-center pl-2">
+                    <div class="flex gap-3 items-center ">
+                        <mat-icon class="icon-size-6 -mb-0.5" svgIcon="mdi:account-school-outline" />
+                        <span class="text-xl w-30"> សិស្ស </span>
+                    </div>
+                    <span class="text-xl "> ៖ </span>
+                    <span class="text-lg pl-3 text-gray-500">
+                        {{ data?.academic_languages?.student?.kh_name }}
+                    </span>
+                </div>
+                <div class="flex h-[2rem] items-center pl-2">
+                    <div class="flex gap-3 items-center ">
+                        <mat-icon class="icon-size-6 -mb-0.5" svgIcon="mdi:currency-usd" />
+                        <span class="text-xl w-30"> តម្លៃសរុប </span>
+                    </div>
+                    <span class="text-xl "> ៖ </span>
+                    <span class="text-lg pl-3 text-gray-500">
+                        $ 3260
+                    </span>
+                </div>
+            </div>
+           
+        </div>
+ 
+     
+</div>

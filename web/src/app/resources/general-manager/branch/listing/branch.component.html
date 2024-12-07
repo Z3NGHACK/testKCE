@@ -1,0 +1,92 @@
+<section class="list-student-section w-full" >
+    <div class="list-student-container" @fadeInCustom>
+        <!-- header of student  -->
+        <div class="shared-header-section">
+            <div class="flex flex-1 items-center font-medium">
+                <div class="flex items-center">
+                    <mat-icon class="icon-size-5 -mt-0.5" svgIcon="heroicons_outline:home" />
+                </div>
+                <div class="flex items-center ml-1.5">
+                    <span class="text-lg text-gray-600 -mb-0.5">សាខា</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <button class="helpers-mat-button-sm px-2" mat-stroked-button (click)="create()">
+                    <mat-icon class="icon-size-4" svgIcon="heroicons_outline:plus" />
+                </button>
+            </div>
+        </div>
+        <!-- body of student  -->
+        <div class="list-student-body ">
+            <!-- data  -->
+            <div class="list-student-data">
+                <table mat-table [dataSource]="dataSource">
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef> ឈ្មោះ </th>
+                        <td mat-cell *matCellDef="let data">
+                            <div class="flex">
+                                <img class="student-avatar" [src]="fileUrl + data.school " alt="avatar">
+                                <div class="flex flex-col justify-center pl-2">
+                                    <strong class="text-lg font-medium text-slate-900 dark:text-white">{{ data?.name}}</strong>
+                                    <span class="text-sm text-gray-500">{{ data?.address }}</span>
+                                </div>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="code">
+                        <th mat-header-cell *matHeaderCellDef class="z-10 "> កូដសាខា </th>
+                        <td mat-cell *matCellDef="let data">
+                            <span  class="truncate w-20 text-gray-500 ">{{ data?.code }} </span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef class="z-10 "> ស្ថានភាព </th>
+                        <td mat-cell *matCellDef="let data">
+                            <span  [ngClass]="getStatusClass(data?.status)" class="truncate w-20 ">{{ data?.status }} </span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="teacher" class="">
+                        <th mat-header-cell *matHeaderCellDef class="z-10 text-end" > ចំនួនគ្រូបង្រៀន​ </th>
+                        <td mat-cell *matCellDef="let data" class="text-end">
+                            <span class="truncate w-20 text-gray-500">{{ data?.teacher_count }} </span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="student"  class="">
+                        <th mat-header-cell *matHeaderCellDef class=" text-end z-10 "> ចំនួនសិស្ស </th>
+                        <td mat-cell *matCellDef="let data" class="text-end">
+                            <span class="truncate max-w-20 text-gray-500"> {{ data?.n_student }} </span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="action" stickyEnd>
+                        <th mat-header-cell *matHeaderCellDef class="z-10"></th>
+                        <td mat-cell *matCellDef="let data" class="text-end">
+                            <button mat-icon-button [matMenuTriggerFor]="menu">
+                                <mat-icon class="icon-size-6" svgIcon="mat_outline:more_vert"></mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item (click)="view(data)">
+                                    <mat-icon class="icon-size-5 text-gray-500" svgIcon="heroicons_outline:eye"></mat-icon>
+                                    <span class="text-lg text-gray-500">មើល</span>
+                                </button>
+                                <button mat-menu-item (click)="deleteBranch(data)" >
+                                    <mat-icon class="icon-size-5 text-red-400"
+                                        svgIcon="mat_outline:error_outline"></mat-icon>
+                                    <span class="text-lg text-red-400">ផ្អាក</span>
+                                </button>
+                            </mat-menu>
+                            
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

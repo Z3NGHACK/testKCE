@@ -1,0 +1,256 @@
+.list-student-section {
+    height: calc(100dvh - 3.5rem) !important; // 56px is header of layout
+    @apply overflow-hidden py-4 #{'!important'};
+
+    .list-student-container {
+        height: calc(100dvh - 5.5rem) !important; // 56px(layout) + 32px(padding-y) is 88px
+        @apply bg-white dark:bg-opacity-5 rounded-xl overflow-hidden #{'!important'};
+
+        // shared-header-section: have h-14 is 56px
+        .list-student-body,
+        .no-data {
+            height: calc(100dvh - 12rem) !important; // 56px(layout) + 16px(padding-y) + 56px is 144px
+            @apply overflow-hidden border-t #{'!important'};
+        }
+
+        // paginatino: have h-12 is 48px
+        .list-student-body {
+            .list-student-data {
+                height: calc(100dvh - 20rem); //9rem + 3rem is 192px
+                @apply overflow-auto  #{'!important'};
+            }
+        }
+    }
+
+}
+
+::ng-deep .list-student-data {
+
+    .student-avatar {
+        @apply rounded-full border border-blue-600 min-w-[45px] max-w-[45px] min-h-[45px] max-h-[45px] object-cover #{'!important'};
+    }
+    .mat-mdc-header-cell {
+        font-size: 1rem !important;
+        padding: 0 !important;
+        color: #0f172a !important;
+        z-index: 10 !important;
+        padding: 0.5rem !important;
+        @apply dark:text-white border-b-0 #{'!important'};
+    }
+
+    .mat-mdc-cell{
+        border: none;
+    }
+
+    .mdc-data-table__content tr:nth-child(odd){
+        @apply bg-slate-100 hover:bg-slate-100 #{'!important'}
+    }
+
+    /* Style odd rows */
+    .mat-row:nth-child(odd) {
+        background-color: #f5f5f5; /* Light grey background for odd rows */
+    }
+
+    /* Style even rows */
+    .mat-row:nth-child(even) {
+        background-color: #ffffff; /* White background for even rows */
+    }
+
+    .mat-column-profile {
+        min-width: 20rem;
+        text-align: left;
+    }
+
+    .mat-column-sex {
+        min-width: 12rem;
+        width: 12rem;
+        max-width: 12rem;
+        text-align: left;
+    }
+
+    .mat-column-campus {
+        min-width: 12rem;
+        width: 12rem;
+        max-width: 12rem;
+        text-align: left;
+    }
+
+    .mat-column-class {
+        min-width: 12rem;
+        width: 12rem;
+        max-width: 12rem;
+        text-align: left;
+    }
+
+    .mat-column-date {
+        min-width: 15rem;
+        width: 15rem;
+        max-width: 15rem;
+        text-align: left;
+    }
+
+    .mat-column-action {
+        flex: none;
+        width: 2rem;
+        text-align: right;
+    }
+}
+::ng-deep .mat-mdc-select{
+    @apply pb-3 #{'!important'}
+}
+
+
+::ng-deep .shared-header-section {
+    height: 60px !important;
+    .custom-icon-button {
+        height: 34px !important;
+        min-height: 34px !important;
+        max-height: 34px !important;
+        width: 34px !important;
+        min-width: 34px !important;
+        max-width: 34px !important;
+        padding: 0px !important;
+    }
+}
+
+::ng-deep .sm-form-field-appearance-outline {
+    
+}
+
+
+::ng-deep .select{
+    
+    
+    .custom-icon-button {
+        height: 36px !important;
+        min-height: 36px !important;
+        max-height: 36px !important;
+        width: 34px !important;
+        min-width: 34px !important;
+        max-width: 34px !important;
+        border-radius: 0 0.5rem 0.5rem 0 !important ;
+        border-left: none !important;
+    }
+  
+     .mat-mdc-form-field-flex {
+            height: 2.25rem;
+
+            .mdc-notched-outline {
+                .mdc-notched-outline__leading {
+                    border-radius: 0.5rem 0 0 0.5rem !important;
+                }
+
+                .mdc-notched-outline__notch {
+                    .mdc-floating-label {
+                        top: 16px;
+                    }
+
+                    .mdc-floating-label.mat-mdc-floating-label.mdc-floating-label--float-above {
+                        top: 26px;
+                    }
+                }
+
+                .mdc-notched-outline__trailing {
+                    border-radius: 0 0 0 0 !important;
+                }
+            }
+
+            .mat-mdc-form-field-icon-prefix,
+            .mat-mdc-form-field-icon-suffix {
+
+                .mat-icon,
+                .mat-datepicker-toggle-default-icon {
+                    @apply icon-size-5 #{'!important'};
+                }
+
+                .mdc-icon-button.mat-mdc-icon-button {
+
+                    .mat-mdc-button-touch-target,
+                    .mat-mdc-button-persistent-ripple,
+                    .mat-mdc-focus-indicator,
+                    .mat-mdc-button-ripple {
+                        height: 28px;
+                        width: 28px;
+                    }
+
+                    .mat-mdc-button-persistent-ripple,
+                    .mat-mdc-focus-indicator,
+                    .mat-mdc-button-ripple {
+                        margin: 6px 0 0 6px;
+                    }
+                }
+            }
+
+            .mat-mdc-form-field-icon-prefix {
+
+                >.mat-icon {
+                    margin-left: -5px !important;
+                }
+
+                >.mdc-icon-button.mat-mdc-icon-button {
+                    margin-left: -1.5px !important;
+                }
+
+                >.mat-datepicker-toggle {
+                    margin-left: -1.5px !important;
+                }
+            }
+
+            .mat-mdc-form-field-icon-suffix {
+                >.mat-icon {
+                    margin-right: -5px !important;
+                }
+
+                >.mdc-icon-button.mat-mdc-icon-button {
+                    margin-right: -1.5px !important;
+                }
+
+                >.mat-datepicker-toggle {
+                    margin-right: -1.5px !important;
+                }
+            }
+        }
+    
+    .mat-mdc-form-field-infix {
+
+        .mat-mdc-input-element,
+        input::placeholder,
+        .mat-mdc-select {
+            min-height: 2.25rem !important;
+        }
+
+        .mat-mdc-input-element,
+        .mat-mdc-select-min-line {
+            font-size: 14.4px !important;
+        }
+
+
+        .mat-mdc-select .mat-mdc-select-min-line {
+            padding: 0.4rem 0 !important;
+        }
+    }
+
+    .mat-mdc-form-field.mat-form-field-appearance-outline {
+    
+        .mat-mdc-form-field-subscript-wrapper {
+            height: 0;
+
+            .mat-mdc-form-field-hint-wrapper,
+            .mat-mdc-form-field-error-wrapper {
+                padding: 2px 16px;
+
+                .mat-mdc-form-field-hint.mat-mdc-form-field-bottom-align,
+                .mat-mdc-form-field-error.mat-mdc-form-field-bottom-align {
+                    font-size: 13px !important;
+                }
+            }
+        }
+    }
+
+
+    ::ng-deep .shared-input-filter {
+        @apply flex items-center h-8 border border-slate-300 hover:bg-zinc-50 rounded-[0.65rem] overflow-hidden #{'!important'};
+    }
+    
+
+}

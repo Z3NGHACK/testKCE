@@ -1,0 +1,50 @@
+<div mat-dialog-title  class="shared-header-section relative">
+    <!-- header of student detail -->
+    <div class="flex flex-1 items-center justify-center font-medium"> 
+        <div class="flex items-center ml-1.5">
+            <span class="text-3xl font-semibold text-gray-600 -mb-0.5"> កែប្រែប្រព័ន្ធដាក់ពិន្ទុ </span>
+        </div>
+    </div>
+    <div class="absolute left-2">
+        <button mat-icon-button class="flex items-center" (click)="closeDialog()" >
+            <mat-icon class="icon-size-6 mt-1" svgIcon="feather:arrow-left" />
+        </button>
+    </div>      
+    <div class="absolute right-2">
+      <button mat-button (click)="onSubmit()" [disabled]="!firstFormGroup.valid" class="bg-blue-800 px-6 py-3 rounded-xl hover:bg-blue-500 cursor-pointer">
+          <span class="text-xl text-white">រួចរាល់</span>
+      </button>
+  </div>
+  </div>
+  <mat-dialog-content class="w-[41rem] h-full border-t-2">
+    <form action="" [formGroup]="firstFormGroup">
+        <div class="view-student-detail-data relative px-4 flex flex-col items-center md-form-field-appearance-outline">
+          <div class="grid grid-cols-2 gap-4 w-full pt-4">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>ពី</mat-label>
+              <input matInput formControlName="from" placeholder="បញ្ចូលតម្លៃពី" class="pb-2">
+              <mat-error *ngIf="firstFormGroup.get('from').hasError('required')">សូមបញ្ចូលតម្លៃពី</mat-error>
+              <mat-error *ngIf="firstFormGroup.get('from').hasError('pattern')">តម្លៃត្រូវតែជាលេខប៉ុណ្ណោះ</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>ទៅ</mat-label>
+              <input matInput formControlName="to" placeholder="បញ្ចូលតម្លៃទៅ" class="pb-2">
+              <mat-error *ngIf="firstFormGroup.get('to').hasError('required')">សូមបញ្ចូលតម្លៃទៅ</mat-error>
+              <mat-error *ngIf="firstFormGroup.get('to').hasError('pattern')">តម្លៃត្រូវតែជាលេខប៉ុណ្ណោះ</mat-error>
+            </mat-form-field>
+            
+          </div>
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>និទ្ទេស</mat-label>
+            <input matInput formControlName="grade" placeholder="បញ្ចូលនិទ្ទេស" class="pb-2">
+            <mat-error *ngIf="firstFormGroup.get('grade').hasError('required')">សូមបញ្ចូលនិទ្ទេស</mat-error>
+        </mat-form-field>
+  
+        </div>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    
+  </mat-dialog-actions>
+  

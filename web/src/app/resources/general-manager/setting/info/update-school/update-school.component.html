@@ -1,0 +1,102 @@
+<div mat-dialog-title class="shared-header-section relative">
+    <!-- header of student detail -->
+    <div class="absolute right-2 flex items-center gap-4">
+        <button mat-icon-button class="flex items-center" (click)="closeDialog()">
+            <mat-icon class="icon-size-6 mt-1" svgIcon="mat_outline:close"></mat-icon>
+        </button>
+    </div>
+    <div class="flex flex-1 items-center font-medium justify-start">
+        <div class="flex items-center ml-1.5 just">
+            <span class="text-3xl font-semibold text-gray-600 text-center -mb-0.5"> កែប្រែព័ត៌មានសាលា </span>
+        </div>
+    </div>
+   
+</div>
+<mat-dialog-content class="w-[600px] h-full border-t-2">
+    <form [formGroup]="firstFormGroup">
+        <div class="view-student-detail-data relative flex flex-col items-center md-form-field-appearance-outline" >
+            <div class="flex gap-1 pt-4">      
+                 <!-- Icon Image Upload -->
+                 <div class="md:col-span-3 lg:col-span-2 h-fit lg:h-auto flex justify-center scale-90">
+                    <div class="h-[11rem] w-[11rem] border-dashed border-4 border-blue-500 hover:border-blue-300 flex items-center justify-center relative cover" (click)="selectIconFile()">
+                        <img class="h-[10rem] w-[10rem] object-cover cursor-pointer" [src]="src" alt="">    
+                        <div class="absolute top-2 right-4 text-xl text-gray-400">*</div>
+                    </div>
+                    <input [id]="'icon-file'" class="hidden" type="file" accept="image/*" (change)="onIconFileChange($event)" />
+                </div>
+
+            </div>
+            
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>ឈ្មោះខ្មែរ</mat-label>
+                <input matInput formControlName="kh_name" placeholder="បញ្ចូលឈ្មោះខ្មែរ" required>
+                <mat-error *ngIf="firstFormGroup.get('kh_name').hasError('required')">សូមបញ្ចូលឈ្មោះខ្មែរ</mat-error>
+                    <mat-error *ngIf="firstFormGroup.get('kh_name').hasError('pattern')">សូមបញ្ចូលឈ្មោះជាភាសាខ្មែរ</mat-error>
+
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>ឈ្មោះអង់គ្លេស</mat-label>
+                <input matInput formControlName="en_name" placeholder="បញ្ចូលឈ្មោះអង់គ្លេស" required>
+                <mat-error *ngIf="firstFormGroup.get('en_name').hasError('required')">សូមបញ្ចូលឈ្មោះអង់គ្លេស</mat-error>
+                <mat-error *ngIf="firstFormGroup.get('en_name').hasError('pattern')">សូមបញ្ចូលឈ្មោះជាភាសាអង់គ្លេស</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>លេខទូរស័ព្ទ 1</mat-label>
+                <input matInput formControlName="phone1" placeholder="បញ្ចូលលេខទូរស័ព្ទ 1">
+                <mat-error *ngIf="firstFormGroup.get('phone1').hasError('required')">សូមបញ្ចូលលេខទូរស័ព្ទ</mat-error>
+                <mat-error *ngIf="firstFormGroup.get('phone1').hasError('pattern')">លេខទូរស័ព្ទត្រូវតែជាលេខតែប៉ុណ្ណោះ</mat-error>
+                <mat-error *ngIf="firstFormGroup.get('phone1').hasError('maxlength')">
+                    លេខទូរស័ព្ទមិនអាចមានច្រើនជាង 10 ខ្ទង់
+                </mat-error>
+                <mat-error *ngIf="firstFormGroup.get('phone1').hasError('noSpaces')">
+                    លេខទូរស័ព្ទមិនត្រូវមានចន្លោះ
+                </mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>លេខទូរស័ព្ទ 2</mat-label>
+                <input matInput formControlName="phone2" placeholder="បញ្ចូលលេខទូរស័ព្ទ 2">
+                <mat-error *ngIf="firstFormGroup.get('phone2').hasError('pattern')">លេខទូរស័ព្ទត្រូវតែជាលេខតែប៉ុណ្ណោះ</mat-error>
+                <mat-error *ngIf="firstFormGroup.get('phone2').hasError('maxlength')">
+                    លេខទូរស័ព្ទមិនអាចមានច្រើនជាង 10 ខ្ទង់
+                </mat-error>
+                <mat-error *ngIf="firstFormGroup.get('phone2').hasError('noSpaces')">
+                    លេខទូរស័ព្ទមិនត្រូវមានចន្លោះ
+                </mat-error>
+                <mat-error *ngIf="firstFormGroup.get('phone2')?.hasError('sameAsPhone1')">
+                    លេខទូរស័ព្ទ 2 មិនអាចដូចលេខទូរស័ព្ទ 1
+                </mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>អាសយដ្ឋាន</mat-label>
+                <input matInput formControlName="address" placeholder="បញ្ចូលអាសយដ្ឋាន" required>
+                <mat-error *ngIf="firstFormGroup.get('address').hasError('required')">សូមបញ្ចូលអាសយដ្ឋាន</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>អ៊ីមែល</mat-label>
+                <input matInput formControlName="email" placeholder="បញ្ចូលអ៊ីមែល" required>
+                <mat-error *ngIf="firstFormGroup.get('email').hasError('required')">សូមបញ្ចូលអ៊ីមែល</mat-error>
+                <mat-error *ngIf="firstFormGroup.get('email').hasError('email')">សូមបញ្ចូលអ៊ីមែលដែលត្រឹមត្រូវ</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>គេហទំព័រ</mat-label>
+                <input matInput formControlName="website" placeholder="បញ្ចូលគេហទំព័រ" required>
+                <mat-error *ngIf="firstFormGroup.get('website').hasError('required')">សូមបញ្ចូលគេហទំព័រ</mat-error>
+            </mat-form-field>
+           
+        </div>
+        <div class="flex justify-end">
+            <button mat-button (click)="onSubmit()" [disabled]="!firstFormGroup.valid" class="bg-blue-700 px-6 py-3 rounded-xl hover:bg-blue-800 cursor-pointer">
+                <span class="text-xl text-white">រួចរាល់</span>
+            </button>
+        </div>
+    </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions></mat-dialog-actions>

@@ -1,0 +1,37 @@
+<div mat-dialog-title  class="shared-header-section relative">
+    <!-- header of student detail -->
+    <div class="flex flex-1 items-center justify-center font-medium"> 
+        <div class="flex items-center ml-1.5">
+            <span class="text-3xl font-semibold text-gray-600 -mb-0.5"> បញ្ចូលឆ្នាំសិក្សា </span>
+        </div>
+    </div>
+    <div class="absolute left-2">
+        <button mat-icon-button class="flex items-center" (click)="closeDialog()" >
+            <mat-icon class="icon-size-6 mt-1" svgIcon="feather:arrow-left" />
+        </button>
+    </div>      
+    <div class="absolute right-2">
+      <button mat-button (click)="onSubmit()" [disabled]="!firstFormGroup.valid" class="bg-blue-800 px-6 py-3 rounded-xl hover:bg-blue-500 cursor-pointer">
+          <span class="text-xl text-white">រួចរាល់</span>
+      </button>
+  </div>
+  </div>
+  <mat-dialog-content class="w-[35rem] h-full border-t-2">
+    <form action="" [formGroup]="firstFormGroup">
+        <div class="view-student-detail-data relative mt-2 flex flex-col items-center md-form-field-appearance-outline">
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>ឆ្នាំសិក្សា</mat-label>
+                <mat-select formControlName="academic_id">
+                    <mat-option *ngFor="let role of dataSetup" [value]="role.id">
+                        {{role.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    
+  </mat-dialog-actions>
+  

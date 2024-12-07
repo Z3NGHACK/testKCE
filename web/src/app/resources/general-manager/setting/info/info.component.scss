@@ -1,0 +1,265 @@
+
+.list-student-section {
+    height: calc(100dvh - 3.5rem); // Adjust based on header size
+    @apply overflow-hidden p-4 w-screen;
+  
+    .list-student-container {
+      position: relative; // Ensure that child elements with absolute positioning are relative to this container
+      height: calc(100dvh - 5.5rem); // Adjust based on layout and padding
+      @apply bg-white dark:bg-opacity-5 rounded-xl overflow-hidden;
+  
+      // Image container
+      .image-container {
+        @apply mb-4 flex justify-center;
+        margin-top: 25px;
+        
+  
+        img {
+          @apply max-w-[100px] max-h-[100px] object-cover;
+        }
+      }
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow-y: auto; // Enable vertical scrolling
+      }
+  
+      .title {
+        h3 {
+          @apply mt-2 text-lg font-bold text-center text-gray-800 dark:text-gray-200;
+          font-size: 25px;
+        }
+        h4 {
+          @apply mt-2 text-lg text-center text-gray-300 dark:text-gray-800;
+          color: #8d8d8d; /* Light gray, slightly darker than the original */
+          font-weight: normal; /* Set the font weight to regular */
+          font-size: 16px;
+          
+        }
+      }
+
+    .add-staff-button mat-icon {
+        font-size: 20px; /* Adjust icon size inside the button if needed */
+    }
+    
+    /* Optional: Adjusting the button position relative to the container */
+    .add-staff:hover {
+        border-color: none; /* Changes border color on hover */
+    }
+  
+    
+    
+  
+          mat-form-field {
+            display: block;
+            margin-bottom: 16px;
+            width: 100%; // Ensure form fields take full width
+          }
+  
+          form, mat-form-field, button {
+            margin: 0;
+            padding: 0;
+          }
+          
+          textarea {
+            margin: 0;
+            padding: 0;
+          }
+        }
+      }
+
+      .image-upload {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+      
+      .upload-image {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        cursor: pointer;
+        border: 2px solid #ddd;
+      }
+      
+      #file-input {
+        display: none;
+      }
+      
+      mat-radio-group {
+        display: inline-block;
+        flex-direction: column;
+      
+        /* Optional: Add space between radio buttons */
+        mat-radio-button {
+          margin-bottom: 8px;
+        }
+      }
+  
+      // Styling for inputs inside mat-form-field with outline
+      mat-form-field.mat-form-field-appearance-outline .mat-form-field-outline {
+        border-color: #3f51b5; // Customize the border color
+        border-width: 2px; // Customize the border width
+      }
+  
+      input {
+        width: 100%;
+        height: 50px;
+        font-size: 1.2em;
+        outline: black;
+        border: 1px solid gray;
+        border-radius: 5px;
+        color: rgb(0, 0, 0);
+        transition: 0.1s ease-out;
+        background: transparent;
+        margin: 0px;
+        line-height: 1.2em;
+      }
+      
+      mat-label {
+        color: rgb(0, 0, 0); // Make the label color distinct
+      }
+      
+
+  
+      .overlay-image-container {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px; // Optional padding around image
+      }
+      
+      .overlay-image {
+        max-width: 100px;
+        max-height: 100px;
+        object-fit: cover;
+      }
+      
+      .overlay-form-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center the form horizontally */
+        padding: 20px;
+        max-height: 80vh;
+        width: 100%;
+        box-sizing: border-box;
+      
+        form {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          max-width: 500px; /* Adjust based on your design */
+          gap: 10px; /* This controls the gap between form elements */
+        }
+      
+        mat-form-field {
+          width: 100%;
+          height: 30px;
+        }
+      
+        button {
+          align-self: center;
+          margin-top: 20px; /* Adjust based on your design */
+        }
+
+        
+      }
+
+
+
+::ng-deep .shared-header-section {
+
+
+  .custom-icon-button {
+    height: 34px;
+    min-height: 34px;
+    max-height: 34px;
+    width: 34px;
+    min-width: 34px;
+    max-width: 34px;
+  }
+}
+  
+    .list-student-body,
+    .no-data {
+      height: calc(100dvh - 9rem); // Adjust based on layout
+      @apply overflow-auto border-t mx-4;
+    }
+  
+    
+    // Pagination adjustments
+    .list-student-body {
+      .list-student-data {
+        height: calc(100dvh - 29rem); // Adjust based on layout
+        @apply overflow-auto;
+      }
+    }
+  
+  
+  .list-student-data {
+    .user-avatar {
+      @apply rounded-full border border-blue-500 min-w-[45px] max-w-[45px] min-h-[45px] max-h-[45px] object-cover;
+    }
+  
+    .mat-mdc-header-cell {
+      font-size: 1rem;
+      padding: 0;
+      color: #0f172a;
+      z-index: 10;
+      padding: 0.5rem;
+      @apply dark:text-white;
+    }
+  
+    .mat-mdc-cell {
+      padding: 0.5rem;
+    }
+
+    .mat-column-name {
+      min-width: 26rem;
+      width: 26rem;
+      max-width: 26rem;
+      text-align: left;
+    }
+
+    .mat-column-contact {
+      width: 12rem;
+      text-align: left;
+    }
+
+    .mat-column-createdAt {
+      min-width: 15rem;
+      width: 15rem;
+      max-width: 15rem;
+      text-align: center;
+    }
+  
+    .mat-column-actions {
+      flex: none;
+      width: 2rem;
+      text-align: right;
+    }
+  }
+  
+  
+ 
+::ng-deep .custom-dialog-container .mdc-dialog__surface {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+.flex-custom {
+    display: flex !important;
+}
+
+::placeholder {
+    color: #94a3b8 !important;
+}
+
+::-ms-input-placeholder {
+    color: #94a3b8 !important;
+}
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}

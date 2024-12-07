@@ -1,0 +1,150 @@
+<section class="view-file-section">
+        <div class="lg-shared-header-section header-section">
+            <div class="flex items-center ml-1.5 gap-4">
+                <span class="text-2xl font-semibold text-gray-600 -mb-0.5"> {{dataSource.data.length}} ឯកសារ </span>
+            </div>
+            <button mat-icon-button class="mr-1 custom-icon-button" *ngIf="isGrid === true" (click)="ChangeView()">
+                <mat-icon class="icon-size-6 text-slate-500" svgIcon="mat_outline:grid_view" />
+            </button>
+            <button mat-icon-button class="mr-1 custom-icon-button" *ngIf="isGrid === false" (click)="ChangeView()">
+                <mat-icon class="icon-size-6 text-slate-500" svgIcon="heroicons_solid:list-bullet" />
+            </button>  
+        </div>    
+        <div *ngIf="data.length > 0" class="view-file-data">
+            <table mat-table [dataSource]="dataSource" *ngIf="isGrid === false">
+                <ng-container matColumnDef="checkbox">
+                    <th mat-header-cell *matHeaderCellDef><mat-checkbox class="mt-1"></mat-checkbox></th>
+                    <td mat-cell *matCellDef="let item">
+                        <mat-checkbox class="mt-1.5"></mat-checkbox>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="profile">
+                    <th mat-header-cell *matHeaderCellDef (click)="sortBy('name')" class="cursor-pointer"> ឈ្មោះ </th>
+                    <td mat-cell *matCellDef="let item">
+                        <div class="flex gap-2 items-center">
+                            <img class="icon-avatar" [src]="fileUrl + item.extension_icon" alt="avatar">
+                            <span class="text-xl"> {{item?.name}} </span>
+                        </div>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="create">
+                    <th mat-header-cell *matHeaderCellDef (click)="sortBy('creator_name')" class="cursor-pointer"> បង្កើត </th>
+                    <td mat-cell *matCellDef="let item">
+                        <div class="flex">
+                            <img class="student-avatar" [src]="fileUrl + item.creator_avatar" alt="avatar">
+                            <div class="flex flex-col justify-center pl-2">
+                                <strong class="text-lg font-medium text-slate-900 dark:text-white">{{ item?.name}}</strong> 
+                                <span class="text-gray-500"> {{item?.created_at | date:'dd-MM-y'}} </span>
+                            </div>
+                        </div>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="size">
+                    <th mat-header-cell *matHeaderCellDef (click)="sortBy('size')" class="cursor-pointer"> 
+                        ទំហំ 
+                    </th>
+                    <td mat-cell *matCellDef="let item">
+                        <span class="text-gray-500">{{ item?.size }} mb</span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="action" stickyEnd>
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let item">
+                        <button mat-icon-button [matMenuTriggerFor]="menu">
+                            <mat-icon class="icon-size-6" svgIcon="mat_outline:more_vert"></mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="viewFile(item)">
+                                <mat-icon class="icon-size-5 text-gray-500"
+                                    svgIcon="heroicons_outline:eye"></mat-icon>
+                                <span class="text-lg text-gray-500">មើល</span>
+                            </button>
+                            <button mat-menu-item (click)="downloadFile(item)">
+                                <mat-icon class="icon-size-5 text-gray-500"
+                                    svgIcon="mat_outline:download"></mat-icon>
+                                <span class="text-lg text-gray-500">ទាញុយក</span>
+                            </button>
+                        </mat-menu>
+                    </td>
+                </ng-container>
+                
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <div *ngIf="isGrid === true">
+    
+                    <div class="flex gap-4 flex-wrap mt-4">
+                        <ng-container *ngFor="let item of data">
+                            <div
+                                class="flex h-fit max-w-[300px] flex-col flex-grow p-3 rounded-2xl bg-[#f2f6fc] transition-all hover:bg-slate-200">
+                                <div class="flex flex-auto items-center text-sm font-medium gap-2 mb-1 -mt-2">
+                                    <!-- PDF Icon -->
+                                    <!-- <mat-icon *ngIf="previewFile.file.type === 'application/pdf'" [svgIcon]="'mdi:pdf'"></mat-icon> -->
+                                    <!-- PNG Icon -->
+                                    <!-- <mat-icon *ngIf="previewFile.file.type === 'image/png'" [svgIcon]="'mdi:file-png-box'"></mat-icon> -->
+                                    <!-- JPG Icon -->
+                                    <!-- <mat-icon *ngIf="previewFile.file.type === 'image/jpeg'" [svgIcon]="'mdi:file-jpg-box'"></mat-icon>                     -->
+                                    <div class="truncate w-full">
+                                       {{item.name}}
+                                    </div>
+                                    <button (click)="$event.preventDefault(item)" mat-icon-button [matMenuTriggerFor]="menu" class="-mr-2">
+                                        <mat-icon [svgIcon]="'mdi:dots-vertical'"></mat-icon>
+                                    </button>
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item (click)="viewFile(item)">
+                                            <mat-icon [svgIcon]="'mdi:eye-outline'"></mat-icon>
+                                            <span>មើល</span>
+                                        </button>
+                                        <button mat-menu-item (click)="downloadFile(item)">
+                                            <mat-icon class="icon-size-5 text-gray-500"
+                                                svgIcon="mat_outline:download"></mat-icon>
+                                            <span class="text-lg text-gray-500">ទាញុយក</span>
+                                        </button>
+                                        <!-- <button mat-menu-item (click)="removeFile(previewFile.file.name)" >
+                                            <mat-icon class="text-red-500" [svgIcon]="'mdi:trash-can-outline'"></mat-icon>
+                                            <span class="text-red-500">លុប</span>
+                                        </button> -->
+                                    </mat-menu>  
+                                </div>
+                                <!-- <div class="aspect-[9/6] w-full bg-white rounded-md overflow-hidden h-[200px]">
+                                    <img class="object-cover h-[200px]" [ngStyle]="{'object-position': '100% 20%'}"
+                                        [src]="fileUrl + 'upload/file/33e64097-7392-457e-9187-c48ce280dce3'" alt="invalid image uri">
+                                </div> -->
+                                <div *ngIf="item.file_type === 'pdf' else otherFileType"  class="ng2-pdf-viewer-section w-full rounded-md overflow-hidden h-[200px]">
+                                    <pdf-viewer class="w-[300px] h-[200px]"
+                                                [src]="fileUrl + item.uri"
+                                                [render-text]="true"
+                                                [original-size]="false"
+                                                ></pdf-viewer>               
+                                </div>
+                                <ng-template #otherFileType>
+                                    <div class="aspect-[9/6] w-full bg-white rounded-md overflow-hidden h-[200px]">
+                                        <img class="object-cover h-[200px]" [ngStyle]="{'object-position': '100% 20%'}"
+                                            [src]="fileUrl + item.uri" alt="invalid image uri">
+                                    </div>
+                                </ng-template>
+                                <!-- <ng-container *ngIf="previewFile.type && previewFile.type.startsWith('image/')">
+                                    <div class="aspect-[9/6] w-full bg-white rounded-md overflow-hidden h-[200px]">
+                                        <img class="object-cover h-[200px]" [ngStyle]="{'object-position': '100% 20%'}"
+                                            [src]="attachments ? FILE_URL + previewFile.url : previewFile.url" alt="invalid image uri">
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="previewFile.type === 'application/pdf'">
+                                    <div class="ng2-pdf-viewer-section w-full rounded-md overflow-hidden h-[200px]">
+                                        <pdf-viewer class="w-[300px] h-[200px]"
+                                                    [src]="attachments ? FILE_URL + previewFile.url : previewFile.url"
+                                                    [render-text]="true"
+                                                    [original-size]="false"></pdf-viewer>
+                                    </div>
+                                </ng-container> -->
+                            </div>
+                        </ng-container>
+                    </div>
+            </div>
+        </div>
+        <div *ngIf="data.length === 0" class="flex flex-col view-file-data justify-center items-center mb-4">
+            <mat-icon class="icon-size-16" svgIcon="toc"></mat-icon>
+            <span class="text-lg -mt-4">គ្មានទិន្នន័យ</span>
+        </div>
+</section>
+

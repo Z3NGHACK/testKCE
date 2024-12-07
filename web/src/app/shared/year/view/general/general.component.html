@@ -1,0 +1,171 @@
+<div class="container-section">
+    <div>
+        <div class="flex justify-between py-8 h-[350px] border-b">
+            <div class="w-3/12 flex flex-col justify-start items-center gap-1">
+                <div class="md-semi-chart flex justify-center">
+                    <helper-semi-pie-chart
+                        class="sm-chart"
+                        [value]="value"
+                        [data]="semi_chart"
+                    ></helper-semi-pie-chart>
+                </div>
+            </div>
+            <div class="md:w-8/12 sm:w-5/12 flex-col gap-y-12">
+                <div
+                    class="w-full flex flex-1 px-3 items-center font-medium h-12 py-7 gap-4"
+                >
+                    <span class="text-xl min-w-36">ចាប់ផ្តើម​​</span>
+                    <span class="text-xl">៖</span>
+                    <strong
+                        class="text-xl font-medium text-slate-500 dark:text-white"
+                    >
+                        {{ formatKhmerDateRange(data?.from_year) }} -
+                        {{ formatKhmerDateRange(data?.to_year) }}</strong
+                    >
+                </div>
+                <div
+                    class="w-full flex flex-1 px-3 items-center font-medium h-12 py-7 gap-4 border-t"
+                >
+                    <span class="text-xl min-w-36">ឆមាសទី 1</span>
+                    <span class="text-xl">៖</span>
+                    <strong
+                        class="text-xl font-medium text-slate-500 dark:text-white"
+                    >
+                        {{ formatKhmerDateRange(semesters[0]?.start_date) }} -
+                        {{
+                            formatKhmerDateRange(semesters[0]?.finish_date)
+                        }}</strong
+                    >
+                </div>
+                <div
+                    class="w-full flex flex-1 px-3 items-center font-medium h-12 py-7 gap-4 border-t"
+                >
+                    <span class="text-xl min-w-36">ឆមាសទី 2</span>
+                    <span class="text-xl">៖</span>
+                    <strong
+                        class="text-xl font-medium text-slate-500 dark:text-white"
+                    >
+                        {{ formatKhmerDateRange(semesters[1]?.start_date) }} -
+                        {{
+                            formatKhmerDateRange(semesters[1]?.finish_date)
+                        }}</strong
+                    >
+                </div>
+            </div>
+            <div class="w-1/12 flex justify-center">
+                <button
+                    mat-icon-button
+                    class="flex mt-1 items-center"
+                    (click)="update(data)"
+                >
+                    <mat-icon class="icon-size-6" svgIcon="feather:edit" />
+                </button>
+            </div>
+        </div>
+    </div>
+    @if (path === 'general-manager') {
+    <div
+        class="md-shared-header-section flex flex-1 items-center font-medium min-h-20 max-h-20 h-20"
+    >
+        <div class="flex items-center ml-1.5 gap-4">
+            <mat-icon
+                class="icon-size-6 -mt-0.5"
+                svgIcon="mat_outline:receipt_long"
+            />
+            <span class="text-xl font-semibold text-gray-600 -mb-0.5"
+                >ការបង់ប្រាក់</span
+            >
+        </div>
+    </div>
+    <div class="view-file-data">
+        <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="checkbox">
+                <th mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox class="mt-1"></mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let item">
+                    <mat-checkbox class="mt-1.5"></mat-checkbox>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="profile">
+                <th mat-header-cell *matHeaderCellDef>
+                    <span class="text-xl font-semibold pl-4">ឈ្មោះ </span>
+                </th>
+                <td mat-cell *matCellDef="let item">
+                    <div class="flex gap-2 items-center">
+                        <span class="text-lg pl-4">
+                            {{ item?.branch_name }}
+                        </span>
+                    </div>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="total">
+                <th mat-header-cell *matHeaderCellDef>សិស្សសរុប (ស្រី)</th>
+                <td mat-cell *matCellDef="let item">
+                    <span class="text-gray-500">
+                        {{ item?.totalStudents | number : "1.0-1" }} ({{
+                            item?.totalStudents | number : "1.0-1"
+                        }})</span
+                    >
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="income">
+                <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    (click)="sortBy('totalPrice')"
+                    class="cursor-pointer"
+                >
+                    ចំណូលសរុប
+                </th>
+                <td mat-cell *matCellDef="let item">
+                    <span class="text-gray-500"
+                        >$ {{ item?.totalPrice | number : "1.0-1" }}
+                    </span>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="receive">
+                <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    (click)="sortBy('size')"
+                    class="cursor-pointer"
+                >
+                    បានទទួល
+                </th>
+                <td mat-cell *matCellDef="let item">
+                    <span class="text-gray-500"
+                        >$ {{ item?.totalDebt | number : "1.0-1" }}(
+                        {{ item?.percentage }}% )
+                    </span>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="action" stickyEnd>
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let item">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon
+                            class="icon-size-6"
+                            svgIcon="mat_outline:more_vert"
+                        ></mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="viewFile(item)">
+                            <mat-icon
+                                class="icon-size-5 text-gray-500"
+                                svgIcon="heroicons_outline:eye"
+                            ></mat-icon>
+                            <span class="text-lg text-gray-500">មើល</span>
+                        </button>
+                    </mat-menu>
+                </td>
+            </ng-container>
+            <tr
+                mat-header-row
+                *matHeaderRowDef="displayedColumns; sticky: true"
+            ></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+    </div>
+    }
+</div>

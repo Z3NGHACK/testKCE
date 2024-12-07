@@ -1,0 +1,8 @@
+.pie-chart{
+    width: 350px;
+    height: 400px;
+}
+
+.value {
+    @apply absolute top-[140px] right-[130px] text-2xl
+}

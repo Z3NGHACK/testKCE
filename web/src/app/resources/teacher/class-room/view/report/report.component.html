@@ -1,0 +1,107 @@
+<section class="view-file-section ">
+    <div class="lg-shared-header-section header-section" *ngIf="!loading">
+        <div class="flex items-center ml-1.5 gap-4">
+            <span class="text-2xl font-semibold text-gray-600 -mb-0.5">
+                {{convertToKhmerMonth(data.dateline.from_year)}} , {{convertToKhmerMonth(data.dateline.to_year)}}
+            </span>
+        </div>
+        <button mat-icon-button class="flex items-center border">
+            <mat-icon
+                class="icon-size-6 -mb-0.5"
+                svgIcon="feather:printer"
+            />
+        </button>
+    </div>
+    @if(!loading){
+    <div class="semester overflow-auto pb-5"  *ngFor="let semester of data.semesters;let i =index;">
+        <div class="header-row border border-x-0" [ngClass]="{'border-t-0': i == 0}">
+            <span class="text-2xl">
+                {{semester.title}} ({{convertToKhmerMonth(semester.start_date)}} , {{convertToKhmerMonth(semester.finish_date)}})
+            </span>
+        </div>
+        <table class="w-full">
+            <thead>
+                <tr>
+                    <th class="h-13 text-[17px] font-[500] w-[40px] text-center">ល.រ</th>
+                    <th class="h-13 text-[17px] font-[500] text-start">ខែ</th>
+                    <th class="h-13 text-[17px] font-[500] w-[250px] text-start">បញ្ចូលពិន្ទុ</th>
+                    <th class="h-13 text-[17px] font-[500] w-[250px] text-start">អនុម័ត</th>
+                    <th class="h-13 text-[17px] font-[500] w-[60px]"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let month of semester.months;let i=index;" [ngClass]="{ 'bg-gray-100': (i + 1) % 2 == 1 ,'bg-white': (i + 1) % 2 != 1}">
+                    <td class="h-13 w-[40px] text-center">{{i+1}}</td>
+                    <td class="h-13 text-start flex justify-start items-center"><mat-icon svgIcon="heroicons_outline:calendar-days" class="icon-size-5"></mat-icon><span class="p-1">{{month.name}}</span></td>
+                    <td class="h-13 w-[250px] text-start">
+                        <div class="flex w-full items-center justify-start">
+                            <img [src]="fileUri+month.reporter?.avatar" class="rounded-full border border-blue-600 min-w-[35px] max-w-[35px] min-h-[35px] max-h-[35px] object-cover" alt="avatar">
+                            <div class="flex flex-col justify-center pl-2">
+                                <strong class="text-[17px] font-[350] text-black dark:text-white">{{month.reporter?.name}}</strong>
+                                <span class="text-[11px] text-gray-500">{{month.reporter?.date | date:'dd-MM-y'}}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="h-13 w-[250px] text-start">
+                        <div class="flex w-full items-center justify-start">
+                            <img [src]="fileUri+month.approver?.avatar" class="rounded-full border border-blue-600 min-w-[35px] max-w-[35px] min-h-[35px] max-h-[35px] object-cover" alt="avatar">
+                            <div class="flex flex-col justify-center pl-2">
+                                <strong class="text-[17px] font-[300] text-black dark:text-white">{{month.approver?.name}}</strong>
+                                <span class="text-[11px] text-gray-500">{{month.approver?.date | date:'dd-MM-y'}}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="h-13 w-[60px]">
+                        <button mat-icon-button [matMenuTriggerFor]="menu">
+                            <mat-icon
+                                class="icon-size-6"
+                                svgIcon="mat_outline:more_vert"
+                            ></mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="viewReport(month)">
+                                <mat-icon
+                                    class="icon-size-5 text-gray-500"
+                                    svgIcon="heroicons_outline:eye"
+                                ></mat-icon>
+                                <span class="text-lg text-gray-500">មើល</span>
+                            </button>
+                        </mat-menu>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- <div class="w-full flex justify-between px-4">
+            <div class="w-[30px] text-xl font-[500] text-gray-900 ">ល.រ</div>
+            <div class=" text-xl font-[500] text-gray-900 ">ល.រ</div>
+        </div>
+        <div class="cell-row "  *ngFor="let month of semester.months;let i=index;" [ngClass]="{ 'bg-gray-100': (i + 1) % 2 == 1 ,'bg-white': (i + 1) % 2 != 1}">
+                <div class="w-[30px]">{{i+1}}</div>
+                <div class="flex gap-2 pl-1 w-[300px]">
+                    <mat-icon
+                        class="icon-size-6 -mb-0.5"
+                        svgIcon="heroicons_mini:calendar"
+                    />
+                    <span class="text-gray-500"> {{month.name}} </span>
+                </div>
+                <div>
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon
+                            class="icon-size-6"
+                            svgIcon="mat_outline:more_vert"
+                        ></mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="viewReport(month)">
+                            <mat-icon
+                                class="icon-size-5 text-gray-500"
+                                svgIcon="heroicons_outline:eye"
+                            ></mat-icon>
+                            <span class="text-lg text-gray-500">មើល</span>
+                        </button>
+                    </mat-menu>
+                </div>
+            </div> -->
+        </div>
+}
+</section>

@@ -1,0 +1,107 @@
+<section class="list-student-section">
+    <div class="list-student-container">
+        <!-- header of student  -->
+        <div class="shared-header-section">
+            <div class="flex flex-1 items-center font-medium">
+                <div class="flex items-center ml-1.5">
+                    <span class="text-2xl text-gray-600 font-semibold -mb-0.5">{{dataSource.data.length}} ពាក្យ</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <div class="min-w-75 max-w-75 shared-input-filter">
+                    <button class="min-w-10 max-w-10 pl-1 h-full pt-1.5 hover:opacity-[0.96] transition-all">
+                        <mat-icon class="icon-size-6 text-slate-500" svgIcon="heroicons_outline:magnifying-glass" />
+                    </button>
+                    <input placeholder="ស្វែងរក" class="w-full pr-3 h-8" [(ngModel)]="key" (keyup.enter)="listing()">
+                    <button mat-icon-button class="mr-1 custom-icon-button" (click)="sorting()">
+                        <mat-icon class="icon-size-6 text-slate-500" svgIcon="filter_list" />
+                    </button>
+                </div>
+               
+                <div class="select height-header hidden sm:flex ">
+                    <mat-form-field appearance="outline" class="max-w-36">
+                        <mat-select [(ngModel)]="Level_name" (selectionChange)="sortByLevel()">
+                            <mat-option value="ទាំងអស់">ទាំងអស់</mat-option> 
+                            <mat-option *ngFor="let item of Levels" [value]="item">{{item}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <button mat-stroked-button class="mr-1 pt-1 custom-icon-button border" (click)="SelectorSort()">
+                        <mat-icon *ngIf="isReversed === false" class="icon-size-6 text-slate-500" svgIcon="mdi:filter-variant-plus" />
+                        <mat-icon *ngIf="isReversed === true" class="icon-size-6 text-slate-500" svgIcon="mdi:filter-variant-minus" />
+                    </button>
+                </div>
+               
+            </div>
+        </div>
+        <!-- body of student  -->
+        <div class="list-student-body ">
+            <!-- data  -->
+            <div class="list-student-data">
+                <table mat-table [dataSource]="dataSource" *ngIf="dataSource.data.length > 0">
+                    <ng-container matColumnDef="profile">
+                        <th mat-header-cell *matHeaderCellDef> គោត្តនាម និង នាម </th>
+                        <td mat-cell *matCellDef="let item">
+                            <div class="flex">
+                                <img class="student-avatar" [src]="fileUrl + item.avatar" alt="avatar">
+                                <div class="flex flex-col justify-center pl-2">
+                                    <strong class="text-lg font-medium text-slate-900 dark:text-white">{{ item?.name}}</strong>
+                                    <span class="text-sm text-gray-500">{{ item?.code }}</span>
+                                </div>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="sex">
+                        <th mat-header-cell *matHeaderCellDef> ភេទ </th>
+                        <td mat-cell *matCellDef="let item">
+                            <span class="text-gray-500">{{ item?.sex }} </span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="campus">
+                        <th mat-header-cell *matHeaderCellDef> សាខា </th>
+                        <td mat-cell *matCellDef="let item">
+                            <span class="text-gray-500">{{ item?.branch }} </span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="class">
+                        <th mat-header-cell *matHeaderCellDef> កម្រិត </th>
+                        <td mat-cell *matCellDef="let item">
+                            <span class="text-gray-500"> {{ item?.level }} </span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="date">
+                        <th mat-header-cell *matHeaderCellDef> កាលបរិច្ឆេទ​ចុះឈ្មោះ </th>
+                        <td mat-cell *matCellDef="let item">
+                            <span class="text-gray-500">{{ item?.created_at | date: 'dd-MM-y'}}</span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="action" stickyEnd>
+                        <th mat-header-cell *matHeaderCellDef></th>
+                        <td mat-cell *matCellDef="let item">
+                            <button mat-icon-button [matMenuTriggerFor]="menu">
+                                <mat-icon class="icon-size-6" svgIcon="mat_outline:more_vert"></mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item (click)="view(item)">
+                                    <mat-icon class="icon-size-5 text-gray-500"
+                                        svgIcon="heroicons_outline:eye"></mat-icon>
+                                    <span class="text-lg text-gray-500">មើល</span>
+                                </button>
+                            </mat-menu>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <div *ngIf="dataSource.data.length === 0" class="flex flex-col justify-center items-center mb-4">
+                    <mat-icon class="icon-size-16" svgIcon="toc"></mat-icon>
+                    <span class="text-lg -mt-4">គ្មានទិន្នន័យ</span>
+                </div>
+            </div>
+            <!-- pagination -->
+            <mat-paginator class="flex justify-end overflow-hidden" [pageSizeOptions]="[15, 30, 45]"
+                [showFirstLastButtons]="true" [pageIndex]="page - 1" [length]="total" [pageSize]="limit"
+                (page)="onPageChanged($event)">
+            </mat-paginator>
+        </div>
+    </div>
+</section>

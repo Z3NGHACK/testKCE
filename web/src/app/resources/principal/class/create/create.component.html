@@ -1,0 +1,89 @@
+<div mat-dialog-title  class="shared-header-section">
+    <!-- header of student detail -->
+    <div class="flex flex-1 items-center font-medium"> 
+        <div class="flex items-center ml-1.5">
+            <span class="text-3xl font-semibold text-gray-600 -mb-0.5"> បង្កើតថ្នាក់រៀន </span>
+        </div>
+    </div>
+    <div class="flex items-center gap-4">
+        <button mat-icon-button class="flex items-center" (click)="closeDialog()" >
+            <mat-icon class="icon-size-6 mt-1 mr-2" svgIcon="mat_outline:close" />
+        </button>
+    </div>      
+</div>
+<mat-dialog-content class="w-[600px] h-full">
+    <form [formGroup]="firstFormGroup"  class="md-form-field-appearance-outline" >
+        <div class="view-student-detail-data relative flex flex-col items-center overflow-auto border-t-2 pt-5 "> 
+            <div class="w-full pt-4 overflow-hidden flex flex-col ">
+                
+                <mat-form-field>
+                    <mat-label>ឆ្នាំសិក្សា</mat-label>
+                    <mat-select formControlName="academic_branch_id">
+                        <mat-option *ngFor="let item of data?.academics" [value]="item.academic_branch_id">
+                            {{ item.academic_name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>កម្រិត</mat-label>
+                    <mat-select formControlName="level_id" (selectionChange)="onLevelSelectionChange($event)">
+                        <mat-option *ngFor="let item of data?.levels" [value]="item?.id">
+                            {{ item?.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                
+                <mat-form-field>
+                    <mat-label>ថ្នាក់រៀន</mat-label>
+                    <mat-select formControlName="grade_id"> <!-- Disable until a level is selected -->
+                        <mat-option *ngFor="let item of filteredGrades" [value]="item.id">
+                            {{ item.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+
+                <mat-form-field>
+                    <mat-label>បន្ទប់</mat-label>
+                    <mat-select formControlName="room_id">
+                        <mat-option *ngFor="let item of data?.rooms" [value]="item.id">
+                            {{item.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>គ្រូបង្រៀន</mat-label>
+                    <mat-select formControlName="teacher_id">
+                        <mat-option *ngFor="let item of data?.formattedTeachers" [value]="item.id">
+                            {{item.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                
+                <mat-form-field>
+                    <mat-label>ភាសា</mat-label>
+                    <mat-select formControlName="language_id">
+                        <mat-option *ngFor="let item of data?.languages" [value]="item.id">
+                            {{item.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div class="grid grid-cols-1 gap-4">
+                    <mat-radio-group class="grid grid-cols-1 sm:grid-cols-4 gap-4" formControlName="schedule_id">
+                        <mat-radio-button class="custom-radio" [value]="1">ព្រឹក</mat-radio-button>
+                        <mat-radio-button class="custom-radio" [value]="2">រសៀល</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div class="flex items-center justify-end">
+                    <button mat-button (click)="onSubmit()" class="bg-blue-700 px-6 py-3 rounded-xl hover:bg-blue-500 cursor-pointer">
+                        <span class="text-xl text-white">រួចរាល់</span>
+                    </button>
+                </div>
+            </div> 
+        </div>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions></mat-dialog-actions>

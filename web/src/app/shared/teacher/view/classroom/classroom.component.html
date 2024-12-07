@@ -1,0 +1,451 @@
+<section class="view-file-section">
+    <div class="lg-shared-header-section header-section">
+        <div class="flex items-center ml-1.5 gap-4">
+        <span class="text-2xl font-semibold text-gray-600 -mb-0.5"> {{data.length}} ថ្នាក់រៀន </span>
+        </div>
+        <div class="flex items-center">
+            <div class="sm-form-field-appearance-outline height-header hidden sm:flex">
+                <mat-form-field appearance="outline" class="max-w-40">
+                    <mat-select [(ngModel)]="branch_id">
+                        <mat-option [value]="0">2023-2024</mat-option>
+                    </mat-select>
+                </mat-form-field>        
+            </div>  
+        </div>
+    </div>    
+    <div class="h-[65dvh] "*ngIf="data.length > 0">
+        <div *ngIf="Kindergarten_data.length > 0">
+            <div class="lg-shared-header-section header-section">
+                <div class="flex items-center ml-1.5 gap-4">
+                    <span class="text-2xl font-semibold text-gray-600 -mb-0.5"> មត្តេយ្យ </span>
+                </div>
+                <mat-button-toggle-group
+                name="classroom"
+                aria-label="classroom"
+                [hideMultipleSelectionIndicator]="hideMultipleSelectionIndicator()"
+                multiple
+                (change)="onLanguageChange($event)"
+                >
+                <mat-button-toggle value="ខ្មែរ"> ខ្មែរ </mat-button-toggle>
+                <mat-button-toggle value="អង់គ្លេស"> អង់គ្លេស </mat-button-toggle>
+                <mat-button-toggle value="ចិន"> ចិន </mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+            <div class="flex gap-x-8 flex-wrap">
+                <ng-container class="pt-2" >
+                    <div class="relative w-90 mt-5 flex border rounded-xl min-h-28 max-h-28 overflow-hidden" *ngFor="let item of Kindergarten_display_data">
+                        <div class="min-h-28 max-h-28 min-w-6 max-w-6  text-white " [ngClass]="getlanguage(item?.language)">
+                            <span class="text-sm min-h-28 max-h-28 -translate-x-7 -rotate-90 w-20 flex items-center justify-center">
+                               {{item?.grade}} / {{item?.language}}
+                            </span>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="flex">
+                                <div class="w-1/3 flex justify-start p-2 ">
+                                    <div class="flex flex-col">
+                                        <div class="flex justify-between">
+                                            <div class="w-full flex">
+                                                <div class="min-w-15 max-w-15 flex justify-start items-center">
+                                                    <mat-icon [svgIcon]="'mdi:account-outline'"></mat-icon>
+                                                </div>
+                                                <div class="max-w-90 min-w-90 flex justify-start items-center gap-2 -ml-8">
+                                                    <div class="flex items-center gap-2 min-w-26">
+                                                        <span class=" text-[15px] leading-8">
+                                                            {{item?.teacher_name}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+        
+                                        <div class="flex justify-between">
+                                            <div class="w-full flex">
+                                                <div class="min-w-15 max-w-15 flex justify-start items-center">
+                                                    <mat-icon [svgIcon]="'mdi:account-school-outline'"></mat-icon>
+                                                </div>
+                                                <div class="max-w-90 min-w-90 flex justify-start items-center gap-2 -ml-8">
+                                                    <div class="flex items-center gap-2 min-w-26">
+                                                        <span class="truncate text-[15px] leading-8">
+                                                            ​សរុប {{item?.total_students}} ( ស្រី {{item?.total_female_students}} នាក់)
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+        
+                                        <div class="flex justify-between">
+                                            <div class="w-full flex">
+                                                <div class="min-w-15 max-w-15 flex justify-start items-center">
+                                                    <mat-icon [svgIcon]="'mat_outline:door_front'"></mat-icon>
+                                                </div>
+                                                <div class="max-w-90 min-w-90 flex justify-start items-center gap-2 -ml-8">
+                                                    <div class="flex items-center gap-2 min-w-26">
+                                                        <span class="truncate text-[15px] leading-8">
+                                                            បន្ទប់លេខ 4
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+        
+                                    </div>
+                                </div>
+        
+                            </div>
+                        </div>
+                        
+                        <div *ngIf="item?.schedule === 'រសៀល'" class="absolute top-[12px] right-[1px] z-10 rotate-45 text-white h-5"> 
+                            <span class="mt-2 min-w-10 text-center fixed-width">
+                                {{item?.schedule}}  
+                            </span> 
+                        </div>
+                        <div *ngIf="item?.schedule === 'ព្រឹក'" class="absolute top-[10px] right-[5px] z-10 rotate-45 text-white h-5"> 
+                            <span class="mt-2 min-w-10 text-center fixed-width">
+                                {{item?.schedule}}  
+                            </span> 
+                        </div>
+                        <div class="absolute top-0 right-0 triangle-container -rotate-180"> </div>
+        
+                        <div class="absolute right-0 top-10 flex items-center justify-end mr-4">
+                            <button mat-icon-button [matMenuTriggerFor]="menu">
+                                <mat-icon class="icon-size-6" svgIcon="mat_outline:more_vert"></mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item (click)="view(item)">
+                                    <mat-icon class="icon-size-5 text-gray-500" svgIcon="mat_outline:remove_red_eye"></mat-icon>
+                                    <span class="text-lg text-gray-500">មើលលម្អិត</span>
+                                </button>
+                            </mat-menu>
+                        </div>
+                    </div>                    
+                </ng-container>
+            </div>
+        </div>
+        <div *ngIf="primary_data.length > 0 ">
+        <div class="lg-shared-header-section header-section">
+            <div class="flex items-center ml-1.5 gap-4">
+                <span class="text-2xl font-semibold text-gray-600 -mb-0.5"> បឋមសិក្សា </span>
+            </div>
+            <mat-button-toggle-group
+            name="classroom"
+            aria-label="classroom"
+            [hideMultipleSelectionIndicator]="hideMultipleSelectionIndicator()"
+            multiple
+            (change)="onLanguageChangePrimary($event)"
+            >
+            <mat-button-toggle value="ខ្មែរ"> ខ្មែរ </mat-button-toggle>
+            <mat-button-toggle value="អង់គ្លេស"> អង់គ្លេស </mat-button-toggle>
+            <mat-button-toggle value="ចិន"> ចិន </mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+        <div class="flex gap-x-8 flex-wrap">
+            <ng-container class="pt-2" >
+                <div class="relative w-90 mt-5 flex border rounded-xl min-h-28 max-h-28 overflow-hidden" *ngFor="let item of primary_display_data">
+                    <div class="min-h-28 max-h-28 min-w-6 max-w-6 text-white " [ngClass]="getlanguage(item?.language)">
+                        <span class="text-sm min-h-28 max-h-28 -translate-x-7 -rotate-90 w-20 flex items-center justify-center">
+                            {{item?.grade}} / {{item?.language}}
+                        </span>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="flex">
+                            <div class="w-1/3 flex justify-start p-2 ">
+                                <div class="flex flex-col">
+                                    <div class="flex justify-between">
+                                        <div class="w-full flex">
+                                            <div class="min-w-15 max-w-15 flex justify-start items-center">
+                                                <mat-icon [svgIcon]="'mdi:account-outline'"></mat-icon>
+                                            </div>
+                                            <div class="max-w-90 min-w-90 flex justify-start items-center gap-2 -ml-8">
+                                                <div class="flex items-center gap-2 min-w-26">
+                                                    <span class=" text-[15px] leading-8">
+                                                        {{item?.teacher_name}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="flex justify-between">
+                                        <div class="w-full flex">
+                                            <div class="min-w-15 max-w-15 flex justify-start items-center">
+                                                <mat-icon [svgIcon]="'mdi:account-school-outline'"></mat-icon>
+                                            </div>
+                                            <div class="max-w-90 min-w-90 flex justify-start items-center gap-2 -ml-8">
+                                                <div class="flex items-center gap-2 min-w-26">
+                                                    <span class="truncate text-[15px] leading-8">
+                                                    ​សរុប {{item?.total_students}}  ( ស្រី {{item?.total_female_students}} នាក់)
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="flex justify-between">
+                                        <div class="w-full flex">
+                                            <div class="min-w-15 max-w-15 flex justify-start items-center">
+                                                <mat-icon [svgIcon]="'mat_outline:door_front'"></mat-icon>
+                                            </div>
+                                            <div class="max-w-90 min-w-90 flex justify-start items-center gap-2 -ml-8">
+                                                <div class="flex items-center gap-2 min-w-26">
+                                                    <span class="truncate text-[15px] leading-8">
+                                                        បន្ទប់លេខ 4
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                </div>
+                            </div>
+    
+                        </div>
+                    </div>
+                    
+                    <div *ngIf="item?.schedule === 'រសៀល'" class="absolute top-[12px] right-[1px] z-10 rotate-45 text-white h-5"> 
+                        <span class="mt-2 min-w-10 text-center fixed-width">
+                            {{item?.schedule}}  
+                        </span> 
+                    </div>
+                    <div *ngIf="item?.schedule === 'ព្រឹក'" class="absolute top-[10px] right-[5px] z-10 rotate-45 text-white h-5"> 
+                        <span class="mt-2 min-w-10 text-center fixed-width">
+                            {{item?.schedule}}  
+                        </span> 
+                    </div>
+                    <div class="absolute top-0 right-0 triangle-container -rotate-180"> </div>
+    
+                    <div class="absolute right-0 top-10 flex items-center justify-end mr-4">
+                        <button mat-icon-button [matMenuTriggerFor]="menu">
+                            <mat-icon class="icon-size-6" svgIcon="mat_outline:more_vert"></mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="view(item)">
+                                <mat-icon class="icon-size-5 text-gray-500" svgIcon="mat_outline:remove_red_eye"></mat-icon>
+                                <span class="text-lg text-gray-500">មើលលម្អិត</span>
+                            </button>
+                        </mat-menu>
+                    </div>
+                </div>                    
+            </ng-container>
+        </div>
+        </div>
+        <div *ngIf="secondary_data.length >0">
+        <div class="lg-shared-header-section header-section">
+            <div class="flex items-center ml-1.5 gap-4">
+                <span class="text-2xl font-semibold text-gray-600 -mb-0.5"> អនុវិទ្យាល័យ </span>
+            </div>
+            <mat-button-toggle-group
+            name="classroom"
+            aria-label="classroom"
+            [hideMultipleSelectionIndicator]="hideMultipleSelectionIndicator()"
+            multiple
+            (change)="onLanguageChangeSecondary($event)"
+            >
+            <mat-button-toggle value="ខ្មែរ"> ខ្មែរ </mat-button-toggle>
+            <mat-button-toggle value="អង់គ្លេស"> អង់គ្លេស </mat-button-toggle>
+            <mat-button-toggle value="ចិន"> ចិន </mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+        <div class="flex gap-x-8 flex-wrap">
+            <ng-container class="pt-2" >
+                <div class="relative w-90 mt-5 flex border rounded-xl min-h-28 max-h-28 overflow-hidden" *ngFor="let item of secondary_display_data">
+                    <div class="min-h-28 max-h-28 min-w-6 max-w-6  text-white " [ngClass]="getlanguage(item?.language)">
+                        <span class="text-sm min-h-28 max-h-28 -translate-x-7 -rotate-90 w-20 flex items-center justify-center">
+                            {{item?.grade}} / {{item?.language}}
+                        </span>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="flex">
+                            <div class="w-1/3 flex justify-start p-2 ">
+                                <div class="flex flex-col">
+                                    <div class="flex justify-between">
+                                        <div class="w-full flex">
+                                            <div class="min-w-15 max-w-15 flex justify-start items-center">
+                                                <mat-icon [svgIcon]="'mdi:account-outline'"></mat-icon>
+                                            </div>
+                                            <div class="max-w-90 min-w-90 flex justify-start items-center gap-2 -ml-8">
+                                                <div class="flex items-center gap-2 min-w-26">
+                                                    <span class=" text-[15px] leading-8">
+                                                        {{item?.teacher_name}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="flex justify-between">
+                                        <div class="w-full flex">
+                                            <div class="min-w-15 max-w-15 flex justify-start items-center">
+                                                <mat-icon [svgIcon]="'mdi:account-school-outline'"></mat-icon>
+                                            </div>
+                                            <div class="max-w-90 min-w-90 flex justify-start items-center gap-2 -ml-8">
+                                                <div class="flex items-center gap-2 min-w-26">
+                                                    <span class="truncate text-[15px] leading-8">
+                                                    ​សរុប {{item?.total_students}}  ( ស្រី {{item?.total_female_students}} នាក់)
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="flex justify-between">
+                                        <div class="w-full flex">
+                                            <div class="min-w-15 max-w-15 flex justify-start items-center">
+                                                <mat-icon [svgIcon]="'mat_outline:door_front'"></mat-icon>
+                                            </div>
+                                            <div class="max-w-90 min-w-90 flex justify-start items-center gap-2 -ml-8">
+                                                <div class="flex items-center gap-2 min-w-26">
+                                                    <span class="truncate text-[15px] leading-8">
+                                                        បន្ទប់លេខ 4
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                </div>
+                            </div>
+    
+                        </div>
+                    </div>
+                    
+                    <div *ngIf="item?.schedule === 'រសៀល'" class="absolute top-[12px] right-[1px] z-10 rotate-45 text-white h-5"> 
+                        <span class="mt-2 min-w-10 text-center fixed-width">
+                            {{item?.schedule}}  
+                        </span> 
+                    </div>
+                    <div *ngIf="item?.schedule === 'ព្រឹក'" class="absolute top-[10px] right-[5px] z-10 rotate-45 text-white h-5"> 
+                        <span class="mt-2 min-w-10 text-center fixed-width">
+                            {{item?.schedule}}  
+                        </span> 
+                    </div>
+                    <div class="absolute top-0 right-0 triangle-container -rotate-180"> </div>
+    
+                    <div class="absolute right-0 top-10 flex items-center justify-end mr-4">
+                        <button mat-icon-button [matMenuTriggerFor]="menu">
+                            <mat-icon class="icon-size-6" svgIcon="mat_outline:more_vert"></mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="view(item)">
+                                <mat-icon class="icon-size-5 text-gray-500" svgIcon="mat_outline:remove_red_eye"></mat-icon>
+                                <span class="text-lg text-gray-500">មើលលម្អិត</span>
+                            </button>
+                        </mat-menu>
+                    </div>
+                </div>                    
+            </ng-container>
+        </div>
+        </div>
+        <div *ngIf="high_data.length >0">
+            <div class="lg-shared-header-section header-section">
+                <div class="flex items-center ml-1.5 gap-4">
+                    <span class="text-2xl font-semibold text-gray-600 -mb-0.5"> វិទ្យាល័យ </span>
+                </div>
+                <mat-button-toggle-group
+                name="classroom"
+                aria-label="classroom"
+                [hideMultipleSelectionIndicator]="hideMultipleSelectionIndicator()"
+                multiple
+                (change)="onLanguageChangeHigh($event)"
+                >
+                <mat-button-toggle value="ខ្មែរ"> ខ្មែរ </mat-button-toggle>
+                <mat-button-toggle value="អង់គ្លេស"> អង់គ្លេស </mat-button-toggle>
+                <mat-button-toggle value="ចិន"> ចិន </mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+            <div class="flex gap-x-8 flex-wrap">
+                <ng-container class="pt-2" >
+                    <div class="relative w-90 mt-5 flex border rounded-xl min-h-28 max-h-28 overflow-hidden" *ngFor="let item of high_display_data">
+                        <div class="min-h-28 max-h-28 min-w-6 max-w-6  text-white " [ngClass]="getlanguage(item?.language)">
+                            <span class="text-sm min-h-28 max-h-28 -translate-x-7 -rotate-90 w-20 flex items-center justify-center">
+                               {{item?.grade}} / {{item?.language}}
+                            </span>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="flex">
+                                <div class="w-1/3 flex justify-start p-2 ">
+                                    <div class="flex flex-col">
+                                        <div class="flex justify-between">
+                                            <div class="w-full flex">
+                                                <div class="min-w-15 max-w-15 flex justify-start items-center">
+                                                    <mat-icon [svgIcon]="'mdi:account-outline'"></mat-icon>
+                                                </div>
+                                                <div class="max-w-90 min-w-90 flex justify-start items-center gap-2 -ml-8">
+                                                    <div class="flex items-center gap-2 min-w-26">
+                                                        <span class=" text-[15px] leading-8">
+                                                            {{item?.teacher_name}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+        
+                                        <div class="flex justify-between">
+                                            <div class="w-full flex">
+                                                <div class="min-w-15 max-w-15 flex justify-start items-center">
+                                                    <mat-icon [svgIcon]="'mdi:account-school-outline'"></mat-icon>
+                                                </div>
+                                                <div class="max-w-90 min-w-90 flex justify-start items-center gap-2 -ml-8">
+                                                    <div class="flex items-center gap-2 min-w-26">
+                                                        <span class="truncate text-[15px] leading-8">
+                                                        ​សរុប {{item?.total_students}}  ( ស្រី {{item?.total_female_students}} នាក់)
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+        
+                                        <div class="flex justify-between">
+                                            <div class="w-full flex">
+                                                <div class="min-w-15 max-w-15 flex justify-start items-center">
+                                                    <mat-icon [svgIcon]="'mat_outline:door_front'"></mat-icon>
+                                                </div>
+                                                <div class="max-w-90 min-w-90 flex justify-start items-center gap-2 -ml-8">
+                                                    <div class="flex items-center gap-2 min-w-26">
+                                                        <span class="truncate text-[15px] leading-8">
+                                                            បន្ទប់លេខ 4
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+        
+                                    </div>
+                                </div>
+        
+                            </div>
+                        </div>
+                        
+                        <div *ngIf="item?.schedule === 'រសៀល'" class="absolute top-[12px] right-[1px] z-10 rotate-45 text-white h-5"> 
+                            <span class="mt-2 min-w-10 text-center fixed-width">
+                                {{item?.schedule}}  
+                            </span> 
+                        </div>
+                        <div *ngIf="item?.schedule === 'ព្រឹក'" class="absolute top-[10px] right-[5px] z-10 rotate-45 text-white h-5"> 
+                            <span class="mt-2 min-w-10 text-center fixed-width">
+                                {{item?.schedule}}  
+                            </span> 
+                        </div>
+                        <div class="absolute top-0 right-0 triangle-container -rotate-180"> </div>
+        
+                        <div class="absolute right-0 top-10 flex items-center justify-end mr-4">
+                            <button mat-icon-button [matMenuTriggerFor]="menu">
+                                <mat-icon class="icon-size-6" svgIcon="mat_outline:more_vert"></mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item (click)="view(item)">
+                                    <mat-icon class="icon-size-5 text-gray-500" svgIcon="mat_outline:remove_red_eye"></mat-icon>
+                                    <span class="text-lg text-gray-500">មើលលម្អិត</span>
+                                </button>
+                            </mat-menu>
+                        </div>
+                    </div>                    
+                </ng-container>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="data.length === 0" class="flex flex-col justify-center items-center mb-4">
+        <mat-icon class="icon-size-16" svgIcon="toc"></mat-icon>
+        <span class="text-lg -mt-4">គ្មានទិន្នន័យ</span>
+    </div>
+</section>
+

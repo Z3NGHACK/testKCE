@@ -1,0 +1,100 @@
+::ng-deep .mat-mdc-dialog-container {
+    .mdc-dialog__surface {
+        border-radius: 0px !important;
+        padding: 0.5rem;
+    }
+}
+
+.view-student-content {
+    width: 48rem;
+    @apply h-full border-t mx-2 #{'!important'};
+}
+
+::ng-deep .mat-mdc-dialog-component-host {
+    .mat-mdc-dialog-content {
+        padding: 0px !important;
+    }
+}
+.header-section {
+    height: 100px;
+    @apply flex flex-1 items-center px-2 font-medium justify-between border-b #{'!important'};
+}
+
+::ng-deep .view-attendance-data {
+    @apply pt-4 #{'!important'};
+
+    .mat-mdc-header-cell {
+        height: 4rem !important;
+        font-size: 16px !important;
+        padding: 0 !important;
+        font-weight: 500;
+        color: #0f172a !important;
+        z-index: 10 !important;
+        padding: 0.5rem !important;
+        @apply dark:text-white border-b-0 #{'!important'};
+    }
+
+    .mat-mdc-cell {
+        border: none;
+        height: 4rem !important;
+    }
+
+    .mdc-data-table__content tr:nth-child(odd) {
+        @apply bg-slate-100 hover:bg-slate-100 #{'!important'};
+    }
+
+    /* Style odd rows */
+    .mat-row:nth-child(odd) {
+        background-color: #f5f5f5; /* Light grey background for odd rows */
+    }
+
+    /* Style even rows */
+    .mat-row:nth-child(even) {
+        background-color: #ffffff; /* White background for even rows */
+    }
+
+    .mat-column-no {
+        min-width: 40px;
+        width: 40px;
+        max-width: 40px;
+        text-align: center;
+    }
+
+    .mat-column-code {
+        min-width: 7rem;
+        width: 7rem;
+        max-width: 7rem;
+        text-align: center;
+    }
+
+    .mat-column-name {
+        min-width: 10rem;
+        width: 10rem;
+        max-width: 10rem;
+        text-align: left;
+    }
+    .mat-column-total_score {
+        min-width: 7rem;
+        width: 7rem;
+        max-width: 7rem;
+        text-align: right;
+    }
+    .mat-column-avg {
+        min-width: 7rem;
+        width: 7rem;
+        max-width: 7rem;
+        text-align: right;
+    }
+    .mat-column-rate {
+        min-width: 120px;
+        width: 120px;
+        max-width: 120px;
+        text-align: right;
+    }
+
+    .mat-column-action {
+        flex: none;
+        width: 2rem;
+        text-align: right;
+    }
+}

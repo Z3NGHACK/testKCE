@@ -1,0 +1,39 @@
+<section class="view-student-section w-screen">
+    <div class="view-student-container" @fadeInCustom>
+         <div class="shared-header-section">
+             <!-- header of student  -->
+             <div class="flex flex-1 items-center font-medium"> 
+                 <button mat-icon-button class="flex mt-1 items-center" (click)="back()" >
+                     <mat-icon class="icon-size-8 " svgIcon="mat_outline:chevron_left"/>
+                 </button>
+                 <div class="flex items-center ml-1.5">
+                     <span class="text-3xl font-semibold text-gray-600 -mb-0.5">ឆ្នាំសិក្សា {{data?.name}} </span>
+                 </div>
+             </div>
+         </div>    
+         <div class="view-student-body">
+             <!-- body of tabs -->
+                <mat-tab-group class="mat-tab-flex-grow" [dynamicHeight]="true">
+               
+                <mat-tab label="ទូទៅ">
+                    <ng-template matTabContent>
+                        <view-year-general-GM [id]="id"></view-year-general-GM>
+                    </ng-template>
+                </mat-tab>
+                <mat-tab label="ការដាក់ពាក្យ">
+                    <ng-template matTabContent>
+                        <view-year-application-GM [id]="id"></view-year-application-GM>
+                    </ng-template>
+                </mat-tab>
+                <mat-tab label="របាយការណ៍">
+                    <!-- Add content here if needed -->
+                     <ng-template matTabContent>
+                        <view-year-report-GM [id]="id"></view-year-report-GM>
+                     </ng-template>    
+                </mat-tab>
+              </mat-tab-group>
+         </div>
+    </div>
+ </section>
+ 
+ 

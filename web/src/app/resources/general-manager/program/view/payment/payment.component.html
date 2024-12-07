@@ -1,0 +1,43 @@
+<section class="list-payment-section">
+    <div class="list-payment-container">
+        <div class="data-container py-4">
+            <!-- First Loop -->
+            <div *ngIf="data?.length > 0">
+               <div class="w-full h-13 flex justify-between px-8">
+                <div class="w-[20%] flex items-center font-semibold h-full"></div>
+                <div class="w-[800px] grid grid-cols-4 h-full gap-3">
+                    <div *ngFor="let step of data[0]?.steps" class="flex justify-end items-center h-full pr-7">{{step.name}}</div>
+                </div>
+               </div>
+               <div *ngFor="let payment of data; let i=index;">
+                <mat-accordion >
+                    <mat-expansion-panel [class.bg-[#f3f4f5]]="(i+1)%2 == 1"   >
+                      <mat-expansion-panel-header >
+                        <div class="w-full h-13 flex justify-between ">
+                            <div class="flex items-center font-semibold pl-4">{{payment?.language?.name}}</div>
+                            <div class="w-[800px] grid grid-cols-4 h-full gap-3">
+                                <div *ngFor="let step of payment?.steps" class="flex justify-end items-center h-full pr-4">$ {{step.price  | currency: '' : '' : '1.2'}}</div>
+                            </div>
+                        </div>
+                      </mat-expansion-panel-header>
+                      <div class="w-full h-13  flex justify-between  px-4" *ngFor="let dis of payment?.discounts ; let y=index;" [class.bg-[#f3f4f5]]="(y+1)%2 == 1">
+                        <div class="flex items-center text-green-700">{{dis?.percentage}}%</div>
+                        <div class="w-[800px] grid grid-cols-4 h-13 gap-3">
+                            <div *ngFor="let price of dis?.prices" class="flex justify-end items-center h-full pr-4 text-gray-400">
+
+                                    $ {{price  | currency: '' : '' : '1.2'}}
+                            </div>
+                        </div>
+                    </div>
+                    </mat-expansion-panel>
+                  </mat-accordion>
+               </div>
+            </div>
+            <div *ngIf="data?.length === 0" class="flex flex-col justify-center items-center mb-4">
+                <mat-icon class="icon-size-16" svgIcon="toc"></mat-icon>
+                <span class="text-lg -mt-4">គ្មានទិន្នន័យ</span>
+            </div>
+
+       </div>
+    </div>
+</section>

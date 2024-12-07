@@ -1,0 +1,153 @@
+<div mat-dialog-title class="shared-header-section">
+    <!-- header of student detail -->
+    <div class="flex flex-1 items-center font-medium">
+        <div class="flex items-center ml-1.5">
+            <span class="text-3xl text-gray-600 -mb-0.5">
+                វិក្កយបត្រ {{ data?.code }}
+            </span>
+        </div>
+    </div>
+    <div>
+        <mat-icon
+            (click)="closeDialog()"
+            class="icon-size-7 cursor-pointer"
+            [svgIcon]="'heroicons_solid:x-mark'"
+        ></mat-icon>
+    </div>
+</div>
+<mat-dialog-content class="w-[600px] h-full border-t-2">
+    <div class="w-full grid grid-cols-2 gap-4">
+        <div class="flex">
+            <mat-icon
+                svgIcon="heroicons_outline:user"
+                class="icon-size-5"
+            ></mat-icon>
+            <div class="text-gray-800 pl-2 w-[95px]">ឈ្មោះអតិថិជន </div>
+            <span class="text-gray-500 pl-1"> ៖ {{ data?.customer?.name }} </span>
+        </div>
+        <div class="flex">
+            <mat-icon
+                svgIcon="mat_outline:date_range"
+                class="icon-size-5"
+            ></mat-icon>
+            <div class="text-gray-800 pl-2 w-[95px]">កាលបរិច្ឆេទ </div>
+            <span class="text-gray-500 pl-1"
+                > ៖ {{ data?.created_at | date : "dd-MM-y" }}
+            </span>
+        </div>
+        <div class="flex">
+            <mat-icon
+                svgIcon="heroicons_outline:device-phone-mobile"
+                class="icon-size-5"
+            ></mat-icon>
+            <div class="text-gray-800 pl-2 w-[95px]">សិស្ស</div>
+            <span class="text-gray-500 pl-1"
+                >៖ {{ data?.student?.kh_name }}
+            </span>
+        </div>
+        <div class="flex">
+            <mat-icon
+                svgIcon="heroicons_outline:arrows-right-left"
+                class="icon-size-5"
+            ></mat-icon>
+            <div class="text-gray-800 pl-2 w-[95px]">អត្រា​ប្តូ​រ​ប្រាក់</div>
+            <span class="text-gray-500 pl-1">៖ {{ data?.rate?.number }} </span>
+        </div>
+    </div>
+    <div class="w-full pt-8">
+        <table class="w-full">
+            <thead>
+                <tr class="h-9 text-gray-800 text-lg">
+                    <th class="w-10 text-center">ល.រ</th>
+                    <th class="w-[250px] text-start">បរិយាយមុខទំនេញ​ ឬសេវា</th>
+                    <th class="w-[70px] text-center">បរិមាណ</th>
+                    <th class="w-[100px] text-right pr-4">តម្លៃ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr
+                    *ngFor="let item of data.details; let i = index"
+                    class="h-[55px] px-4"
+                    [ngClass]="{ 'bg-gray-100': (i + 1) % 2 == 1 }"
+                >
+                    <th class="w-10 text-center">{{ i + 1 }}</th>
+                    <th class="w-[200px] text-start">
+                        <div *ngIf="item.payment_discount">
+                            <div class="text-lg">
+                                តម្លៃសិក្សាភាសា{{ item?.name }}
+                            </div>
+                            <div
+                                *ngIf="item.payment_discount"
+                                class="text-sm text-gray-400"
+                            >
+                                ( {{ item?.step?.name }},{{
+                                    item?.payment_discount?.percentage
+                                }}%)
+                            </div>
+                        </div>
+                        <div *ngIf="!item.payment_discount">
+                            <div class="text-lg">{{ item?.step?.name }}</div>
+                            <div
+                                *ngIf="item.discount"
+                                class="text-sm text-gray-400"
+                            >
+                                ( {{ item?.discount }}%)
+                            </div>
+                        </div>
+                    </th>
+                    <th class="w-[70px] text-center">{{ item?.qty }}</th>
+                    <th class="w-[100px] text-right pr-3">
+                        ${{ item?.unit_price }}
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+        <div class="flex flex-col items-end">
+            <div class="flex h-9 items-center">
+                <span class="text-gray-800 pl-2">តម្លៃសរុប ៖</span>
+                <div class="text-gray-700 font-[500] pl-3 min-w-52 text-right">
+                    ${{ data?.price | number : "1.2-2" }}
+                </div>
+            </div>
+            <div class="flex h-9 items-center">
+                <span class="text-gray-800 pl-2">បញ្ចុះតម្លៃ ៖</span>
+                <div class="text-gray-700 font-[500] pl-3 min-w-52 text-right">0.0</div>
+            </div>
+            <div class="flex h-9 items-center">
+                <span class="text-gray-800 pl-2">សរុបរួមជាប្រាក់ដុលា ៖</span>
+                <div class="text-gray-700 font-[500] pl-3 min-w-52 text-right">
+                    ${{ data?.price | number : "1.2-2" }}
+                </div>
+            </div>
+            <div class="flex h-9 items-center">
+                <span class="text-gray-800 pl-2">សរុបរួមជាប្រាក់រៀល ៖</span>
+                <div class="text-gray-700 font-[500] pl-3 min-w-52 text-right">
+                    រ{{ round(data) | number : "1.2-2" }}
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    @if (path !== 'general-manager') {
+        <div class="w-full flex justify-end">
+            <button
+                *ngIf="data?.status?.id == 1"
+                class="helpers-mat-button-md flex justify-center items-center min-w-20 bg-blue-900 rounded-lg py-2"
+                [ngClass]="{ 'bg-gray-200 cursor-not-allowed': disable }"
+                mat-flat-button
+                (click)="updatePayment()"
+            >
+                <span class="text-white" *ngIf="!disable">ទូទាត់</span>
+                <mat-progress-spinner
+                    *ngIf="disable"
+                    [diameter]="24"
+                    [mode]="'indeterminate'"
+                ></mat-progress-spinner>
+            </button>
+        </div>
+    
+    }
+    
+</mat-dialog-actions>

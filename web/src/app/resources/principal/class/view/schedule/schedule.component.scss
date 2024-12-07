@@ -1,0 +1,71 @@
+.content-schedule{
+    width: 100%;
+    height: calc(100dvh - 210px );
+}
+.main-schedule{
+    width: 100%;
+    height: calc(100dvh - 290px);
+}
+.calendar {
+    width: 300px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+  }
+
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .calendar-header button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+  }
+
+  .calendar-body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .week-days {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .days-grid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .days-grid span {
+    width: calc(100% / 7);
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  .empty {
+    visibility: hidden;
+  }
+  ::ng-deep .mat-button-toggle-group{
+    border: 1px solid !important;
+    @apply rounded-full bg-slate-100 border-slate-400  #{'!important'};
+
+    .mat-button-toggle{
+        width: 8rem !important;
+        @apply px-3 rounded-none #{'!important'};
+    }
+
+    .mat-button-toggle:nth-child(2){
+        @apply border-r border-slate-400 #{'!important'};
+    }
+
+
+}
+// table th{
+//     border: 1px solid #cccc;
+//     height: 20px;
+// }

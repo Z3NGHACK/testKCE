@@ -1,0 +1,143 @@
+::ng-deep .mat-mdc-dialog-container {
+    .mdc-dialog__surface {
+        border-radius: 0px !important;
+        padding: 0.5rem;
+    }
+
+    .view-file2-data {
+        height: calc(100dvh - 17.5rem);
+    }
+}
+
+.view-student-content {
+    width: 48rem;
+    @apply h-full border-t mx-2 #{'!important'};
+}
+
+::ng-deep .mat-mdc-dialog-component-host {
+    .mat-mdc-dialog-content {
+        padding: 0px !important;
+    }
+}
+.header-section {
+    height: 100px;
+    @apply flex flex-1 items-center px-2 font-medium justify-between border-b #{'!important'};
+}
+
+.semester {
+    @apply pt-2 #{!important};
+
+    .header-row {
+        height: 4rem;
+        @apply px-4 flex items-center #{!important};
+    }
+
+    .cell-row {
+        height: 4rem;
+        @apply px-4 flex items-center justify-between #{!important};
+    }
+}
+
+:host ::ng-deep .pfp {
+    height: 152px !important;
+
+    .picture {
+        min-height: 152px !important;
+        min-width: 152px !important;
+        max-height: 152px !important;
+        max-width: 152px !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .picture .portrait {
+        max-height: 152px !important;
+    }
+
+    .picture img {
+        width: 100%;
+        min-width: 152px !important;
+        min-height: 152px !important;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+.triangle-container {
+    position: relative;
+    width: 0;
+    height: 0;
+    // border-left: 50px solid transparent;
+    border-right: 64px solid transparent;
+    border-bottom: 64px solid;
+    @apply border-b-gray-500 /* The color of the triangle */;
+}
+
+::ng-deep .view-file2-data {
+    .student-avatar {
+        @apply rounded-full border border-blue-600 min-w-[45px] max-w-[45px] min-h-[45px] max-h-[45px] object-cover #{'!important'};
+    }
+
+    .icon-avatar {
+        @apply min-w-[45px] max-w-[45px] min-h-[45px] max-h-[45px] object-cover #{'!important'};
+    }
+
+    .mat-mdc-header-cell {
+        height: 0px !important;
+        @apply dark:text-white border-b-0 #{'!important'};
+    }
+
+    .mat-mdc-cell {
+        border: none;
+    }
+
+    .mdc-data-table__content tr:nth-child(odd) {
+        @apply bg-slate-100 hover:bg-slate-100 #{'!important'};
+    }
+
+    /* Style odd rows */
+    .mat-row:nth-child(odd) {
+        background-color: #f5f5f5; /* Light grey background for odd rows */
+    }
+
+    /* Style even rows */
+    .mat-row:nth-child(even) {
+        background-color: #ffffff; /* White background for even rows */
+    }
+
+    .mat-column-checkbox {
+        min-width: 4rem;
+        width: 4rem;
+        max-width: 4rem;
+        text-align: center;
+    }
+    .mat-mdc-cell {
+        padding: 0.5rem !important;
+    }
+
+    .mat-column-profile {
+        min-width: 20rem;
+        text-align: left;
+    }
+
+    .mat-column-create {
+        min-width: 20rem;
+        width: 20rem;
+        max-width: 20rem;
+        text-align: left;
+    }
+
+    .mat-column-size {
+        min-width: 15rem;
+        width: 15rem;
+        max-width: 15rem;
+        text-align: left;
+    }
+
+    .mat-column-action {
+        flex: none;
+        width: 2rem;
+        text-align: right;
+    }
+}

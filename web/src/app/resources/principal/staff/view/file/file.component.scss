@@ -1,0 +1,87 @@
+.view-file-section{
+    height: calc(100dvh - 12rem);
+
+    .header-section{
+        height: 80px;
+        @apply flex flex-1 items-center px-2 font-medium justify-between #{'!important'} 
+    }
+
+    .view-file-data{
+        height:  calc(100dvh - 16.5rem);
+        @apply border-t #{!important};
+    }
+}
+
+::ng-deep .view-file-data {
+
+    .student-avatar {
+        @apply rounded-full border border-blue-600 min-w-[45px] max-w-[45px] min-h-[45px] max-h-[45px] object-cover #{'!important'};
+    }
+
+    .icon-avatar {
+        @apply min-w-[45px] max-w-[45px] min-h-[45px] max-h-[45px] object-cover #{'!important'};
+    }
+
+
+    .mat-mdc-header-cell {
+        font-size: 1rem !important;
+        padding: 0 !important;
+        color: #0f172a !important;
+        z-index: 10 !important;
+        padding: 0.5rem !important;
+        @apply dark:text-white border-b-0 #{'!important'};
+    }
+
+    .mat-mdc-cell{
+        border: none;
+    }
+
+    .mdc-data-table__content tr:nth-child(odd){
+        @apply bg-slate-100 hover:bg-slate-100 #{'!important'}
+    }
+
+    /* Style odd rows */
+    .mat-row:nth-child(odd) {
+        background-color: #f5f5f5; /* Light grey background for odd rows */
+    }
+
+    /* Style even rows */
+    .mat-row:nth-child(even) {
+        background-color: #ffffff; /* White background for even rows */
+    }
+
+    .mat-column-checkbox {
+        min-width: 4rem;
+        width: 4rem;
+        max-width: 4rem;
+        text-align: center;
+    }
+    .mat-mdc-cell {
+        padding: 0.5rem !important;
+    }
+
+    .mat-column-profile {
+        min-width: 20rem;
+        text-align: left;
+    }
+
+    .mat-column-create {
+        min-width: 20rem;
+        width: 20rem;
+        max-width: 20rem;
+        text-align: left;
+    }
+
+    .mat-column-size {
+        min-width: 15rem;
+        width: 15rem;
+        max-width: 15rem;
+        text-align: left;
+    }
+
+    .mat-column-action {
+        flex: none;
+        width: 2rem;
+        text-align: right;
+    }
+}

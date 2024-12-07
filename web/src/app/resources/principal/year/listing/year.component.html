@@ -1,0 +1,72 @@
+<div class="list-user-section bg-slate-100 my-3 mx-3 rounded-t-lg">
+    <div class="bg-white min-h-14 max-h-14 flex gap-2 justify-between items-center py-2 pl-5 pr-2.5">
+        <div class="flex flex-1 items-center font-medium">
+            <div class="flex items-center">
+                <mat-icon class="icon-size-5 -mt-0.5" matPrefix [svgIcon]="'heroicons_outline:home'"></mat-icon>
+            </div>
+            <div class="flex items-center ml-1.5">
+                <span class="text-lg text-gray-600 -mb-0.5">ឆ្នាំសិក្សា</span>
+            </div>
+        </div>
+        <button class="helpers-mat-button-sm px-2" mat-stroked-button (click)="create()" >
+            <mat-icon class="icon-size-4" svgIcon="heroicons_outline:plus" />
+        </button>
+    </div>
+    <div class=" px-4 pb-4 bg-white list-user-body ">
+        <div class=" list-user-content border-t w-full  overflow-scroll no-scrollbar">
+            <table mat-table [dataSource]="dataSource">
+                <ng-container matColumnDef="year">
+                    <th mat-header-cell *matHeaderCellDef class="w-200 z-10"> ឆ្នាំ </th>
+                    <td mat-cell *matCellDef="let data">
+                        <div class="flex item" href="" target="_blank">
+                            <div class="p-2 pl-0 mt-2">
+                                <mat-icon class="icon-size-6 text-slate-500" svgIcon="mat_outline:calendar_today"></mat-icon>
+                            </div>
+                            <div class="flex flex-col min-h-12 max-h-12 justify-center pl-1 pt-2.5">
+                                <strong class="text-lg font-medium text-slate-900">{{ data?.name | capitalize}}</strong>
+                            </div>
+                        </div>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef class="z-10 "> ស្ថានភាព </th>
+                    <td mat-cell *matCellDef="let data">
+                        <span  [ngClass]="getStatusClass(data?.status)" class="truncate w-20 ">{{ data?.status }} </span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="class" class="">
+                    <th mat-header-cell *matHeaderCellDef class="z-10 text-end" > ចំនួនថ្នាក់រៀន​ </th>
+                    <td mat-cell *matCellDef="let data" class="text-end">
+                        <span class="truncate w-20 text-gray-500">{{ data?.n_class }} </span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="student"  class="">
+                    <th mat-header-cell *matHeaderCellDef class=" text-end z-10 min-w-30"> ចំនួនសិស្ស </th>
+                    <td mat-cell *matCellDef="let data" class="text-end">
+                        <span class="truncate max-w-20 text-gray-500">{{ data?.n_student }} </span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="action" stickyEnd>
+                    <th mat-header-cell *matHeaderCellDef class="z-10"></th>
+                    <td mat-cell *matCellDef="let data" class="text-end">
+                        <button mat-icon-button [matMenuTriggerFor]="menu">
+                            <mat-icon class="icon-size-6" svgIcon="mat_outline:more_vert"></mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="view(data)">
+                                <mat-icon class="icon-size-5 text-gray-500" svgIcon="heroicons_outline:eye"></mat-icon>
+                                <span class="text-lg text-gray-500">មើល</span>
+                            </button>
+                        </mat-menu>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+        
+    </div>
+    
+    
+</div>
+
